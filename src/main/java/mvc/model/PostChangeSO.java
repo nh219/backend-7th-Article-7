@@ -4,19 +4,17 @@ public class PostChangeSO {
 
 	PostDao postDao = new PostDao();
 	
-	public void PostChangeSO() {
-		
+	public PostChangeSO() {
 	}
 	
-	public void PostChangeSO(PostDao postDao) {
-		
+	public PostChangeSO(PostDao postDao) {
 	}
 	
 	public void Update(PostUpdateCommand command) {
 		
 	}
 	
-	public void Delete(int postId) {
+	public void delete(int postId) {
 		
 	}
 }

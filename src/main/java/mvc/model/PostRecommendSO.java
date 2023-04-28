@@ -6,15 +6,13 @@ public class PostRecommendSO {
 	PostDO postDO = new PostDO();
 	private int like;
 	
-	public void PostRecommendSO() {
-		
+	public PostRecommendSO() {
 	}
 	
-	public void PostRecommendSO(PostDao postDao) {		
-		
+	public PostRecommendSO(PostDao postDao) {		
 	}
 	
-	public int Recommend(PostRecommendCommand command) {
+	public int recommend(PostRecommendCommand command) {
 		return 0;
 	}
 }

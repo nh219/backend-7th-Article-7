@@ -4,15 +4,13 @@ public class PostRegistSO {
 
 	PostDao postDao = new PostDao();
 	
-	public void PostRegistSO() {
-		
+	public PostRegistSO() {
 	}
 	
-	public void PostRegistSO(PostDao postDao) {
-		
+	public PostRegistSO(PostDao postDao) {
 	}
 	
-	public void Regist(PostRegistCommand command) {
+	public void regist(PostRegistCommand command) {
 		
 	}
 }

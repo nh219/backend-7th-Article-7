@@ -5,15 +5,14 @@ public class PostReportSO {
 	PostDao postDao = new PostDao();
 	PostDO postDO = new PostDO();
 	
-	public void PostReportSO() {
+	public PostReportSO() {
 		
 	}
 	
-	public void PostReportSO(PostDao postDao) {
-		
+	public PostReportSO(PostDao postDao) {
 	}
 	
-	public int Report(PostSearchCommand command) {
+	public int report(PostSearchCommand command) {
 		return 0;
 	}
 }

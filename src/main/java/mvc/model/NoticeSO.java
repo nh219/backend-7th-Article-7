@@ -4,15 +4,13 @@ public class NoticeSO {
 
 	PostDao postDao = new PostDao();
 	
-	public void NoticeSO() {
-		
+	public NoticeSO() {
 	}
 	
-	public void NoticeSO(PostDao postDao) {
-		
+	public NoticeSO(PostDao postDao) {
 	}
 	
-	public void Notice(NoticeCommand command) {
+	public void notice(NoticeCommand command) {
 		
 	}
 }
