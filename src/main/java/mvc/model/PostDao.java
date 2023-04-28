@@ -25,12 +25,29 @@ public class PostDao {
 		}
 	}
 	
-	public void Search (String category, String keyword) {
+	public void Search (String category, String keyword) { //보완필요
+		sql = "SELECT * FROM post";
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(!pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
-	public int insert(PostDO postDO) {
-		int rowCount = 0;
+	public void insert(PostDO postDO) {
 		sql = "INSERT INTO post (post_id, member_id, post_content) VALUES (?, ?, ?)";
 		
 		try {
@@ -38,7 +55,7 @@ public class PostDao {
 			pstmt.setInt(1, postDO.getPostId());
 			pstmt.setInt(2, postDO.getMemberId());
 			pstmt.setString(3, postDO.getContent());
-			rowCount = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -53,18 +70,15 @@ public class PostDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return rowCount;
 	}
 	
-	public int update(PostDO postDO) {
-		int rowCount = 0;
+	public void update(PostDO postDO) {
 		sql = "UPDATE post SET post_content='' WHERE post_content=''";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, postDO.getContent());
-			rowCount = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -79,7 +93,30 @@ public class PostDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return rowCount;
 	}
+	
+	public void delete(PostDO postDO) {
+		sql = "DELETE FROM post WHERE post_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postDO.getPostId());
+			pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(!pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//+ recommend(int postId, int userId, boolean like): int, + report(int postId, int userId): int
 }
