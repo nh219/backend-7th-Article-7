@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import mvc.model.LoginCommand;
 import mvc.model.Member;
@@ -60,17 +63,25 @@ public class MemberController {
 		return view;
 	}
 	
+	@PostMapping("/member/memberWithdrawalProcess")
+	public String removeMember(HttpSession session) {
+		String view = "";
+		
+		Member member = (Member)session.getAttribute("auth");
+		memberUpdateService.memberWithdrawal(member);
+		
+		view = "redirect:/main";
+		
+		return view;
+	}
+	
 	@GetMapping("/member/logout")
 	public String logout(HttpSession session) {
 		String view = "";
 		
-		if(session.getAttribute("auth") != null) {
-			session.invalidate();
-			view = "redirect:/main";
-		}
-		else {
-			view = "redirect:/main";
-		}
+		session.invalidate();
+		view = "redirect:/member/login";
+		
 		
 		return view;
  	}
