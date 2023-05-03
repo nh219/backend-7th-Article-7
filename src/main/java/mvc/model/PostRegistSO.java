@@ -2,14 +2,13 @@ package mvc.model;
 
 public class PostRegistSO {
 
-	PostDao postDao = new PostDao();
+	private PostDao postDao;
 	
 	public PostRegistSO() {
 	}
 	
 	public PostRegistSO(PostDao postDao) {
 		this.postDao = postDao;
-
 	}
 	
 	public void regist(PostRegistCommand command) {

@@ -2,7 +2,7 @@ package mvc.model;
 
 public class NoticeSO {
 
-	PostDao postDao = new PostDao();
+	private PostDao postDao;
 	
 	public NoticeSO() {
 	}
