@@ -48,13 +48,15 @@ public class PostDao {
 	}
 	
 	public void insert(PostDO postDO) {
-		sql = "INSERT INTO post (post_id, member_id, post_content) VALUES (?, ?, ?)";
+		sql = "INSERT INTO post (post_id, category, title, member_id, post_content) VALUES (post_post_id_seq, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, postDO.getPostId());
-			pstmt.setInt(2, postDO.getMemberId());
-			pstmt.setString(3, postDO.getContent());
+			pstmt.setString(2, postDO.getCategory());
+			pstmt.setString(3, postDO.getTitle());
+			pstmt.setInt(4, postDO.getMemberId());
+			pstmt.setString(5, postDO.getContent());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e) {
