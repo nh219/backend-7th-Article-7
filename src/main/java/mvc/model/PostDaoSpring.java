@@ -5,9 +5,7 @@ import java.sql.*;
 public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
-	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs = null;
 	private String sql = null;
 	
 	public PostDaoSpring() {
@@ -25,25 +23,6 @@ public class PostDaoSpring extends PostDao {
 		}
 	}
 	
-	/*
-	 [제목에서 검색]
-	 SELECT * FROM post WHERE title LIKE '%' || ? || '%';
-	 
-	 [내용에서 검색]
- 	 SELECT * FROM post WHERE post_content LIKE '%' || ? || '%';
- 	 
- 	 [작성자 검색]
- 	 SELECT * FROM post WHERE member_id IN (SELECT member_id FROM member WHERE name LIKE '%' || ? || '%');
-
-	 [제목 또는 내용에서 검색]
-	 SELECT * FROM post WHERE title LIKE '%' || ? || '%' OR post_content LIKE '%' || ? || '%';
-
-	 [제목과 내용에서 모두 검색]
-	 SELECT * FROM post WHERE (title LIKE '%' || ? || '%' OR post_content LIKE '%' || ? || '%') AND (title LIKE '%' || ? || '%' AND post_content LIKE '%' || ? || '%');
-
-	 
-	 */
-	
 	public void search(String keyword, String category) {
 	    String sql = "SELECT * FROM post WHERE ";
 	    if (category.equals("title")) {					// 제목 검색
@@ -57,8 +36,15 @@ public class PostDaoSpring extends PostDao {
 	    }
 	    
 	    try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.executeQuery();
+	    	pstmt = conn.prepareStatement(sql);
+	        if (category.equals("all")) {
+	            pstmt.setString(1, "%" + keyword + "%");
+	            pstmt.setString(2, "%" + keyword + "%");
+	            pstmt.setString(3, "%" + keyword + "%");
+	        } else {
+	            pstmt.setString(1, "%" + keyword + "%");
+	        }
+	        pstmt.executeQuery();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -77,85 +63,132 @@ public class PostDaoSpring extends PostDao {
 
 	
 	public void insert(PostDO postDO) {
-		sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
-				+ "VALUES (post_post_id_seq.NEXTVAL, ?, ?, ?, ?)";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(2, postDO.getCategory());
-			pstmt.setString(3, postDO.getTitle());
-			pstmt.setInt(4, postDO.getMemberId());
-			pstmt.setString(5, postDO.getContent());
-			pstmt.executeUpdate();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(!pstmt.isClosed()) {
-					pstmt.close();
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+	    String sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
+	            + "VALUES (post_post_id_seq.NEXTVAL, ?, ?, ?, ?)";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, postDO.getCategory());
+	        pstmt.setString(2, postDO.getTitle());
+	        pstmt.setInt(3, postDO.getMemberId());
+	        pstmt.setString(4, postDO.getContent());
+	        pstmt.executeUpdate();
+	    } 
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        try {
+	            if(!pstmt.isClosed()) {
+	                pstmt.close();
+	            }
+	        } 
+	        catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 	
 	public void update(PostDO postDO) {
-		sql = "UPDATE post SET post_content='' WHERE post_content=''";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, postDO.getContent());
-			pstmt.executeUpdate();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(!pstmt.isClosed()) {
-					pstmt.close();
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+	    String sql = "UPDATE post SET post_content=? WHERE post_id=?";
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, postDO.getContent());
+	        pstmt.setInt(2, postDO.getPostId());
+	        pstmt.executeUpdate();
+	    } 
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        try {
+	            if(!pstmt.isClosed()) {
+	                pstmt.close();
+	            }
+	        } 
+	        catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 	
 	public void delete(PostDO postDO) {
-		sql = "DELETE FROM post WHERE post_id=?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, postDO.getPostId());
-			pstmt.executeUpdate();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(!pstmt.isClosed()) {
-					pstmt.close();
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+	    String sql = "DELETE FROM post WHERE post_id=?";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.executeUpdate();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        try {
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } 
+	        catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
-	
-	/*
+
+
 	public int recommend(PostDO postDO) {
-		+ recommend(int postId, int userId, boolean like): int
+	    int result = 0;
+	    String sql = "INSERT INTO post (post_id, member_id, like_num) VALUES (?, ?, ?)";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setInt(2, postDO.getMemberId());
+	        pstmt.setInt(3, postDO.getLikeNum());
+	        result = pstmt.executeUpdate();
+	    }
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	    finally {
+	        try {
+	            if(!pstmt.isClosed()) {
+	                pstmt.close();
+	            }
+	        }
+	        catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return result;
 	}
-	
+
 	public int report(PostDO postDO) {
-		+ report(int postId, int userId): int
+	    int result = 0;
+	    String sql = "INSERT INTO post (post_id, member_id) VALUES (?, ?)";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setInt(2, postDO.getMemberId());
+	        result = pstmt.executeUpdate();
+	    }
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	    finally {
+	        try {
+	            if(!pstmt.isClosed()) {
+	                pstmt.close();
+	            }
+	        }
+	        catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return result;
 	}
-	*/
+
 }

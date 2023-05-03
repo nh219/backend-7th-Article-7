@@ -5,28 +5,30 @@ import java.util.Map;
 
 public class PostDao {
 
-	private static int nextId = 0;	
-	private Map<Integer, PostDO> post;
-	
-	public PostDao() {
-		this.post = new HashMap<>();		
-	}
-	
-	public PostDO selectByPostId(Integer postId) {
-		return post.get(postId);
-	}
-	
-	public void insert(PostDO postDO) {		
-		postDO.setPostId(++PostDao.nextId);
-		post.put(postDO.getPostId(), postDO);
-	}
-	
-	public void update(PostDO postDO) { 	
-		post.put(postDO.getPostId(), postDO);
-	}
+    private static int nextId = 0;
+    private Map<Integer, PostDO> postMap;
 
-	public void delete(PostDO postDO) { 	
-		post.put(postDO.getPostId(), postDO);
-	}
+    public PostDao() {
+        this.postMap = new HashMap<>();
+    }
 
+    public PostDO selectByPostId(int postId) {
+        return postMap.get(postId);
+    }
+
+    public void insert(PostDO postDO) {
+        postDO.setPostId(++nextId);
+        postMap.put(postDO.getPostId(), postDO);
+    }
+
+    public void update(int postId, String content) {
+        PostDO postDO = postMap.get(postId);
+        if (postDO != null) {
+            postDO.setContent(content);
+        }
+    }
+
+    public void delete(PostDO postDO) {
+        postMap.remove(postDO.getPostId());
+    }
 }
