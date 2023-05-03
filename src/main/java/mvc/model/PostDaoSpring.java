@@ -25,10 +25,38 @@ public class PostDaoSpring extends PostDao {
 		}
 	}
 	
-	public void Search (String category) { 
-		sql = "SELECT * FROM post WHERE title";
-		
-		try {
+	/*
+	 [제목에서 검색]
+	 SELECT * FROM post WHERE title LIKE '%' || ? || '%';
+	 
+	 [내용에서 검색]
+ 	 SELECT * FROM post WHERE post_content LIKE '%' || ? || '%';
+ 	 
+ 	 [작성자 검색]
+ 	 SELECT * FROM post WHERE member_id IN (SELECT member_id FROM member WHERE name LIKE '%' || ? || '%');
+
+	 [제목 또는 내용에서 검색]
+	 SELECT * FROM post WHERE title LIKE '%' || ? || '%' OR post_content LIKE '%' || ? || '%';
+
+	 [제목과 내용에서 모두 검색]
+	 SELECT * FROM post WHERE (title LIKE '%' || ? || '%' OR post_content LIKE '%' || ? || '%') AND (title LIKE '%' || ? || '%' AND post_content LIKE '%' || ? || '%');
+
+	 
+	 */
+	
+	public void search(String keyword, String category) {
+	    String sql = "SELECT * FROM post WHERE ";
+	    if (category.equals("title")) {					// 제목 검색
+	        sql += "title LIKE '%" + keyword + "%'";
+	    } else if (category.equals("content")) {		// 내용 검색
+	        sql += "post_content LIKE '%" + keyword + "%'";
+	    } else if (category.equals("author")) {			// 작성자 검색
+	        sql += "member_id IN (SELECT member_id FROM member WHERE name LIKE '%" + keyword + "%')";
+	    } else if (category.equals("all")) {			// 제목+내용 검색
+	        sql += "title LIKE '%" + keyword + "%' OR post_content LIKE '%" + keyword + "%' OR member_id IN (SELECT member_id FROM member WHERE name LIKE '%" + keyword + "%')";
+	    }
+	    
+	    try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeQuery();
 		}
@@ -46,6 +74,7 @@ public class PostDaoSpring extends PostDao {
 			}
 		}
 	}
+
 	
 	public void insert(PostDO postDO) {
 		sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "

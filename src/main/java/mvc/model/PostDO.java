@@ -26,7 +26,7 @@ public class PostDO {
 		this.title = title;
 		this.content = content;
 	}
-	*/
+	*/  
 	
 	public int getPostId() {
 		return postId;
