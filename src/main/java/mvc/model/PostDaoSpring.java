@@ -2,7 +2,7 @@ package mvc.model;
 
 import java.sql.*;
 
-public class PostDaoSpring {
+public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
 	private Statement stmt = null;
