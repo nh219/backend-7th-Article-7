@@ -25,12 +25,12 @@ public class PostDaoSpring {
 		}
 	}
 	
-	public void Search (String category, String keyword) { //보완필요
-		sql = "SELECT * FROM post";
+	public void Search (String category) { 
+		sql = "SELECT * FROM post WHERE title";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.executeUpdate();
+			pstmt.executeQuery();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -49,11 +49,10 @@ public class PostDaoSpring {
 	
 	public void insert(PostDO postDO) {
 		sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
-				+ "VALUES (post_post_id_seq, ?, ?, ?, ?)";
+				+ "VALUES (post_post_id_seq.NEXTVAL, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, postDO.getPostId());
 			pstmt.setString(2, postDO.getCategory());
 			pstmt.setString(3, postDO.getTitle());
 			pstmt.setInt(4, postDO.getMemberId());
