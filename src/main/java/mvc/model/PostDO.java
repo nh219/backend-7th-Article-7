@@ -16,6 +16,18 @@ public class PostDO {
 	private int notice;
 	private Date post_date;
 	
+	/*
+	public PostDO() {
+	}
+	
+	public PostDO(int postId, String category, String title, String content) {
+		this.postId = postId;
+		this.category = category;
+		this.title = title;
+		this.content = content;
+	}
+	*/
+	
 	public int getPostId() {
 		return postId;
 	}

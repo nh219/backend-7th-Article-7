@@ -2,12 +2,12 @@ package mvc.model;
 
 public class PostChangeSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	
 	public PostChangeSO() {
 	}
 	
-	public PostChangeSO(PostDao postDao) {
+	public PostChangeSO(PostDaoSpring postDao) {
 		this.postDao = postDao;
 	}
 	

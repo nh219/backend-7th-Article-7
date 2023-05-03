@@ -2,12 +2,12 @@ package mvc.model;
 
 public class NoticeSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	
 	public NoticeSO() {
 	}
 	
-	public NoticeSO(PostDao postDao) {
+	public NoticeSO(PostDaoSpring postDao) {
 		this.postDao = postDao;
 	}
 	

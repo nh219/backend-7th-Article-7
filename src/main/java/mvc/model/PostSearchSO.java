@@ -2,13 +2,13 @@ package mvc.model;
 
 public class PostSearchSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	private PostDO postDO;
 	
 	public PostSearchSO() {
 	}
 	
-	public PostSearchSO(PostDao postDao) {
+	public PostSearchSO(PostDaoSpring postDao) {
 		this.postDao = postDao;
         this.postDO = new PostDO();
 	}

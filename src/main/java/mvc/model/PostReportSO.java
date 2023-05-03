@@ -2,13 +2,13 @@ package mvc.model;
 
 public class PostReportSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	private PostDO postDO;
 	
 	public PostReportSO() {
 	}
 	
-	public PostReportSO(PostDao postDao) {
+	public PostReportSO(PostDaoSpring postDao) {
 		this.postDao = postDao;
         this.postDO = new PostDO();
 	}

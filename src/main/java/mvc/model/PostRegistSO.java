@@ -4,12 +4,12 @@ import mvc.exception.DuplicateMemberException;
 
 public class PostRegistSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	
 	public PostRegistSO() {
 	}
 	
-	public PostRegistSO(PostDao postDao) {
+	public PostRegistSO(PostDaoSpring postDao) {
 		this.postDao = postDao;
 	}
 	

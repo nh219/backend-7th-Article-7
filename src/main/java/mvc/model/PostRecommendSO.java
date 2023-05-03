@@ -2,14 +2,14 @@ package mvc.model;
 
 public class PostRecommendSO {
 
-	private PostDao postDao;
+	private PostDaoSpring postDao;
 	private PostDO postDO;
 	private int like;
 	
 	public PostRecommendSO() {
 	}
 	
-	public PostRecommendSO(PostDao postDao) {		
+	public PostRecommendSO(PostDaoSpring postDao) {		
 		this.postDao = postDao;
         this.postDO = new PostDO();
 	}
