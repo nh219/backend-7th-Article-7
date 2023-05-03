@@ -12,6 +12,8 @@ public class PostSearchSO {
 	}
 	
 	public int search(PostSearchCommand command) {
+		String category = command.getCategory();
+		String keyword = command.getKeyword();
 		return 0;
 	}
 }

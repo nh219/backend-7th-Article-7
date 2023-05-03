@@ -6,13 +6,16 @@ public class PostReportSO {
 	PostDO postDO = new PostDO();
 	
 	public PostReportSO() {
-		
 	}
 	
 	public PostReportSO(PostDao postDao) {
+		this.postDao = postDao;
+
 	}
 	
-	public int report(PostSearchCommand command) {
+	public int report(PostReportCommand command) {
+		int postId = command.getPostId();
+		int userId = command.getUserId();
 		return 0;
 	}
 }
