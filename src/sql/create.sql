@@ -13,6 +13,17 @@ DROP TABLE post_report;
 DROP TABLE reply;
 DROP TABLE post;
 DROP TABLE member;
+DROP TABLE summoner;
+
+CREATE TABLE summoner (
+    account_id VARCHAR2(56) CONSTRAINT summoner_account_id_pk PRIMARY KEY CONSTRAINT summoner_account_id_nn NOT NULL,
+    profile_icon_id NUMBER(10),
+    revision_date NUMBER(19),
+    name VARCHAR2(30) CONSTRAINT summoner_name_nn NOT NULL,
+    id VARCHAR2(63) CONSTRAINT summoner_id_nn NOT NULL,
+    puuid VARCHAR2(78) CONSTRAINT summoner_puuid_nn NOT NULL,
+    summoner_level NUMBER(19)
+);
 
 CREATE TABLE member (
     member_id       NUMBER(6)       CONSTRAINT member_member_id_PK PRIMARY KEY CONSTRAINT member_member_id_nn NOT NULL,
