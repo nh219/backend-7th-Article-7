@@ -16,6 +16,21 @@ public class PostDO {
 	private int notice;
 	private Date post_date;
 	
+	public PostDO(int postId, String category, String title, int memberId, String content, int views, 
+				  int reportNum, int likeNum, int dislikeNum, int notice, Date post_date) {
+		this.postId = postId;
+		this.category = category;
+		this.title = title;
+		this.memberId = memberId;
+		this.content = content;
+		this.views = views;
+		this.reportNum = 0;
+		this.likeNum = 0;
+		this.dislikeNum = 0;
+		this.notice = 0;
+		this.post_date = post_date;
+	}
+	
 	public int getPostId() {
 		return postId;
 	}

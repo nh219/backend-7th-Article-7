@@ -1,11 +1,13 @@
 package mvc.model;
 
 import java.sql.*;
+import java.util.*;
 
 public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 	
 	public PostDaoSpring() {
 		String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
@@ -208,5 +210,25 @@ public class PostDaoSpring extends PostDao {
 	    }
 	    return result;
 	}
-
+	
+	public void notice(PostDO postDO) {
+	    super.notice(postDO.getPostId());
+	    String sql = "UPDATE post SET notice = 1 WHERE post_id = ?";
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
 }

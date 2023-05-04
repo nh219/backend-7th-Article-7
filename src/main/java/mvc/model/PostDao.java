@@ -51,4 +51,12 @@ public class PostDao {
             postDO.setReportNum(postDO.getReportNum() + 1);
         }
     }
+    
+    public void notice(int postId) {
+        PostDO postDO = postMap.get(postId);
+        if (postDO != null) {
+            postDO.setNotice(1);
+        }
+    }
+    
 }
