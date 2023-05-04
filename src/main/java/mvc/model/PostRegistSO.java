@@ -1,21 +1,21 @@
 package mvc.model;
 
 public class PostRegistSO {
-	private PostDao postDao;
+    private PostDao postDao;
 
     public PostRegistSO(PostDao postDao) {
         this.postDao = postDao;
     }
 
-    public boolean regist(Post post) {
-        if (!checkContent(post.getContent())) {
+    public boolean regist(PostDO postDO) {
+        if (!checkContent(postDO.getContent())) {
             return false;
         }
 
-        if (!postDao.insert(post)) {
+
+        if (!postDao.insert(postDO)) {
             throw new RuntimeException("Failed to insert post into database");
         }
-
         return true;
     }
 
