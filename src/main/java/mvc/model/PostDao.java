@@ -20,10 +20,10 @@ public class PostDao {
         postMap.put(postDO.getPostId(), postDO);
     }
 
-    public void update(int postId, String content) {
-        PostDO postDO = postMap.get(postId);
+    public void update(PostDO postDO, String content) {
         if (postDO != null) {
             postDO.setContent(content);
+            postMap.put(postDO.getPostId(), postDO);
         }
     }
 
@@ -58,5 +58,5 @@ public class PostDao {
             postDO.setNotice(1);
         }
     }
-    
+		
 }
