@@ -35,9 +35,7 @@ public class MemberController {
 		
 		if(memberService.checkLoginAuth(command)) {
 			Member member = memberService.findMember(command.getEmail());
-			command.setNickname(member.getNickname());
-			command.setPassword("");
-			session.setAttribute("auth", command);		// auth에 parameter로 넘어온 command의 이름과 이메일만 저장.
+			session.setAttribute("auth", member);		// auth에 parameter로 넘어온 command의 이름과 이메일만 저장.
 			view = "redirect:/main";
 		}
 		else {
@@ -49,11 +47,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/memberUpdateProcess")
-	public String memberUpdate(MemberUpdateCommand command, Model model) {
+	public String memberUpdate(HttpSession session, MemberUpdateCommand command, Model model) {
 		String view = "";
 		
 		try {
 			memberUpdateService.memberUpdate(command);
+			session.invalidate();
 			view = "redirect:/main";
 		} catch (Exception e) {
 			model.addAttribute("changePasswdMsg", "올바른 비밀번호를 입력해주세요.");
@@ -63,13 +62,27 @@ public class MemberController {
 		return view;
 	}
 	
-	@PostMapping("/member/memberWithdrawalProcess")
+	@PostMapping("/member/nicknameDoubleCheck")
+	public String nicknameDoubleCheck(HttpSession session, Model model) {
+		String view = "";
+		
+		Member member = (Member)session.getAttribute("auth");
+		memberUpdateService.memberWithdrawal(member);
+		
+		session.invalidate();
+		view = "redirect:/main";
+		
+		return view;
+	}
+	
+	@GetMapping("/member/memberWithdrawalProcess")
 	public String removeMember(HttpSession session) {
 		String view = "";
 		
 		Member member = (Member)session.getAttribute("auth");
 		memberUpdateService.memberWithdrawal(member);
 		
+		session.invalidate();
 		view = "redirect:/main";
 		
 		return view;

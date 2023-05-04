@@ -21,9 +21,28 @@
 	<script>
 	function removeMember() {
 		if (window.confirm("회원 탈퇴를 진행하시겠습니까?")) {
-			location.href="/member/memberWithdrawalProcess";
+			location.href="http://localhost:8080/finalProject/member/memberWithdrawalProcess";
 		}
 	}
+	
+	function fn_nameChk(){
+	    $.ajax({
+	      url : "http://localhost:8080/finalProject/member/nicknameDoubleCheck",
+	      type : "post",
+	      dataType : "json",
+	      data : {"nickname" : $("#nickname").val()},
+	      success : function(data){
+	        if(data == 1){
+	          alert("중복된 이메일입니다.");
+	        }else if(data == 0){
+	          $("#idChk").attr("value", "Y");
+	          alert("사용가능한 이메일입니다.");
+	        }else {
+	          alert("이메일을 입력해주세요.");
+	        }
+	      }
+	    })
+	  }
 	</script>
 </head>
 
@@ -40,7 +59,8 @@
 		
 		<label for="nickname">닉네임</label>
 		<input type="text" id="nickname" value="${auth.nickname}"/><br/>
-		
+		<button class="nameChk" type="button" id="nameChk" onclick="fn_nameChk();" value="N">중복확인</button>
+
 		<label for="password">현재 비밀번호</label>
 		<input type="password" name="password" id="password" required/><br/>
 		
