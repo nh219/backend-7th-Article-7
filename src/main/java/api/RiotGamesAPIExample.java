@@ -21,13 +21,17 @@ import com.google.gson.JsonSyntaxException;
 
 public class RiotGamesAPIExample {
 	// API KEY
-	private static final String API_KEY = "RGAPI-d46fe4a5-6d5a-48b5-8c73-8a1e7a3a5915";
+	private static final String API_KEY = "RGAPI-8dc75365-8144-4ce7-bf22-9cf83c7b2ac9";
 
 	// 뭔지 모르겠는데 계속 반복됨
 	public static String getHttpContent(String urlString) throws IOException {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
+		int responseCode = con.getResponseCode();
+		if (responseCode != HttpURLConnection.HTTP_OK) {
+			return "HTTP 응답 오류: " + responseCode;
+		}
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuilder content = new StringBuilder();
@@ -39,13 +43,68 @@ public class RiotGamesAPIExample {
 		return content.toString();
 	}
 
-	// 현재 게임 중인지 확인하는 메서드
-	public static String CurrentlyInGame(String summonerId) throws IOException {
-		String urlString = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/" + summonerId
+	// 소환사 정보
+	public static String summonerInfo(String summonerName) throws IOException {
+		String urlString = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName
 				+ "?api_key=" + API_KEY;
+		String content = getHttpContent(urlString);
+
+		Gson gson = new Gson();
+		SummonerDO summonerDO = gson.fromJson(content.toString(), SummonerDO.class);
+
+		System.out.println("\nName: " + summonerDO.getName());
+		System.out.println("Level: " + summonerDO.getSummonerLevel());
+		
+		try {
+		    return league(summonerDO);
+		} catch (Exception e) {
+		    System.out.println("예외 발생: " + e.getMessage());
+		    return "리그 정보를 가져오는 중 예외가 발생하였습니다.";
+		}
+	}
+	
+	// LEAUGE-V4
+	public static String league(SummonerDO summonerDO) throws IOException {
+		String urlString = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerDO.getId() + "?api_key=" + API_KEY;
+		String content = getHttpContent(urlString);
+
+		Gson gson = new Gson();
+		JsonArray league = gson.fromJson(content.toString(), JsonArray.class);
+
+		for (int i = 0; i < league.size(); i++) {
+			JsonObject leagueObj = league.get(i).getAsJsonObject();
+			String queueType = leagueObj.get("queueType").getAsString();
+			String tier = leagueObj.get("tier").getAsString();
+			String rank = leagueObj.get("rank").getAsString();
+			int leaguePoints = leagueObj.get("leaguePoints").getAsInt();
+			int wins = leagueObj.get("wins").getAsInt();
+			int losses = leagueObj.get("losses").getAsInt();
+
+			System.out.println("Queue Type: " + queueType);
+			System.out.println("Tier: " + tier);
+			System.out.println("Rank: " + rank);
+			System.out.println("League Points: " + leaguePoints + "\n");
+			System.out.println("wins: " + wins);
+			System.out.println("losses: " + losses + "\n");
+			System.out.printf("win rate: %.0f%%\n", (double) wins / (wins + losses) * 100);
+
+		}
+		try {
+			System.out.println("현재 게임중입니다" );
+			return CurrentlyInGame(summonerDO);
+
+		} catch (Exception e) {
+			return matches(summonerDO);
+		}
+	}
+
+	// 현재 게임 중인지 확인하는 메서드
+	public static String CurrentlyInGame(SummonerDO summonerDO) throws IOException {
+		String urlString = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/" + summonerDO.getId() + "?api_key=" + API_KEY;
 		try {
 			String gameInfoJson = getHttpContent(urlString);
 			JsonObject gameInfoObject = JsonParser.parseString(gameInfoJson).getAsJsonObject();
+			
 			long gameId = gameInfoObject.get("gameId").getAsLong();
 			String gameType = gameInfoObject.get("gameType").getAsString();
 			long gameStartTime = gameInfoObject.get("gameStartTime").getAsLong();
@@ -77,7 +136,6 @@ public class RiotGamesAPIExample {
 				JsonObject bannedChampions = bannedChampionsArray.get(i).getAsJsonObject();
 				long bannedTeamId = bannedChampions.get("teamId").getAsLong();
 				long bannedChampionId = bannedChampions.get("championId").getAsLong();
-				
 
 				if (teamId == 100) {
 					JsonObject participantObject = new JsonObject();
@@ -87,7 +145,7 @@ public class RiotGamesAPIExample {
 					participantObject.addProperty("spell2Id", spell2Id);
 					participantObject.addProperty("perkIds", perkIds);
 					participantObject.addProperty("perkSubStyle", perkSubStyle);
-					//participantObject.addProperty("teamId", bannedTeamId);
+					// participantObject.addProperty("teamId", bannedTeamId);
 					participantObject.addProperty("bannedchampionId", bannedChampionId);
 					redTeam.add(summonerName, participantObject);
 				} else if (teamId == 200) {
@@ -134,14 +192,198 @@ public class RiotGamesAPIExample {
 				System.out.println("Spell1 Id: " + spell1Id + " Spell2 Id: " + spell2Id);
 				System.out.println("Perk Ids: " + perkIds + " Perk Sub: " + perkSubStyle + "\n");
 			}
-			return "\n현재 게임중입니다.\n";
+			return "\n현재 게임중입니다.\n" + matches(summonerDO);
+			
 		} catch (IOException e) {
 			if (e instanceof java.io.FileNotFoundException) {
-				return "현재 게임중이 아닙니다.";
+				return "cuurentlyInGame 오류 발생.";
 			} else {
 				throw e;
 			}
 		}
+	}
+
+
+
+	// MatchId 추출
+	public static String matches(SummonerDO summonerDO) throws IOException {
+		String urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerDO.getPuuid()
+				+ "/ids?start=0&count=20&api_key=" + API_KEY;
+		String content = getHttpContent(urlString);
+
+		Gson gson = new Gson();
+		JsonArray matchIds = gson.fromJson(content.toString(), JsonArray.class);
+
+		for (int i = 0; i < matchIds.size(); i++) {
+			JsonElement matchId = matchIds.get(i);
+			System.out.println((i + 1) + ": Match ID: " + matchId.getAsString());
+		}
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("\n몇번째 게임의 정보를 불러올까요?: ");
+		int matchNum = scanner.nextInt();
+		scanner.nextLine();
+		return Integer.parseInt(matchIds.get(matchNum - 1).getAsString()) + matchInfo(matchNum);
+	}
+
+	// 추출한 MatchId로 해당 게임 세부 내용 검색
+
+	public static String matchInfo(long matchId) throws IOException {
+		String urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + API_KEY;
+		String content = getHttpContent(urlString);
+
+		Gson gson = new Gson();
+		JsonObject matchObject = gson.fromJson(content.toString(), JsonObject.class);
+		System.out.println("Match ID: " + matchId);
+		System.out.println(
+				"Data Version: " + matchObject.get("metadata").getAsJsonObject().get("dataVersion").getAsString());
+		System.out.println("Game Start Time Stamp: "
+				+ matchObject.get("info").getAsJsonObject().get("gameStartTimestamp").getAsString());
+		long timestamp = matchObject.get("info").getAsJsonObject().get("gameStartTimestamp").getAsLong();
+		Date date = new Date(timestamp);
+		System.out.println("Game Start Time: " + date);
+		System.out
+				.println("Game Duration: " + matchObject.get("info").getAsJsonObject().get("gameDuration").getAsInt());
+		int gameDuration = matchObject.get("info").getAsJsonObject().get("gameDuration").getAsInt();
+		int minutes = gameDuration / 60;
+		int seconds = gameDuration % 60;
+		System.out.printf("Game Real Time: %d분 %d초\n", minutes, seconds);
+		System.out.println("Game Type: " + matchObject.get("info").getAsJsonObject().get("gameType").getAsString());
+		System.out.println("Game Mode: " + matchObject.get("info").getAsJsonObject().get("gameMode").getAsString());
+		System.out.println("Queue Id: " + matchObject.get("info").getAsJsonObject().get("queueId").getAsInt());
+		String gameMode = getGameMode(matchObject.get("info").getAsJsonObject().get("queueId").getAsInt());
+		System.out.println("게임 모드: " + gameMode);
+		System.out.println("Map ID: " + matchObject.get("info").getAsJsonObject().get("mapId").getAsInt());
+		String mapId = getMap(matchObject.get("info").getAsJsonObject().get("mapId").getAsInt());
+		System.out.println("맵: " + mapId);
+
+		JsonArray teams = matchObject.get("info").getAsJsonObject().get("teams").getAsJsonArray();
+		boolean isRedTeamWin = teams.get(0).getAsJsonObject().get("win").getAsBoolean();
+		if (isRedTeamWin) {
+			System.out.println("\nRed Team Win!");
+		} else {
+			System.out.println("\nBlue Team Win!");
+		}
+
+		// 매치 정보
+		JsonArray participants = matchObject.get("info").getAsJsonObject().get("participants").getAsJsonArray();
+		JsonObject redTeam = new JsonObject();
+		JsonObject blueTeam = new JsonObject();
+
+		for (int i = 0; i < participants.size(); i++) {
+			JsonObject participant = participants.get(i).getAsJsonObject();
+			int teamId = participant.get("teamId").getAsInt();
+			String summonerName1 = participant.get("summonerName").getAsString();
+			String championName = participant.get("championName").getAsString();
+
+			JsonArray perk = matchObject.get("info").getAsJsonObject().get("participants").getAsJsonArray().get(i)
+					.getAsJsonObject().get("perks").getAsJsonObject().get("styles").getAsJsonArray();
+
+			JsonObject itemObject = new JsonObject();
+			itemObject.addProperty("item0", participant.get("item0").getAsInt());
+			itemObject.addProperty("item1", participant.get("item1").getAsInt());
+			itemObject.addProperty("item2", participant.get("item2").getAsInt());
+			itemObject.addProperty("item3", participant.get("item3").getAsInt());
+			itemObject.addProperty("item4", participant.get("item4").getAsInt());
+			itemObject.addProperty("item5", participant.get("item5").getAsInt());
+			itemObject.addProperty("item6", participant.get("item6").getAsInt());
+
+			if (teamId == 100) {
+				JsonObject participantObject = new JsonObject();
+				participantObject.addProperty("championName", championName);
+				participantObject.addProperty("kills", participant.get("kills").getAsInt());
+				participantObject.addProperty("deaths", participant.get("deaths").getAsInt());
+				participantObject.addProperty("assists", participant.get("assists").getAsInt());
+				participantObject.add("perks", perk);
+				participantObject.add("items", itemObject);
+				redTeam.add(summonerName1, participantObject);
+			} else if (teamId == 200) {
+				JsonObject participantObject = new JsonObject();
+				participantObject.addProperty("championName", championName);
+				participantObject.addProperty("kills", participant.get("kills").getAsInt());
+				participantObject.addProperty("deaths", participant.get("deaths").getAsInt());
+				participantObject.addProperty("assists", participant.get("assists").getAsInt());
+				participantObject.add("perks", perk);
+				participantObject.add("items", itemObject);
+				blueTeam.add(summonerName1, participantObject);
+			}
+		}
+
+		System.out.println("\n--------Red Team--------");
+		for (String summonerName1 : redTeam.keySet()) {
+			JsonObject participantObject = redTeam.get(summonerName1).getAsJsonObject();
+			String championName = participantObject.get("championName").getAsString();
+			int kills = participantObject.get("kills").getAsInt();
+			int deaths = participantObject.get("deaths").getAsInt();
+			int assists = participantObject.get("assists").getAsInt();
+			System.out.printf("- %s (%s) KDA: %d/%d/%d\n", summonerName1, championName, kills, deaths, assists);
+
+			// 해당 참가자의 아이템 출력
+			JsonObject itemObject = participantObject.get("items").getAsJsonObject();
+			for (int i = 0; i <= 6; i++) {
+				int itemId = itemObject.get("item" + i).getAsInt();
+				String itemName = getItemMap().get(String.valueOf(itemId));
+				System.out.println("  - Item " + itemId + " : " + itemName);
+			}
+			JsonArray perkArray = participantObject.get("perks").getAsJsonArray();
+			JsonObject perkObject = perkArray.get(0).getAsJsonObject();
+			JsonArray perkSelectionsArray = perkObject.get("selections").getAsJsonArray();
+			JsonObject perkSubObject = perkArray.get(1).getAsJsonObject();
+			JsonArray perkSubSelectionsArray = perkSubObject.get("selections").getAsJsonArray();
+
+			for (int i = 0; i < perkSelectionsArray.size(); i++) {
+				JsonObject perkSelectionObject = perkSelectionsArray.get(i).getAsJsonObject();
+				long perkValue = perkSelectionObject.get("perk").getAsLong();
+				String perkName = getPerkMap().get(perkValue);
+				System.out.println("  - Perk " + (i + 1) + " : " + perkName);
+			}
+
+			for (int i = 0; i < perkSubSelectionsArray.size(); i++) {
+				JsonObject perkSubSelectionObject = perkSubSelectionsArray.get(i).getAsJsonObject();
+				long perkValue = perkSubSelectionObject.get("perk").getAsLong();
+				String perkName = getPerkMap().get(perkValue);
+				System.out.println("  - Sub Perk " + (i + 1) + " : " + perkName);
+			}
+
+		}
+
+		System.out.println("\n--------Blue Team--------");
+		for (String summonerName1 : blueTeam.keySet()) {
+			JsonObject participantObject = blueTeam.get(summonerName1).getAsJsonObject();
+			String championName = participantObject.get("championName").getAsString();
+			int kills = participantObject.get("kills").getAsInt();
+			int deaths = participantObject.get("deaths").getAsInt();
+			int assists = participantObject.get("assists").getAsInt();
+			System.out.printf("- %s (%s) KDA: %d/%d/%d\n", summonerName1, championName, kills, deaths, assists);
+			JsonObject itemObject = participantObject.get("items").getAsJsonObject();
+			for (int i = 0; i <= 6; i++) {
+				int itemId = itemObject.get("item" + i).getAsInt();
+				String itemName = getItemMap().get(String.valueOf(itemId));
+				System.out.println("  - Item " + itemId + " : " + itemName);
+			}
+			JsonArray perkArray = participantObject.get("perks").getAsJsonArray();
+			JsonObject perkObject = perkArray.get(0).getAsJsonObject();
+			JsonArray perkSelectionsArray = perkObject.get("selections").getAsJsonArray();
+			JsonObject perkSubObject = perkArray.get(1).getAsJsonObject();
+			JsonArray perkSubSelectionsArray = perkSubObject.get("selections").getAsJsonArray();
+
+			for (int i = 0; i < perkSelectionsArray.size(); i++) {
+				JsonObject perkSelectionObject = perkSelectionsArray.get(i).getAsJsonObject();
+				long perkValue = perkSelectionObject.get("perk").getAsLong();
+				String perkName = getPerkMap().get(perkValue);
+				System.out.println("  - Perk " + (i + 1) + " : " + perkName);
+			}
+
+			for (int i = 0; i < perkSubSelectionsArray.size(); i++) {
+				JsonObject perkSubSelectionObject = perkSubSelectionsArray.get(i).getAsJsonObject();
+				long perkValue = perkSubSelectionObject.get("perk").getAsLong();
+				String perkName = getPerkMap().get(perkValue);
+				System.out.println("  - Sub Perk " + (i + 1) + " : " + perkName);
+			}
+
+		}
+		return null;
+
 	}
 
 	// QueueId 파싱 메서드
@@ -329,308 +571,99 @@ public class RiotGamesAPIExample {
 	}
 
 	// 챔피언 ID 맵
-    private static Map<Long, String> championIdToName = new HashMap<Long, String>();
-    // 챔피언 ID 맵핑
-    public static String getChampionName(long championId) {
-        try {
-            // 1. HTTP 요청 보내기
-            String championDataUrl = "https://ddragon.leagueoflegends.com/cdn/13.9.1/data/ko_KR/champion.json";
-            URL url = new URL(championDataUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+	private static Map<Long, String> championIdToName = new HashMap<Long, String>();
 
-            // 2. HTTP 응답 처리하기
-            int responseCode = connection.getResponseCode();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                return "HTTP 응답 오류: " + responseCode;
-            }
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
+	// 챔피언 ID 맵핑
+	public static String getChampionName(long championId) {
+		try {
+			// 1. HTTP 요청 보내기
+			String championDataUrl = "https://ddragon.leagueoflegends.com/cdn/13.9.1/data/ko_KR/champion.json";
+			URL url = new URL(championDataUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
 
-            // 3. JSON 데이터 파싱하기
-            JsonObject champion = JsonParser.parseString(content.toString()).getAsJsonObject();
-            JsonObject championData = champion.getAsJsonObject("data");
-            for (Map.Entry<String, JsonElement> entry : championData.entrySet()) {
-                JsonObject championObject = entry.getValue().getAsJsonObject();
-                if (championObject.get("key").getAsString().equals(String.valueOf(championId))) {
-                    String championName = championObject.get("name").getAsString();
-                    championIdToName.put(championId, championName);
-                    return championName;
-                }
-            }
+			// 2. HTTP 응답 처리하기
+			int responseCode = connection.getResponseCode();
+			if (responseCode != HttpURLConnection.HTTP_OK) {
+				return "HTTP 응답 오류: " + responseCode;
+			}
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String inputLine;
+			StringBuffer content = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				content.append(inputLine);
+			}
+			in.close();
 
-            return "해당하는 챔피언이 없습니다.";
-        } catch (IOException e) {
-            return "HTTP 요청 오류: " + e.getMessage();
-        }
-    }
-    
-    //소환사 주문 맵
-    private static Map<Long, String> spellIdToName = new HashMap<Long, String>();
-    //소환사 주문 맵핑
-    public static String getSpellName(long spellId) {
-        try {
-            // 1. HTTP 요청 보내기
-            String championDataUrl = "https://ddragon.leagueoflegends.com/cdn/13.9.1/data/ko_KR/summoner.json";
-            URL url = new URL(championDataUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+			// 3. JSON 데이터 파싱하기
+			JsonObject champion = JsonParser.parseString(content.toString()).getAsJsonObject();
+			JsonObject championData = champion.getAsJsonObject("data");
+			for (Map.Entry<String, JsonElement> entry : championData.entrySet()) {
+				JsonObject championObject = entry.getValue().getAsJsonObject();
+				if (championObject.get("key").getAsString().equals(String.valueOf(championId))) {
+					String championName = championObject.get("name").getAsString();
+					championIdToName.put(championId, championName);
+					return championName;
+				}
+			}
 
-            // 2. HTTP 응답 처리하기
-            int responseCode = connection.getResponseCode();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                return "HTTP 응답 오류: " + responseCode;
-            }
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
+			return "해당하는 챔피언이 없습니다.";
+		} catch (IOException e) {
+			return "HTTP 요청 오류: " + e.getMessage();
+		}
+	}
 
-            // 3. JSON 데이터 파싱하기
-            JsonObject summoner = JsonParser.parseString(content.toString()).getAsJsonObject();
-            JsonObject summonerSpellData = summoner.getAsJsonObject("data");
-            for (Map.Entry<String, JsonElement> entry : summonerSpellData.entrySet()) {
-                JsonObject championObject = entry.getValue().getAsJsonObject();
-                if (championObject.get("key").getAsString().equals(String.valueOf(spellId))) {
-                    String championName = championObject.get("name").getAsString();
-                    spellIdToName.put(spellId, championName);
-                    return championName;
-                }
-            }
+	// 소환사 주문 맵
+	private static Map<Long, String> spellIdToName = new HashMap<Long, String>();
 
-            return "해당하는 소환사 주문이 없습니다.";
-        } catch (IOException e) {
-            return "HTTP 요청 오류: " + e.getMessage();
-        }
-    }
+	// 소환사 주문 맵핑
+	public static String getSpellName(long spellId) {
+		try {
+			// 1. HTTP 요청 보내기
+			String championDataUrl = "https://ddragon.leagueoflegends.com/cdn/13.9.1/data/ko_KR/summoner.json";
+			URL url = new URL(championDataUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
 
-    
+			// 2. HTTP 응답 처리하기
+			int responseCode = connection.getResponseCode();
+			if (responseCode != HttpURLConnection.HTTP_OK) {
+				return "HTTP 응답 오류: " + responseCode;
+			}
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String inputLine;
+			StringBuffer content = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				content.append(inputLine);
+			}
+			in.close();
+
+			// 3. JSON 데이터 파싱하기
+			JsonObject summoner = JsonParser.parseString(content.toString()).getAsJsonObject();
+			JsonObject summonerSpellData = summoner.getAsJsonObject("data");
+			for (Map.Entry<String, JsonElement> entry : summonerSpellData.entrySet()) {
+				JsonObject championObject = entry.getValue().getAsJsonObject();
+				if (championObject.get("key").getAsString().equals(String.valueOf(spellId))) {
+					String championName = championObject.get("name").getAsString();
+					spellIdToName.put(spellId, championName);
+					return championName;
+				}
+			}
+
+			return "해당하는 소환사 주문이 없습니다.";
+		} catch (IOException e) {
+			return "HTTP 요청 오류: " + e.getMessage();
+		}
+	}
+
+	// 추출한 MatchId로 해당 게임 세부 내용 검색
 
 	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("소환사명을 입력하세요: ");
 		String summonerName = scanner.nextLine();
 
-		// 소환사 정보
-		String urlString = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName
-				+ "?api_key=" + API_KEY;
-		String content = getHttpContent(urlString);
-
-		Gson gson = new Gson();
-		SummonerDO summonerDO = gson.fromJson(content.toString(), SummonerDO.class);
-
-		String JsonString = gson.toJson(summonerDO);
-		System.out.println("\nName: " + summonerDO.getName());
-		System.out.println("Level: " + summonerDO.getSummonerLevel());
-		System.out.println("ID: " + summonerDO.getId());
-		System.out.println("puuid: " + summonerDO.getPuuid() + "\n");
-		String accountId = summonerDO.getId();
-
-		// LEAUGE-V4
-		urlString = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + accountId + "?api_key="
-				+ API_KEY;
-		content = getHttpContent(urlString);
-		JsonArray league = gson.fromJson(content.toString(), JsonArray.class);
-		for (int i = 0; i < league.size(); i++) {
-			JsonObject leagueObj = league.get(i).getAsJsonObject();
-			String queueType = leagueObj.get("queueType").getAsString();
-			String tier = leagueObj.get("tier").getAsString();
-			String rank = leagueObj.get("rank").getAsString();
-			int leaguePoints = leagueObj.get("leaguePoints").getAsInt();
-			int wins = leagueObj.get("wins").getAsInt();
-			int losses = leagueObj.get("losses").getAsInt();
-
-			System.out.println("Queue Type: " + queueType);
-			System.out.println("Tier: " + tier);
-			System.out.println("Rank: " + rank);
-			System.out.println("League Points: " + leaguePoints + "\n");
-			System.out.println("wins: " + wins);
-			System.out.println("losses: " + losses + "\n");
-			System.out.printf("win rate: %.0f%%\n", (double) wins / (wins + losses) * 100);
-
-		}
-
 		// 현재 게임 중인지 아닌지 확인
-		System.out.println(CurrentlyInGame(accountId));
-
-		// MatchId 추출
-		String puuid = summonerDO.getPuuid();
-		urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid
-				+ "/ids?start=0&count=20&api_key=" + API_KEY;
-		content = getHttpContent(urlString);
-		JsonArray matchIds = gson.fromJson(content.toString(), JsonArray.class);
-		for (int i = 0; i < matchIds.size(); i++) {
-			JsonElement matchId = matchIds.get(i);
-			System.out.println((i + 1) + ": Match ID: " + matchId.getAsString());
-		}
-
-		System.out.print("\n몇번째 게임의 정보를 불러올까요?: ");
-		int matchNum = scanner.nextInt();
-		String matchId = matchIds.get(matchNum - 1).getAsString();
-
-		// 추출한 MatchId로 해당 게임 세부 내용 검색
-		urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + API_KEY;
-		content = getHttpContent(urlString);
-
-		JsonObject matchObject = gson.fromJson(content.toString(), JsonObject.class);
-		System.out.println("Match ID: " + matchId);
-		System.out.println(
-				"Data Version: " + matchObject.get("metadata").getAsJsonObject().get("dataVersion").getAsString());
-		System.out.println("Game Start Time Stamp: "
-				+ matchObject.get("info").getAsJsonObject().get("gameStartTimestamp").getAsString());
-		long timestamp = matchObject.get("info").getAsJsonObject().get("gameStartTimestamp").getAsLong();
-		Date date = new Date(timestamp);
-		System.out.println("Game Start Time: " + date);
-		System.out
-				.println("Game Duration: " + matchObject.get("info").getAsJsonObject().get("gameDuration").getAsInt());
-		int gameDuration = matchObject.get("info").getAsJsonObject().get("gameDuration").getAsInt();
-		int minutes = gameDuration / 60;
-		int seconds = gameDuration % 60;
-		System.out.printf("Game Real Time: %d분 %d초\n", minutes, seconds);
-		System.out.println("Game Type: " + matchObject.get("info").getAsJsonObject().get("gameType").getAsString());
-		System.out.println("Game Mode: " + matchObject.get("info").getAsJsonObject().get("gameMode").getAsString());
-		System.out.println("Queue Id: " + matchObject.get("info").getAsJsonObject().get("queueId").getAsInt());
-		String gameMode = getGameMode(matchObject.get("info").getAsJsonObject().get("queueId").getAsInt());
-		System.out.println("게임 모드: " + gameMode);
-		System.out.println("Map ID: " + matchObject.get("info").getAsJsonObject().get("mapId").getAsInt());
-		String mapId = getMap(matchObject.get("info").getAsJsonObject().get("mapId").getAsInt());
-		System.out.println("맵: " + mapId);
-
-		JsonArray teams = matchObject.get("info").getAsJsonObject().get("teams").getAsJsonArray();
-		boolean isRedTeamWin = teams.get(0).getAsJsonObject().get("win").getAsBoolean();
-		if (isRedTeamWin) {
-			System.out.println("\nRed Team Win!");
-		} else {
-			System.out.println("\nBlue Team Win!");
-		}
-
-		// 매치 정보
-		JsonArray participants = matchObject.get("info").getAsJsonObject().get("participants").getAsJsonArray();
-		JsonObject redTeam = new JsonObject();
-		JsonObject blueTeam = new JsonObject();
-
-		for (int i = 0; i < participants.size(); i++) {
-			JsonObject participant = participants.get(i).getAsJsonObject();
-			int teamId = participant.get("teamId").getAsInt();
-			String summonerName1 = participant.get("summonerName").getAsString();
-			String championName = participant.get("championName").getAsString();
-
-			JsonArray perk = matchObject.get("info").getAsJsonObject().get("participants").getAsJsonArray().get(i)
-					.getAsJsonObject().get("perks").getAsJsonObject().get("styles").getAsJsonArray();
-
-			JsonObject itemObject = new JsonObject();
-			itemObject.addProperty("item0", participant.get("item0").getAsInt());
-			itemObject.addProperty("item1", participant.get("item1").getAsInt());
-			itemObject.addProperty("item2", participant.get("item2").getAsInt());
-			itemObject.addProperty("item3", participant.get("item3").getAsInt());
-			itemObject.addProperty("item4", participant.get("item4").getAsInt());
-			itemObject.addProperty("item5", participant.get("item5").getAsInt());
-			itemObject.addProperty("item6", participant.get("item6").getAsInt());
-
-			if (teamId == 100) {
-				JsonObject participantObject = new JsonObject();
-				participantObject.addProperty("championName", championName);
-				participantObject.addProperty("kills", participant.get("kills").getAsInt());
-				participantObject.addProperty("deaths", participant.get("deaths").getAsInt());
-				participantObject.addProperty("assists", participant.get("assists").getAsInt());
-				participantObject.add("perks", perk);
-				participantObject.add("items", itemObject);
-				redTeam.add(summonerName1, participantObject);
-			} else if (teamId == 200) {
-				JsonObject participantObject = new JsonObject();
-				participantObject.addProperty("championName", championName);
-				participantObject.addProperty("kills", participant.get("kills").getAsInt());
-				participantObject.addProperty("deaths", participant.get("deaths").getAsInt());
-				participantObject.addProperty("assists", participant.get("assists").getAsInt());
-				participantObject.add("perks", perk);
-				participantObject.add("items", itemObject);
-				blueTeam.add(summonerName1, participantObject);
-			}
-		}
-
-		System.out.println("\n--------Red Team--------");
-		for (String summonerName1 : redTeam.keySet()) {
-			JsonObject participantObject = redTeam.get(summonerName1).getAsJsonObject();
-			String championName = participantObject.get("championName").getAsString();
-			int kills = participantObject.get("kills").getAsInt();
-			int deaths = participantObject.get("deaths").getAsInt();
-			int assists = participantObject.get("assists").getAsInt();
-			System.out.printf("- %s (%s) KDA: %d/%d/%d\n", summonerName1, championName, kills, deaths, assists);
-
-			// 해당 참가자의 아이템 출력
-			JsonObject itemObject = participantObject.get("items").getAsJsonObject();
-			for (int i = 0; i <= 6; i++) {
-				int itemId = itemObject.get("item" + i).getAsInt();
-				String itemName = getItemMap().get(String.valueOf(itemId));
-				System.out.println("  - Item " + itemId + " : " + itemName);
-			}
-			JsonArray perkArray = participantObject.get("perks").getAsJsonArray();
-			JsonObject perkObject = perkArray.get(0).getAsJsonObject();
-			JsonArray perkSelectionsArray = perkObject.get("selections").getAsJsonArray();
-			JsonObject perkSubObject = perkArray.get(1).getAsJsonObject();
-			JsonArray perkSubSelectionsArray = perkSubObject.get("selections").getAsJsonArray();
-
-			for (int i = 0; i < perkSelectionsArray.size(); i++) {
-				JsonObject perkSelectionObject = perkSelectionsArray.get(i).getAsJsonObject();
-				long perkValue = perkSelectionObject.get("perk").getAsLong();
-				String perkName = getPerkMap().get(perkValue);
-				System.out.println("  - Perk " + (i + 1) + " : " + perkName);
-			}
-
-			for (int i = 0; i < perkSubSelectionsArray.size(); i++) {
-				JsonObject perkSubSelectionObject = perkSubSelectionsArray.get(i).getAsJsonObject();
-				long perkValue = perkSubSelectionObject.get("perk").getAsLong();
-				String perkName = getPerkMap().get(perkValue);
-				System.out.println("  - Sub Perk " + (i + 1) + " : " + perkName);
-			}
-
-		}
-
-		System.out.println("\n--------Blue Team--------");
-		for (String summonerName1 : blueTeam.keySet()) {
-			JsonObject participantObject = blueTeam.get(summonerName1).getAsJsonObject();
-			String championName = participantObject.get("championName").getAsString();
-			int kills = participantObject.get("kills").getAsInt();
-			int deaths = participantObject.get("deaths").getAsInt();
-			int assists = participantObject.get("assists").getAsInt();
-			System.out.printf("- %s (%s) KDA: %d/%d/%d\n", summonerName1, championName, kills, deaths, assists);
-			JsonObject itemObject = participantObject.get("items").getAsJsonObject();
-			for (int i = 0; i <= 6; i++) {
-				int itemId = itemObject.get("item" + i).getAsInt();
-				String itemName = getItemMap().get(String.valueOf(itemId));
-				System.out.println("  - Item " + itemId + " : " + itemName);
-			}
-			JsonArray perkArray = participantObject.get("perks").getAsJsonArray();
-			JsonObject perkObject = perkArray.get(0).getAsJsonObject();
-			JsonArray perkSelectionsArray = perkObject.get("selections").getAsJsonArray();
-			JsonObject perkSubObject = perkArray.get(1).getAsJsonObject();
-			JsonArray perkSubSelectionsArray = perkSubObject.get("selections").getAsJsonArray();
-
-			for (int i = 0; i < perkSelectionsArray.size(); i++) {
-				JsonObject perkSelectionObject = perkSelectionsArray.get(i).getAsJsonObject();
-				long perkValue = perkSelectionObject.get("perk").getAsLong();
-				String perkName = getPerkMap().get(perkValue);
-				System.out.println("  - Perk " + (i + 1) + " : " + perkName);
-			}
-
-			for (int i = 0; i < perkSubSelectionsArray.size(); i++) {
-				JsonObject perkSubSelectionObject = perkSubSelectionsArray.get(i).getAsJsonObject();
-				long perkValue = perkSubSelectionObject.get("perk").getAsLong();
-				String perkName = getPerkMap().get(perkValue);
-				System.out.println("  - Sub Perk " + (i + 1) + " : " + perkName);
-			}
-
-		}
-
-		scanner.close();
+		System.out.println(summonerInfo(summonerName));
 	}
-
 }

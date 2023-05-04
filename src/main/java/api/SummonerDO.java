@@ -6,6 +6,7 @@ public class SummonerDO {
 	private String name;
 	private int summonerLevel;
 	private String puuid;
+	private int profileIconId;
 
 	public String getPuuid() {
 		return puuid;
@@ -45,6 +46,14 @@ public class SummonerDO {
 
 	public void setSummonerLevel(int summonerLevel) {
 		this.summonerLevel = summonerLevel;
+	}
+
+	public int getProfileIconId() {
+		return profileIconId;
+	}
+
+	public void setProfileIconId(int profileIconId) {
+		this.profileIconId = profileIconId;
 	}
 
 }
