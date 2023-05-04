@@ -58,5 +58,8 @@ public class PostDao {
             postDO.setNotice(1);
         }
     }
-		
+
+    public Map<Integer, PostDO> getPostMap() {
+        return postMap;
+    }
 }
