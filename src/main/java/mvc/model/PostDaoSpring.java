@@ -6,7 +6,6 @@ public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
-	private String sql = null;
 	
 	public PostDaoSpring() {
 		String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
@@ -88,7 +87,7 @@ public class PostDaoSpring extends PostDao {
 	        }
 	    }
 	}
-	
+
 	public void update(PostDO postDO) {
 	    String sql = "UPDATE post SET post_content=? WHERE post_id=?";
 	    try {
@@ -98,7 +97,7 @@ public class PostDaoSpring extends PostDao {
 	        pstmt.executeUpdate();
 	    } 
 	    catch(Exception e) {
-	        e.printStackTrace();
+	    	e.printStackTrace();
 	    } 
 	    finally {
 	        try {
@@ -135,16 +134,13 @@ public class PostDaoSpring extends PostDao {
 	    }
 	}
 
-
 	public int recommend(PostDO postDO) {
 	    int result = 0;
-	    String sql = "INSERT INTO post (post_id, member_id, like_num) VALUES (?, ?, ?)";
+	    String sql = "UPDATE post SET like_num = like_num + 1 WHERE post_id = ?";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, postDO.getPostId());
-	        pstmt.setInt(2, postDO.getMemberId());
-	        pstmt.setInt(3, postDO.getLikeNum());
 	        result = pstmt.executeUpdate();
 	    }
 	    catch(Exception e) {
@@ -160,18 +156,41 @@ public class PostDaoSpring extends PostDao {
 	            e.printStackTrace();
 	        }
 	    }
+	    return result;
+	}
 
+	public int unrecommend(PostDO postDO) {
+	    int result = 0;
+	    String sql = "UPDATE post SET dislike_num = dislike_num + 1 WHERE post_id = ?";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        result = pstmt.executeUpdate();
+	    }
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	    finally {
+	        try {
+	            if(!pstmt.isClosed()) {
+	                pstmt.close();
+	            }
+	        }
+	        catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	    return result;
 	}
 
 	public int report(PostDO postDO) {
 	    int result = 0;
-	    String sql = "INSERT INTO post (post_id, member_id) VALUES (?, ?)";
+	    String sql = "UPDATE post SET report_num = report_num + 1 WHERE post_id = ?";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, postDO.getPostId());
-	        pstmt.setInt(2, postDO.getMemberId());
 	        result = pstmt.executeUpdate();
 	    }
 	    catch(Exception e) {
@@ -187,7 +206,6 @@ public class PostDaoSpring extends PostDao {
 	            e.printStackTrace();
 	        }
 	    }
-
 	    return result;
 	}
 
