@@ -2,25 +2,30 @@ package mvc.model;
 
 public class PostRegistCommand {
 
-	private int userId;
+	private int memberId;
 	private String title;
 	private String content;
 	
-	public int getUserId() {
-		return userId;
+	public int getMemberId() {
+		return memberId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
+	
 	public String getTitle() {
 		return title;
 	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	public String getContent() {
 		return content;
 	}
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
