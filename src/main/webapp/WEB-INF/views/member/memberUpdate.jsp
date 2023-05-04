@@ -27,7 +27,7 @@
 	
 	function fn_nameChk(){
 	    $.ajax({
-	      url : "http://localhost:8080/finalProject/member/nicknameDoubleCheck",
+	      url : "member/nicknameDoubleCheck",
 	      type : "post",
 	      dataType : "json",
 	      data : {"nickname" : $("#nickname").val()},
@@ -35,10 +35,8 @@
 	        if(data == 1){
 	          alert("중복된 닉네임입니다.");
 	        }else if(data == 0){
-	          $("#idChk").attr("value", "Y");
+	          $("#nameChk").attr("value", "Y");
 	          alert("사용가능한 닉네임입니다.");
-	        }else {
-	          alert("닉네임을 입력해주세요.");
 	        }
 	      }
 	    })
@@ -50,17 +48,18 @@
 
 	<h1>회원 정보 변경</h1>
 	<hr/>
-	
-	<h3>비밀번호 변경</h3>
+
 	<form action="memberUpdateProcess" method="POST" id="memberUpdate">
 	<fieldset>
 		<label for="email">이메일</label>
 		<input type="email" id="email" value="${auth.email}" disabled/><br/>
 		
-		<label for="nickname">닉네임</label>
-		<input type="text" id="nickname" value="${auth.nickname}"/>
+		<div class="form-group has-feedback">
+		<label class="control-label" for="nickname">닉네임</label>
+		<input class="form-control" type="text" id="nickname" name="nickname" value="${auth.nickname}" />
 		<button class="nameChk" type="button" id="nameChk" onclick="fn_nameChk();" value="N">중복확인</button><br/>
-
+		</div>
+		
 		<label for="password">현재 비밀번호</label>
 		<input type="password" name="password" id="password" required/><br/>
 		

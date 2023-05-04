@@ -64,9 +64,9 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/member/nicknameDoubleCheck")
-	public int nicknameDoubleCheck(String nickname) throws Exception {
-		int result = memberService.nameCheck(nickname);
+	@RequestMapping(value="/member/nicknameDoubleCheck", method = RequestMethod.POST)
+	public int nicknameDoubleCheck(Member member) throws Exception {
+		int result = memberService.nameCheck(member.getNickname());
 		
 		return result;
 	}
