@@ -121,9 +121,12 @@ CREATE SEQUENCE post_view_seq
 commit;
 
 insert into member (member_id, email, nickname, password)
-values (member_id_seq.nextval, 'longlee@daum.net', '6789', '이성구');
+values (member_id_seq.nextval, 'longlee@daum.net', '이성구', '6789');
 
 insert into member (member_id, email, nickname, password)
-values (member_id_seq.nextval, 'son@naver.com', '1234', '손흥민');
+values (member_id_seq.nextval, 'son@naver.com', '손흥민', '1234');
+
+insert into member (member_id, email, nickname, password, admin)
+values (member_id_seq.nextval, 'admin@naver.com', '관리자1', '9999', 1);
 
 commit;

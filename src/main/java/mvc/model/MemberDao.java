@@ -36,4 +36,9 @@ public class MemberDao {
 		members.put(member.getEmail(), member);
 	}
 	
+	public int nameChk(String nickname) throws Exception{
+		int result = 0;
+		
+		return result;
+	}
 }

@@ -33,12 +33,12 @@
 	      data : {"nickname" : $("#nickname").val()},
 	      success : function(data){
 	        if(data == 1){
-	          alert("중복된 이메일입니다.");
+	          alert("중복된 닉네임입니다.");
 	        }else if(data == 0){
 	          $("#idChk").attr("value", "Y");
-	          alert("사용가능한 이메일입니다.");
+	          alert("사용가능한 닉네임입니다.");
 	        }else {
-	          alert("이메일을 입력해주세요.");
+	          alert("닉네임을 입력해주세요.");
 	        }
 	      }
 	    })
@@ -58,8 +58,8 @@
 		<input type="email" id="email" value="${auth.email}" disabled/><br/>
 		
 		<label for="nickname">닉네임</label>
-		<input type="text" id="nickname" value="${auth.nickname}"/><br/>
-		<button class="nameChk" type="button" id="nameChk" onclick="fn_nameChk();" value="N">중복확인</button>
+		<input type="text" id="nickname" value="${auth.nickname}"/>
+		<button class="nameChk" type="button" id="nameChk" onclick="fn_nameChk();" value="N">중복확인</button><br/>
 
 		<label for="password">현재 비밀번호</label>
 		<input type="password" name="password" id="password" required/><br/>

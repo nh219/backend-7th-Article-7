@@ -6,6 +6,7 @@ public class MemberService {
 	
 	private MemberDao memberDao;
 	
+	
 	public MemberService(MemberDao memberDao) {
 		this.memberDao = memberDao;
 	}
@@ -17,6 +18,13 @@ public class MemberService {
 		if(member != null && member.checkPassword(login.getPassword())) {
 			result = true;
 		}
+		
+		return result;
+	}
+	
+	public int nameCheck(String nickname) throws Exception {
+		int result = 0;
+		result = memberDao.nameChk(nickname);
 		
 		return result;
 	}

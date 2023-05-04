@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mvc.model.LoginCommand;
@@ -62,17 +63,12 @@ public class MemberController {
 		return view;
 	}
 	
-	@PostMapping("/member/nicknameDoubleCheck")
-	public String nicknameDoubleCheck(HttpSession session, Model model) {
-		String view = "";
+	@ResponseBody
+	@RequestMapping("/member/nicknameDoubleCheck")
+	public int nicknameDoubleCheck(String nickname) throws Exception {
+		int result = memberService.nameCheck(nickname);
 		
-		Member member = (Member)session.getAttribute("auth");
-		memberUpdateService.memberWithdrawal(member);
-		
-		session.invalidate();
-		view = "redirect:/main";
-		
-		return view;
+		return result;
 	}
 	
 	@GetMapping("/member/memberWithdrawalProcess")
