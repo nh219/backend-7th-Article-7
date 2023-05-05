@@ -61,7 +61,6 @@ public class PostDaoSpring extends PostDao {
 			}
 		}
 	}
-
 	
 	public void insert(PostDO postDO) {
 	    String sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
@@ -92,6 +91,7 @@ public class PostDaoSpring extends PostDao {
 
 	public void update(PostDO postDO) {
 	    String sql = "UPDATE post SET post_content=? WHERE post_id=?";
+	   
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, postDO.getContent());
@@ -214,6 +214,7 @@ public class PostDaoSpring extends PostDao {
 	public void notice(PostDO postDO) {
 	    super.notice(postDO.getPostId());
 	    String sql = "UPDATE post SET notice = 1 WHERE post_id = ?";
+	    
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, postDO.getPostId());

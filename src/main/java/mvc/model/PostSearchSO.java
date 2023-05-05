@@ -23,4 +23,5 @@ public class PostSearchSO {
 
         return result;
     }
+    
 }
