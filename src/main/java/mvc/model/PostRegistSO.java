@@ -12,7 +12,6 @@ public class PostRegistSO {
             return false;
         }
 
-
         if (!postDao.insert(postDO)) {
             throw new RuntimeException("Failed to insert post into database");
         }
@@ -22,4 +21,5 @@ public class PostRegistSO {
     private boolean checkContent(String content) {
         return content != null && !content.trim().isEmpty();
     }
+    
 }
