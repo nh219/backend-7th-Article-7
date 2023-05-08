@@ -10,10 +10,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import mvc.model.*;
 
 @Configuration
-@EnableTransactionManagement // 트랜잭션 관리를 위해 사용됨을 명시하는 어노테이션
+@EnableTransactionManagement 
 public class PostConfig {
     
-    // DataSource 객체를 생성하는 Bean을 등록함
     @Bean
     public DataSource dataSource() {
         DataSource ds = new DataSource();
@@ -31,7 +30,6 @@ public class PostConfig {
         return ds;
     }
     
-    // PlatformTransactionManager 객체를 생성하는 Bean을 등록함
     @Bean
     public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager dstm = new DataSourceTransactionManager();
@@ -39,43 +37,36 @@ public class PostConfig {
         return dstm;
     }
     
-    // PostDaoSpring 객체를 생성하는 Bean을 등록함
     @Bean
     public PostDaoSpring postDaoSpring() {
         return new PostDaoSpring(dataSource());
     }
     
-    // PostChangeSO 객체를 생성하는 Bean을 등록함
     @Bean
     public PostChangeSO postChangeSvc() {
         return new PostChangeSO(this.postDaoSpring());
     }
 
-    // PostRecommendSO 객체를 생성하는 Bean을 등록함
     @Bean
     public PostRecommendSO postRecSvc() {
         return new PostRecommendSO(this.postDaoSpring());
     }
     
-    // PostRegistSO 객체를 생성하는 Bean을 등록함
     @Bean
     public PostRegistSO postRegSvc() {
         return new PostRegistSO(this.postDaoSpring());
     }
     
-    // PostReportSO 객체를 생성하는 Bean을 등록함
     @Bean
     public PostReportSO postReportSvc() {
         return new PostReportSO(this.postDaoSpring());
     }
     
-    // PostSearchSO 객체를 생성하는 Bean을 등록함
     @Bean
     public PostSearchSO postSearchSvc() {
         return new PostSearchSO(this.postDaoSpring());
     }
     
-    // NoticeSO 객체를 생성하는 Bean을 등록함
     @Bean
     public NoticeSO noticeSvc() {
         return new NoticeSO(this.postDaoSpring());
