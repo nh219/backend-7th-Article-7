@@ -16,6 +16,7 @@ import mvc.model.PostDao;
 
 @Controller
 public class PostController {
+	
     @Autowired
     private PostDao postDao;
 
@@ -34,7 +35,7 @@ public class PostController {
     public String createPost(@ModelAttribute PostDO postDO) {
         try {
             postDao.insert(postDO);
-            return "redirect:/";
+            return "redirect:/Post/postRegist";
         } catch (Exception e) {
             return "error";
         }
@@ -45,7 +46,7 @@ public class PostController {
         try {
             PostDO postDO = postDao.search(postId);
             postDao.update(postDO, content);
-            return "redirect:/post/" + postId;
+            return "redirect:/post/postRegist" + postId;
         } catch (Exception e) {
             return "error";
         }
@@ -56,7 +57,7 @@ public class PostController {
         try {
             PostDO postDO = postDao.search(postId);
             postDao.delete(postDO);
-            return "redirect:/";
+            return "redirect:/post/postRegist";
         } catch (Exception e) {
             return "error";
         }
@@ -66,7 +67,7 @@ public class PostController {
     public String recommendPost(@PathVariable int postId) {
         try {
             postDao.recommend(postId);
-            return "redirect:/post/" + postId;
+            return "redirect:/post/postContent" + postId;
         } catch (Exception e) {
             return "error";
         }
@@ -76,7 +77,7 @@ public class PostController {
     public String unrecommendPost(@PathVariable int postId) {
         try {
             postDao.unrecommend(postId);
-            return "redirect:/post/" + postId;
+            return "redirect:/post/postContent" + postId;
         } catch (Exception e) {
             return "error";
         }
@@ -86,7 +87,7 @@ public class PostController {
     public String reportPost(@PathVariable int postId) {
         try {
             postDao.report(postId);
-            return "redirect:/post/" + postId;
+            return "redirect:/post/postContent" + postId;
         } catch (Exception e) {
             return "error";
         }
@@ -96,7 +97,7 @@ public class PostController {
     public String noticePost(@PathVariable int postId) {
         try {
             postDao.notice(postId);
-            return "redirect:/post/" + postId;
+            return "redirect:/post/postContent" + postId;
         } catch (Exception e) {
             return "error";
         }

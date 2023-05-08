@@ -1,7 +1,9 @@
 package mvc.model;
 
 import java.sql.*;
-import java.util.*;
+import javax.sql.*;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class PostDaoSpring extends PostDao {
 
@@ -24,6 +26,10 @@ public class PostDaoSpring extends PostDao {
 		}
 	}
 	
+	public PostDaoSpring(DataSource dstm) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dstm);
+	}
+
 	public void search(String keyword, String category) {
 	    String sql = "SELECT * FROM post WHERE ";
 	    if (category.equals("title")) {					// 제목 검색

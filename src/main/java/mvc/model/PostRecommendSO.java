@@ -9,7 +9,10 @@ public class PostRecommendSO {
         this.postDO = postDO;
     }
 
-    public int postLike(int postId, int userId, boolean like) {
+    public PostRecommendSO(PostDaoSpring postDaoSpring) {
+	}
+
+	public int postLike(int postId, int userId, boolean like) {
         PostDO postDO = postDao.search(postId);
         if (postDO == null) {
             throw new RuntimeException("Post not found in database");

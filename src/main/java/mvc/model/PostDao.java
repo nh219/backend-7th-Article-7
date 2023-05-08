@@ -63,4 +63,5 @@ public class PostDao {
     public Map<Integer, PostDO> getPostMap() {
         return postMap;
     }
+
 }

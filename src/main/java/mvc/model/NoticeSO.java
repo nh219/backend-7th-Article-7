@@ -10,7 +10,10 @@ public class NoticeSO {
         this.member = member;
     }
 
-    public void notice(int postId) {
+    public NoticeSO(PostDaoSpring postDaoSpring) {
+	}
+
+	public void notice(int postId) {
         PostDO postDO = postDao.search(postId);
         if (postDO != null && member.isAdmin()) {
             postDO.setNotice(1);
