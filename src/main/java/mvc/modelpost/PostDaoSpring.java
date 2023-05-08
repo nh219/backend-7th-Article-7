@@ -1,4 +1,4 @@
-package modelpost;
+package mvc.modelpost;
 
 import java.sql.*;
 import javax.sql.*;

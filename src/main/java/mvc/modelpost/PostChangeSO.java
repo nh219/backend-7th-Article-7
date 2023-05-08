@@ -1,4 +1,4 @@
-package mvc.model;
+package mvc.modelpost;
 
 public class PostChangeSO {
     private PostDao postDao;

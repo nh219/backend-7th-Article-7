@@ -1,4 +1,4 @@
-package mvc.model;
+package mvc.modelpost;
 
 public class PostRecommendSO {
     private PostDao postDao;

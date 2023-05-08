@@ -1,4 +1,4 @@
-package mvc.model;
+package mvc.modelpost;
 
 import java.util.Collection;
 import java.util.HashMap;

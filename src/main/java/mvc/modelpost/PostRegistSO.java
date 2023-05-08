@@ -1,4 +1,4 @@
-package modelpost;
+package mvc.modelpost;
 
 public class PostRegistSO {
     private PostDao postDao;

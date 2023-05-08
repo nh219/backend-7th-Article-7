@@ -1,4 +1,4 @@
-package modelpost;
+package mvc.modelpost;
 
 import java.util.ArrayList;
 import java.util.List;

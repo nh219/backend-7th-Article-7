@@ -1,4 +1,6 @@
-package mvc.model;
+package mvc.modelpost;
+
+import mvc.model.*;
 
 public class NoticeSO {
 

@@ -1,26 +1,31 @@
-package modelpost;
+package mvc.modelpost;
 
-public class PostUpdateCommand {
+public class PostRegistCommand {
 
-	private int postId;
+	private int memberId;
 	private String title;
 	private String content;
 	
-	public int getPostId() {
-		return postId;
+	public int getMemberId() {
+		return memberId;
 	}
-	public void setPostId(int postId) {
-		this.postId = postId;
+	
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
+	
 	public String getTitle() {
 		return title;
 	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	public String getContent() {
 		return content;
 	}
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
