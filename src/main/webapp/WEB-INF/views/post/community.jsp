@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>community</title>
+    <title>Community</title>
+	<link rel="stylesheet" type="text/css" href="community style copy.css">
 </head>
 
 <body>
-
-	
-
+    <%@ include file="/WebContent/community copy.html" %>
 </body>
+
 </html>
