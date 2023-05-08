@@ -36,7 +36,8 @@ public class MvcConfig implements WebMvcConfigurer{
 		//	http://localhost:8080/finalProject/member/memberUpdate
 		registry.addViewController("/member/memberUpdate").setViewName("member/memberUpdate");
 		
-		//	http://localhost:8080/finalProject//post/community
+		//	http://localhost:8080/backend-7th-Article-7/post/community
 		registry.addViewController("/post/community").setViewName("/post/community");
 	}
+	
 }

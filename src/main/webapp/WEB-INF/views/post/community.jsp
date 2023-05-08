@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
-	<link rel="stylesheet" href="community style copy.css">
+	<link rel="stylesheet" href="../WebContent/community style copy.css">
 </head>
 <body>
 	<!-- 헤더 영역 -->

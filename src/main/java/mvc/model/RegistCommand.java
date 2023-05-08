@@ -1,4 +1,4 @@
-package mvc.modelpost;
+package mvc.model;
 
 public class RegistCommand {
 	
