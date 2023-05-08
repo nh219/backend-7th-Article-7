@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import mvc.model.PostDO;
-import mvc.model.PostDao;
+import mvc.modelpost.*;;
 
 @Controller
 public class PostController {
