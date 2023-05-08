@@ -14,6 +14,7 @@ public class PostDO {
 	private int likeNum;
 	private int dislikeNum;
 	private int notice;
+	private String keyword;
 	private Date post_date;
 	
 	public PostDO(int postId, String category, String title, int memberId, String content, int views, 
@@ -99,6 +100,14 @@ public class PostDO {
 	}
 	public void setNotice(int notice) {
 		this.notice = notice;
+	}
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 	public Date getPost_date() {

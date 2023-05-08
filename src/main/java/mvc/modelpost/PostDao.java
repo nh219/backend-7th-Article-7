@@ -4,7 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PostDao {
+	
     private static int nextId = 0;
     private Map<Integer, PostDO> postMap;
 
@@ -63,5 +67,5 @@ public class PostDao {
     public Map<Integer, PostDO> getPostMap() {
         return postMap;
     }
-
+    
 }

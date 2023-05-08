@@ -10,21 +10,7 @@ public class PostDaoSpring extends PostDao {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	
-	public PostDaoSpring() {
-		String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
-		String jdbc_url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String user = "scott";
-		String pwd = "tiger";
-		
-		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url, user, pwd);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private JdbcTemplate jdbcTemplate;
 	
 	public PostDaoSpring(DataSource dstm) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dstm);
@@ -218,7 +204,6 @@ public class PostDaoSpring extends PostDao {
 	}
 	
 	public void notice(PostDO postDO) {
-	    super.notice(postDO.getPostId());
 	    String sql = "UPDATE post SET notice = 1 WHERE post_id = ?";
 	    
 	    try {
