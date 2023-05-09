@@ -10,6 +10,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import mvc.model.*;
+import mvc.modelpost.PostDaoSpring;
+import mvc.modelpost.PostService;
 
 @Configuration
 @EnableTransactionManagement

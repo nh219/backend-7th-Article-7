@@ -1,13 +1,14 @@
 package mvc.modelpost;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostDO {
 	
-	private int postId;
+	private long postId;
 	private String category;
 	private String title;
-	private int memberId;
+	private String nickname;
 	private String content;
 	private int views;
 	private int reportNum;
@@ -15,27 +16,31 @@ public class PostDO {
 	private int dislikeNum;
 	private int notice;
 	private String keyword;
-	private Date post_date;
+	private Date postRegistTime;
 	
-	public PostDO(int postId, String category, String title, int memberId, String content, int views, 
-				  int reportNum, int likeNum, int dislikeNum, int notice, Date post_date) {
+	public PostDO() {
+		
+	}
+	
+	public PostDO(int postId, String category, String title, String nickname, String content, int views, 
+				  int reportNum, int likeNum, int dislikeNum, int notice, Date postRegistTime) {
 		this.postId = postId;
 		this.category = category;
 		this.title = title;
-		this.memberId = memberId;
+		this.nickname = nickname;
 		this.content = content;
 		this.views = views;
 		this.reportNum = 0;
 		this.likeNum = 0;
 		this.dislikeNum = 0;
 		this.notice = 0;
-		this.post_date = post_date;
+		this.postRegistTime = postRegistTime;
 	}
 	
-	public int getPostId() {
+	public long getPostId() {
 		return postId;
 	}
-	public void setPostId(int postId) {
+	public void setPostId(long postId) {
 		this.postId = postId;
 	}
 	
@@ -53,11 +58,11 @@ public class PostDO {
 		this.title = title;
 	}
 	
-	public int getMemberId() {
-		return memberId;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	public String getContent() {
@@ -110,11 +115,11 @@ public class PostDO {
 		this.keyword = keyword;
 	}
 	
-	public Date getPost_date() {
-		return post_date;
+	public Date getPostRegistTime() {
+		return postRegistTime;
 	}
-	public void setPost_date(Date post_date) {
-		this.post_date = post_date;
+	public void setPostRegistTime(Date postRegistTime) {
+		this.postRegistTime = postRegistTime;
 	}
 		
 }

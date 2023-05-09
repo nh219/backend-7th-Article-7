@@ -1,19 +1,27 @@
 package mvc.modelpost;
 
 import java.sql.*;
+import java.util.List;
+
 import javax.sql.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import mvc.modelpost.PostDO;
+import mvc.modelpost.PostRowMapper;
 
 public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
+	private String sql = null;
 	private JdbcTemplate jdbcTemplate;
 	
 	public PostDaoSpring(DataSource dstm) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dstm);
+		jdbcTemplate = new JdbcTemplate(dstm);
 	}
 
 	public void search(String keyword, String category) {
@@ -55,14 +63,14 @@ public class PostDaoSpring extends PostDao {
 	}
 	
 	public void insert(PostDO postDO) {
-	    String sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
+	    String sql = "INSERT INTO post (post_id, category, title, nickname, post_content) "
 	            + "VALUES (post_post_id_seq.NEXTVAL, ?, ?, ?, ?)";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, postDO.getCategory());
 	        pstmt.setString(2, postDO.getTitle());
-	        pstmt.setInt(3, postDO.getMemberId());
+	        pstmt.setString(3, postDO.getNickname());
 	        pstmt.setString(4, postDO.getContent());
 	        pstmt.executeUpdate();
 	    } 
@@ -87,7 +95,7 @@ public class PostDaoSpring extends PostDao {
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, postDO.getContent());
-	        pstmt.setInt(2, postDO.getPostId());
+	        pstmt.setLong(2, postDO.getPostId());
 	        pstmt.executeUpdate();
 	    } 
 	    catch(Exception e) {
@@ -110,7 +118,7 @@ public class PostDaoSpring extends PostDao {
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setLong(1, postDO.getPostId());
 	        pstmt.executeUpdate();
 	    } 
 	    catch (Exception e) {
@@ -134,7 +142,7 @@ public class PostDaoSpring extends PostDao {
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setLong(1, postDO.getPostId());
 	        result = pstmt.executeUpdate();
 	    }
 	    catch(Exception e) {
@@ -159,7 +167,7 @@ public class PostDaoSpring extends PostDao {
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setLong(1, postDO.getPostId());
 	        result = pstmt.executeUpdate();
 	    }
 	    catch(Exception e) {
@@ -184,7 +192,7 @@ public class PostDaoSpring extends PostDao {
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setLong(1, postDO.getPostId());
 	        result = pstmt.executeUpdate();
 	    }
 	    catch(Exception e) {
@@ -208,7 +216,7 @@ public class PostDaoSpring extends PostDao {
 	    
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.setLong(1, postDO.getPostId());
 	        pstmt.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -222,5 +230,20 @@ public class PostDaoSpring extends PostDao {
 	        }
 	    }
 	}
+	
+	@Override
+	public List<PostDO> listByCategory(String category) {
+    	List<PostDO> list = null;
+    	
+    	this.sql = "select * from post where category = ?";
+		
+		try {
+			list = jdbcTemplate.query(this.sql, new PostRowMapper(), category);
+		}
+		catch(EmptyResultDataAccessException e) {
+		}
+    	
+		return list;
+    }
 	
 }

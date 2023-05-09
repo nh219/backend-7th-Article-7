@@ -27,6 +27,7 @@
 					<li><a href="#">통합 인기글</a></li>
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
 					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+					<li><a href="<c:url value='/post/postListTest' />">게시판테스트</a></li>
 				</ul>
 			</nav>
 		</div>
