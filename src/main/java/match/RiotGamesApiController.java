@@ -1,34 +1,26 @@
 package match;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import api.RiotGamesAPIExample;
+import api.SummonerDO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import api.MatchInfoDO;
+@Controller
+public class RiotGamesApiController {
 
-@RestController
-public class RiotGamesApiController<InfoDto> {
-
-    @Autowired
-    private MatchInfoService matchInfoService;
-
-    @PostMapping("/saveMatchInfo")
-    public String saveMatchInfo(@RequestBody MatchInfoDO matchInfo) {
-        long matchId = Long.parseLong(matchInfo.getMatchId());
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://kr.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=<API_KEY>";
-        ResponseEntity<InfoDto> response = restTemplate.getForEntity(url, InfoDto.class);
-        InfoDto infoDto = response.getBody();
-
-        MatchInfoDO savedMatchInfoDto = new MatchInfoDO();
-        savedMatchInfoDto.setMatchId(matchInfo.getMatchId());
-
-
-        return "redirect:/match-info/" + matchId;
+    @GetMapping("/search")
+    public String searchSummoner(@RequestParam("summonerName") String summonerName, Model model) {
+        try {
+            String summonerDO = RiotGamesAPIExample.summonerInfo(summonerName);
+            model.addAttribute("summonerDO", summonerDO);
+            return "summonerInfo";
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+            model.addAttribute("errorMessage", "소환사 정보를 가져오는 중 예외가 발생하였습니다.");
+            return "errorPage";
+        }
     }
+
 }
