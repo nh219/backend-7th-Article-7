@@ -9,26 +9,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import api.MatchInfoDO;
+
 @RestController
-public class RiotGamesApiController {
+public class RiotGamesApiController<InfoDto> {
 
     @Autowired
     private MatchInfoService matchInfoService;
 
     @PostMapping("/saveMatchInfo")
-    public String saveMatchInfo(@RequestBody MatchInfoDto matchInfo) {
+    public String saveMatchInfo(@RequestBody MatchInfoDO matchInfo) {
         long matchId = Long.parseLong(matchInfo.getMatchId());
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://kr.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=<API_KEY>";
         ResponseEntity<InfoDto> response = restTemplate.getForEntity(url, InfoDto.class);
         InfoDto infoDto = response.getBody();
 
-        MatchInfoDto savedMatchInfoDto = new MatchInfoDto();
+        MatchInfoDO savedMatchInfoDto = new MatchInfoDO();
         savedMatchInfoDto.setMatchId(matchInfo.getMatchId());
-        savedMatchInfoDto.setGameDuration(infoDto.getGameDuration());
-        savedMatchInfoDto.setParticipants(infoDto.getParticipants());
 
-        matchInfoService.saveMatchInfo(savedMatchInfoDto);
 
         return "redirect:/match-info/" + matchId;
     }
