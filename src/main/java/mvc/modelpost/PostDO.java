@@ -1,4 +1,4 @@
-package mvc.model;
+package mvc.modelpost;
 
 import java.util.Date;
 
@@ -14,7 +14,23 @@ public class PostDO {
 	private int likeNum;
 	private int dislikeNum;
 	private int notice;
+	private String keyword;
 	private Date post_date;
+	
+	public PostDO(int postId, String category, String title, int memberId, String content, int views, 
+				  int reportNum, int likeNum, int dislikeNum, int notice, Date post_date) {
+		this.postId = postId;
+		this.category = category;
+		this.title = title;
+		this.memberId = memberId;
+		this.content = content;
+		this.views = views;
+		this.reportNum = 0;
+		this.likeNum = 0;
+		this.dislikeNum = 0;
+		this.notice = 0;
+		this.post_date = post_date;
+	}
 	
 	public int getPostId() {
 		return postId;
@@ -84,6 +100,14 @@ public class PostDO {
 	}
 	public void setNotice(int notice) {
 		this.notice = notice;
+	}
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 	public Date getPost_date() {

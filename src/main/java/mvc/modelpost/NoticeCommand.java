@@ -1,17 +1,17 @@
-package mvc.model;
+package mvc.modelpost;
 
 public class NoticeCommand {
 
-	private int userId;
+	private int memberId;
 	private int postId;
 	private int notice;
 	
-	public int getUserId() {
-		return userId;
+	public int getMemberId() {
+		return memberId;
 	}
 	
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	
 	public int getPostId() {
