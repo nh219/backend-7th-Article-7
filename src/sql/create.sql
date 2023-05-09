@@ -14,15 +14,59 @@ DROP TABLE reply;
 DROP TABLE post;
 DROP TABLE member;
 DROP TABLE summoner;
+DROP TABLE match_info;
+DROP TABLE participant_info;
+
+CREATE TABLE participant_info (
+	match_id 						VARCHAR2(50) 			NOT NULL,
+    participant_id 					NUMBER(11) 				NOT NULL,
+    team_id							NUMBER(11)				NOT NULL,
+    summonername					VARCHAR2(50)			NOT NULL,
+    championName					VARCHAR2(50)			NOT NULL,
+    kills							NUMBER(11) 				NOT NULL,
+    deaths							NUMBER(11) 				NOT NULL,
+    assists							NUMBER(11) 				NOT NULL,
+    perk0							NUMBER(11) 				NOT NULL,
+    perk1							NUMBER(11) 				NOT NULL,
+    perk2							NUMBER(11) 				NOT NULL,
+    perk3							NUMBER(11) 				NOT NULL,
+    perk4							NUMBER(11) 				NOT NULL,
+    perk5							NUMBER(11) 				NOT NULL,
+    item0							NUMBER(11) 				NOT NULL,
+    item1							NUMBER(11) 				NOT NULL,
+    item2							NUMBER(11) 				NOT NULL,
+    item3							NUMBER(11) 				NOT NULL,
+    item4							NUMBER(11) 				NOT NULL,
+    item5							NUMBER(11) 				NOT NULL,
+    item6							NUMBER(11) 				NOT NULL,
+    PRIMARY KEY (match_id, participant_id),
+    FOREIGN KEY (match_id) REFERENCES match_info(match_id)
+);
+
+CREATE TABLE match_info (
+  match_id 					VARCHAR2(50) 			NOT NULL,
+  data_version 				VARCHAR2(50) 			DEFAULT NULL,
+  game_start_time_stamp 	NUMBER(20)				DEFAULT NULL,
+  game_duration				NUMBER(11) 				DEFAULT NULL,
+  game_type 				VARCHAR2(50) 			DEFAULT NULL,
+  game_mode 				VARCHAR2(50) 			DEFAULT NULL,
+  queue_id 					NUMBER(11) 				DEFAULT NULL,
+  map_id 					NUMBER(11) 				DEFAULT NULL,
+  is_red_team_win 			NUMBER(1) 				DEFAULT NULL,
+  PRIMARY KEY (match_id)
+);
+
+
+UPDATE summoner SET profile_icon_id = :new_profile_icon_id, revision_date = :new_revision_date, name = :new_name WHERE account_id = :account_id;
 
 CREATE TABLE summoner (
-    account_id VARCHAR2(56) CONSTRAINT summoner_account_id_pk PRIMARY KEY CONSTRAINT summoner_account_id_nn NOT NULL,
+    account_id 		VARCHAR2(56) 	CONSTRAINT summoner_account_id_pk PRIMARY KEY CONSTRAINT summoner_account_id_nn NOT NULL,
     profile_icon_id NUMBER(10),
-    revision_date NUMBER(19),
-    name VARCHAR2(30) CONSTRAINT summoner_name_nn NOT NULL,
-    id VARCHAR2(63) CONSTRAINT summoner_id_nn NOT NULL,
-    puuid VARCHAR2(78) CONSTRAINT summoner_puuid_nn NOT NULL,
-    summoner_level NUMBER(19)
+    revision_date   NUMBER(19),
+    name 		    VARCHAR2(30) 	CONSTRAINT summoner_name_nn NOT NULL,
+    id 			    VARCHAR2(63) 	CONSTRAINT summoner_id_uni UNIQUE CONSTRAINT summoner_id_nn NOT NULL,
+    puuid			VARCHAR2(78) 	CONSTRAINT summoner_puuid_uni UNIQUE CONSTRAINT summoner_puuid_nn NOT NULL,
+    summoner_level	NUMBER(19)
 );
 
 CREATE TABLE member (

@@ -7,7 +7,7 @@ public class SummonerDO {
 	private String name;
 	private String id;
 	private String puuid;
-	private int summonerLevel;
+	private long summonerLevel;
 
 	public String getPuuid() {
 		return puuid;
@@ -41,11 +41,11 @@ public class SummonerDO {
 		this.name = name;
 	}
 
-	public int getSummonerLevel() {
+	public long getSummonerLevel() {
 		return summonerLevel;
 	}
 
-	public void setSummonerLevel(int summonerLevel) {
+	public void setSummonerLevel(long summonerLevel) {
 		this.summonerLevel = summonerLevel;
 	}
 
