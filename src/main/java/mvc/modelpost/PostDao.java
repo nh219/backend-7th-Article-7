@@ -1,9 +1,14 @@
-package mvc.model;
+package mvc.modelpost;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PostDao {
+	
     private static int nextId = 0;
     private Map<Integer, PostDO> postMap;
 
@@ -20,10 +25,10 @@ public class PostDao {
         postMap.put(postDO.getPostId(), postDO);
     }
 
-    public void update(int postId, String content) {
-        PostDO postDO = postMap.get(postId);
+    public void update(PostDO postDO, String content) {
         if (postDO != null) {
             postDO.setContent(content);
+            postMap.put(postDO.getPostId(), postDO);
         }
     }
 
@@ -51,4 +56,16 @@ public class PostDao {
             postDO.setReportNum(postDO.getReportNum() + 1);
         }
     }
+    
+    public void notice(int postId) {
+        PostDO postDO = postMap.get(postId);
+        if (postDO != null) {
+            postDO.setNotice(1);
+        }
+    }
+
+    public Map<Integer, PostDO> getPostMap() {
+        return postMap;
+    }
+    
 }

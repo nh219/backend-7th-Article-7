@@ -1,21 +1,24 @@
-package mvc.model;
+package mvc.modelpost;
 
 public class PostReportCommand {
 
 	private int postId;
-	private int userId;
+	private int memberId;
 	
 	public int getPostId() {
 		return postId;
 	}
+	
 	public void setPostId(int postId) {
 		this.postId = postId;
 	}
-	public int getUserId() {
-		return userId;
+	
+	public int getMemberId() {
+		return memberId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	
 }

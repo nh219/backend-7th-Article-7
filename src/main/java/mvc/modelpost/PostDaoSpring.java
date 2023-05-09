@@ -1,27 +1,21 @@
-package mvc.model;
+package mvc.modelpost;
 
 import java.sql.*;
+import javax.sql.*;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class PostDaoSpring extends PostDao {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
+	private JdbcTemplate jdbcTemplate;
 	
-	public PostDaoSpring() {
-		String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
-		String jdbc_url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String user = "scott";
-		String pwd = "tiger";
-		
-		try {
-			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url, user, pwd);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+	public PostDaoSpring(DataSource dstm) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dstm);
 	}
-	
+
 	public void search(String keyword, String category) {
 	    String sql = "SELECT * FROM post WHERE ";
 	    if (category.equals("title")) {					// 제목 검색
@@ -59,7 +53,6 @@ public class PostDaoSpring extends PostDao {
 			}
 		}
 	}
-
 	
 	public void insert(PostDO postDO) {
 	    String sql = "INSERT INTO post (post_id, category, title, member_id, post_content) "
@@ -90,6 +83,7 @@ public class PostDaoSpring extends PostDao {
 
 	public void update(PostDO postDO) {
 	    String sql = "UPDATE post SET post_content=? WHERE post_id=?";
+	   
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, postDO.getContent());
@@ -208,5 +202,25 @@ public class PostDaoSpring extends PostDao {
 	    }
 	    return result;
 	}
-
+	
+	public void notice(PostDO postDO) {
+	    String sql = "UPDATE post SET notice = 1 WHERE post_id = ?";
+	    
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, postDO.getPostId());
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
 }
