@@ -14,14 +14,14 @@
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img src="lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="http://Teamluck.gg.com"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 
 		<div class="navi">
 			<nav>
 				<ul>
 					<li><a href="#">전적검색</a></li>
-					<li><a href="#">커뮤니티</a></li>
+					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
 					<li><a href="#">통합 인기글</a></li>
 					<li><a href="#">로그아웃</a></li>
 				</ul>
