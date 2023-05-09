@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
-	<link rel="stylesheet" href="/src/main/WEB-INF/views/register/join style.css">
+	<link rel="stylesheet" href="/mySpringWeb/res/css/join style.css">
 </head>
 
 <body>
