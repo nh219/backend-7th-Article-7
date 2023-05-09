@@ -19,7 +19,7 @@
 			<hr />
 			
 			<section id="container">
-				<form role="form" method="post" action="/board/write">
+				<form role="form" method="post" action="/post/write">
 					<table>
 						<tr><th>제목</th><th>작성자</th><th>등록일</th></tr>
 						
