@@ -18,12 +18,12 @@
 			<hr />
 			 
 			<nav>
-			  홈
+			  <a href="<c:url value='/main' />">홈</a>
 			</nav>
 			<hr />
 			
 			<section id="container">
-				<form:form action="postWrite" modelAttribute="formData" id="registerForm" method="POST">
+				<form:form action="postWriteProcess" modelAttribute="formData" id="registerForm" method="POST">
 					<table>
 						<tbody>
 							<tr>

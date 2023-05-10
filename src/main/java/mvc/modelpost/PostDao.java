@@ -88,6 +88,15 @@ public class PostDao {
     	postDO.setPostId(++PostDao.nextId);
 		
 		posts.put(postDO.getPostId(), postDO);
+	}
+    
+    public void update(PostDO postDO) {
 		
+    	posts.put(postDO.getPostId(), postDO);
+	}
+
+	public void delete(PostDO postDO) { 	
+		
+		posts.put(postDO.getPostId(), postDO);
 	}
 }

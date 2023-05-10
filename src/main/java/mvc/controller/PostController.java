@@ -131,7 +131,7 @@ public class PostController {
 		return view;
  	}
     
-    @PostMapping("/post/postWrite")	 
+    @PostMapping("/post/postWriteProcess")	 
 	public String handleStep3(@ModelAttribute("formData") PostRegistCommand regReq, Model model) {
 		String view = "redirect:/post/postListTest";
 		

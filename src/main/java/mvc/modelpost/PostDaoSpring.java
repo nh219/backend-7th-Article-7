@@ -274,4 +274,18 @@ public class PostDaoSpring extends PostDao {
 		Number keyValue = keyHolder.getKey();
 		postDO.setPostId(keyValue.longValue());
 	}
+	
+	@Override
+	public void update(PostDO postDO) {		// 매개변수로 오는 멤버는 변경된 정볼르 담고 있는 멤버.
+		sql = "UPDATE post SET title=?, post_content=? WHERE post_id=?";
+		jdbcTemplate.update(sql, postDO.getTitle(), postDO.getContent(), postDO.getPostId());
+		
+	}
+	
+	@Override
+	public void delete(PostDO postDO) {
+		sql = "delete from post WHERE post_id=?";
+		jdbcTemplate.update(sql, postDO.getPostId());
+		
+	}
 }

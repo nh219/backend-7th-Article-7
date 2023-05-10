@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
 	<head>
 	 	<title>게시판</title>
@@ -14,9 +14,9 @@
 			<hr />
 			 
 			<nav>
-			  <a href="<c:url value='/main' />">홈</a></li>
+			  <a href="<c:url value='/main' />">홈</a>
 			   -
-			  <a href="<c:url value='/post/postWriteTest' />">글 작성</a></li>
+			  <a href="<c:url value='/post/postWriteTest' />">글 작성</a>
 			</nav>
 			<hr />
 			

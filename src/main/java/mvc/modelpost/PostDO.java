@@ -121,5 +121,4 @@ public class PostDO {
 	public void setPostRegistTime(Date postRegistTime) {
 		this.postRegistTime = postRegistTime;
 	}
-		
 }
