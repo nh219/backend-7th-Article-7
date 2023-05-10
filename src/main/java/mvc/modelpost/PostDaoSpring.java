@@ -8,7 +8,12 @@ import javax.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
+import mvc.model.Member;
+import mvc.model.MemberPreparedStatementCreator;
+import mvc.model.MemberRowMapper;
 import mvc.modelpost.PostDO;
 import mvc.modelpost.PostRowMapper;
 
@@ -23,7 +28,7 @@ public class PostDaoSpring extends PostDao {
 	public PostDaoSpring(DataSource dstm) {
 		jdbcTemplate = new JdbcTemplate(dstm);
 	}
-
+	/*
 	public void search(String keyword, String category) {
 	    String sql = "SELECT * FROM post WHERE ";
 	    if (category.equals("title")) {					// 제목 검색
@@ -230,7 +235,7 @@ public class PostDaoSpring extends PostDao {
 	        }
 	    }
 	}
-	
+	*/
 	@Override
 	public List<PostDO> listByCategory(String category) {
     	List<PostDO> list = null;
@@ -246,4 +251,27 @@ public class PostDaoSpring extends PostDao {
 		return list;
     }
 	
+	@Override
+	public PostDO searchById(long postId) {
+		this.sql = "select * from post where post_id = ?";
+		PostDO postDO = null;
+		
+		try {
+			postDO = jdbcTemplate.queryForObject(this.sql, new PostRowMapper(), postId);
+		}
+		catch(EmptyResultDataAccessException e) {
+
+		}
+		
+		return postDO;
+	}
+	
+	@Override
+	public void insert(PostDO postDO) {		// 매개변수로 오는 멤버는 새로운 멤버.
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PostPreparedStatementCreator(postDO, new String[] {"POST_ID"}), keyHolder);
+		
+		Number keyValue = keyHolder.getKey();
+		postDO.setPostId(keyValue.longValue());
+	}
 }

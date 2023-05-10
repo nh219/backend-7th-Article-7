@@ -14,7 +14,9 @@
 			<hr />
 			 
 			<nav>
-			  홈 - 글 작성
+			  <a href="<c:url value='/main' />">홈</a></li>
+			   -
+			  <a href="<c:url value='/post/postWriteTest' />">글 작성</a></li>
 			</nav>
 			<hr />
 			
@@ -25,8 +27,10 @@
 						
 						<c:forEach items="${list}" var = "list">
 							<tr>
-								<td><c:out value="${list.title}" /></td>
-								<td><c:out value="${list.nickname}" /></td>
+								<td>
+								<a href="<c:url value='/post/postReadTest?postId=${list.postId}'/>">${list.title}</a>
+								</td>
+								<td>${list.nickname}</td>
 								<td><fmt:formatDate value="${list.postRegistTime}" type="both"/></td>
 							</tr>
 						</c:forEach>

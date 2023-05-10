@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import mvc.model.Member;
+import mvc.model.MemberDao;
+
 @Repository
 public class PostDao {
 	
@@ -16,7 +19,8 @@ public class PostDao {
     public PostDao() {
         this.posts = new HashMap<>();
     }
-
+    
+    /*
     public PostDO search(long postId) {
         return posts.get(postId);
     }
@@ -68,6 +72,7 @@ public class PostDao {
     public Map<Long, PostDO> getPostMap() {
         return posts;
     }
+    */
     
     public List<PostDO> listByCategory(String category) {
     	List<PostDO> list = null;
@@ -75,4 +80,14 @@ public class PostDao {
 		return list;
     }
     
+    public PostDO searchById(long postId) {
+        return posts.get(postId);
+    }
+    
+    public void insert(PostDO postDO) {
+    	postDO.setPostId(++PostDao.nextId);
+		
+		posts.put(postDO.getPostId(), postDO);
+		
+	}
 }

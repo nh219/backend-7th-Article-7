@@ -41,6 +41,15 @@ public class MvcConfig implements WebMvcConfigurer{
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postListTest
 		registry.addViewController("/post/postListTest").setViewName("/post/postListTest");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/postReadTest
+		registry.addViewController("/post/postReadTest").setViewName("/post/postReadTest");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/postWriteTest
+		registry.addViewController("/post/postWriteTest").setViewName("/post/postWriteTest");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/postWrite
+		registry.addViewController("/post/postWrite").setViewName("/post/postWrite");
 	}
 	
 }

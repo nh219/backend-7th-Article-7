@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import mvc.exception.DuplicateMemberException;
 import mvc.model.MemberService;
+import mvc.model.RegistCommand;
 import mvc.modelpost.*;;
 
 @Controller
@@ -118,4 +120,23 @@ public class PostController {
 		
 		return view;
  	}
+    
+    @GetMapping("/post/postReadTest")
+	public String read(PostDO postDO, Model model) throws Exception{
+		String view = "";
+		view = "/post/postReadTest";
+		
+		model.addAttribute("read", postService.findPostById(postDO.getPostId()));
+		
+		return view;
+ 	}
+    
+    @PostMapping("/post/postWrite")	 
+	public String handleStep3(@ModelAttribute("formData") PostRegistCommand regReq, Model model) {
+		String view = "redirect:/post/postListTest";
+		
+		postService.regist(regReq);
+		
+		return view;
+	}
 }

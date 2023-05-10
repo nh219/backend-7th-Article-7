@@ -22,7 +22,7 @@ public class PostDO {
 		
 	}
 	
-	public PostDO(int postId, String category, String title, String nickname, String content, int views, 
+	public PostDO(long postId, String category, String title, String nickname, String content, int views, 
 				  int reportNum, int likeNum, int dislikeNum, int notice, Date postRegistTime) {
 		this.postId = postId;
 		this.category = category;
