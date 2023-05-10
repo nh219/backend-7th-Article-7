@@ -1,29 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 
 <html lang="ko">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
-	<link rel="stylesheet" href="../WebContent/community style copy.css">
+ 		<link rel="stylesheet" href="../WebContent/write style copy.css">
 </head>
 <body>
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="http://Teamluck.gg.com"><img src="lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="#">전적검색</a></li>
+					<li><a href="<c:url value='/main' />">홈</a></li>
+<%-- 				<li><a href="<c:url value='/" />전적검색</a></li> --%>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
-					<li><a href="#">로그아웃</a></li>
+					<li><a href="<c:url value='/post/crawlPost' />">통합 인기글</a></li>
+					<li><a href="<c:url value='/main' />">로그아웃</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -44,7 +47,7 @@
 				</div>
 
 				<!-- 콘텐츠 영역 -->
-			    <div class="content1">
+                <div class="content1">
                     <div class="sidebar" style>
                         <div class="sidebar__inner" style="position: relative; transform: translate3d(0px, 0px, 0px);">
                             <div class="sidebar-content-wrap">
@@ -91,66 +94,37 @@
                     </div>
                 </div>
                 <div class="board-wrapper">
-                    <div class="board-header">
-                        <div class="sort-buttons">
-                            <button class="btn-popular">인기순</button>
-                            <button class="btn-latest">최신순</button>
-                        </div>
-                        <div class="board-search">
-                          <form action="" method="GET">
-                            <select name="search-option">
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                            </select>
-                            <input type="text" name="search" placeholder="검색어를 입력하세요">
-                            <button type="submit">검색</button>
-                          </form>
-                        </div>
                         <div class="board-write">
-                          <a href="#">글쓰기</a>
+                            <form:form action="postWriteProcess" modelAttribute="formData" id="registerForm" method="post">
+                              <div>
+                                <label for="category">카테고리:</label>
+                                <select id="category" name="category">
+                                  <option value="free">자유</option>
+                                  <option value="vote">투표 피드백</option>
+                                  <option value="recruitment">파티 구함</option>
+                                  <option value="combine">통합 인기 게시판</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label for="title">제목:</label>
+                                <input type="text" id="title" name="title">
+                              </div>
+                              <div>
+                                <label for="image">이미지:</label>
+                                <input type="file" id="image" name="image">
+                              </div>
+                              <div>
+                              	<label for="nickname">작성자</label>
+                              	<input type="text" id="nickname" name="nickname" value="${auth.nickname}"/>
+                              </div>
+                              <div>
+                                <label for="content">내용:</label>
+                                <textarea id="content" name="content"></textarea>
+                              </div>
+                              <button type="submit">작성</button>
+                            </form:form>
                         </div>
-                      </div>
-
-                    <div class="board-list">
-                        <div class="board-item">
-                            <div class="board-title">글 제목1</div>
-                            <div class="board-author">글쓴이1</div>
-                            <div class="board-date">작성일1</div>
-                        </div>
-                        <div class="board-item">
-                            <div class="board-title">글 제목2</div>
-                            <div class="board-author">글쓴이2</div>
-                            <div class="board-date">작성일2</div>
-                        </div>
-                        <div class="board-item">
-                            <div class="board-title">글 제목3</div>
-                            <div class="board-author">글쓴이3</div>
-                            <div class="board-date">작성일3</div>
-                        </div>
-                        <div class="board-item">
-                            <div class="board-title">글 제목4</div>
-                            <div class="board-author">글쓴이4</div>
-                            <div class="board-date">작성일4</div>
-                        </div>
-                        <div class="board-item">
-                            <div class="board-title">글 제목5</div>
-                            <div class="board-author">글쓴이5</div>
-                            <div class="board-date">작성일5</div>
-                        </div>
-                        <div class="board-item">
-                            <div class="board-title">글 제목6</div>
-                            <div class="board-author">글쓴이6</div>
-                            <div class="board-date">작성일6</div>
-                        </div>
-                        <!-- 추가로 글 목록을 생성하면 됩니다. -->
-                        <div class="board-footer">
-                            <div class="board-paging">
-                              <a href="#" class="prev">이전</a>
-                              <a href="#" class="next">다음</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  </div>
                 
                 <div class="ADbanner right">
                     <img src="banner_right.png" alt="Banner Right">
@@ -160,4 +134,3 @@
 </body>
 
 </html>
-

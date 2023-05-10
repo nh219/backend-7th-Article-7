@@ -2,70 +2,102 @@ package mvc.modelpost;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import mvc.model.Member;
+import mvc.model.MemberDao;
+
 @Repository
 public class PostDao {
 	
-    private static int nextId = 0;
-    private Map<Integer, PostDO> postMap;
+    private static long nextId = 0;
+    private Map<Long, PostDO> posts;
 
     public PostDao() {
-        this.postMap = new HashMap<>();
+        this.posts = new HashMap<>();
     }
-
-    public PostDO search(int postId) {
-        return postMap.get(postId);
+    
+    /*
+    public PostDO search(long postId) {
+        return posts.get(postId);
     }
 
     public void insert(PostDO postDO) {
         postDO.setPostId(++nextId);
-        postMap.put(postDO.getPostId(), postDO);
+        posts.put(postDO.getPostId(), postDO);
     }
 
     public void update(PostDO postDO, String content) {
         if (postDO != null) {
             postDO.setContent(content);
-            postMap.put(postDO.getPostId(), postDO);
+            posts.put(postDO.getPostId(), postDO);
         }
     }
 
     public void delete(PostDO postDO) {
-        postMap.remove(postDO.getPostId());
+    	posts.remove(postDO.getPostId());
     }
 
-    public void recommend(int postId) {
-        PostDO postDO = postMap.get(postId);
+    public void recommend(long postId) {
+        PostDO postDO = posts.get(postId);
         if (postDO != null) {
             postDO.setLikeNum(postDO.getLikeNum() + 1);
         }
     }
 
-    public void unrecommend(int postId) {
-        PostDO postDO = postMap.get(postId);
+    public void unrecommend(long postId) {
+        PostDO postDO = posts.get(postId);
         if (postDO != null) {
             postDO.setDislikeNum(postDO.getDislikeNum() + 1);
         }
     }
 
-    public void report(int postId) {
-        PostDO postDO = postMap.get(postId);
+    public void report(long postId) {
+        PostDO postDO = posts.get(postId);
         if (postDO != null) {
             postDO.setReportNum(postDO.getReportNum() + 1);
         }
     }
     
-    public void notice(int postId) {
-        PostDO postDO = postMap.get(postId);
+    public void notice(long postId) {
+        PostDO postDO = posts.get(postId);
         if (postDO != null) {
             postDO.setNotice(1);
         }
     }
 
-    public Map<Integer, PostDO> getPostMap() {
-        return postMap;
+    public Map<Long, PostDO> getPostMap() {
+        return posts;
+    }
+    */
+    
+    public List<PostDO> listByCategory(String category) {
+    	List<PostDO> list = null;
+    	
+		return list;
     }
     
+    public PostDO searchById(long postId) {
+        return posts.get(postId);
+    }
+    
+    public void insert(PostDO postDO) {
+    	postDO.setPostId(++PostDao.nextId);
+		
+		posts.put(postDO.getPostId(), postDO);
+	}
+    
+    public void update(PostDO postDO) {
+		
+    	posts.put(postDO.getPostId(), postDO);
+	}
+
+	public void delete(PostDO postDO) { 	
+		
+		posts.put(postDO.getPostId(), postDO);
+	}
+	
 }

@@ -2,17 +2,11 @@ package mvc.modelpost;
 
 public class PostRegistCommand {
 
-	private int memberId;
+	private long postId;
+//	private String category;
 	private String title;
+	private String nickname;
 	private String content;
-	
-	public int getMemberId() {
-		return memberId;
-	}
-	
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
-	}
 	
 	public String getTitle() {
 		return title;
@@ -28,6 +22,22 @@ public class PostRegistCommand {
 	
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(long postId) {
+		this.postId = postId;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 }
