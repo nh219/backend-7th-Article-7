@@ -60,4 +60,24 @@ public class MemberDaoSpring extends MemberDao{
 		jdbcTemplate.update(sql, member.getEmail());
 		
 	}
+	
+	@Override
+	public int nameChk(String nickname){
+		int result = 0;
+		this.sql = "select * from member where nickname = ?";
+		Member member = null;
+		
+		try {
+			member = jdbcTemplate.queryForObject(this.sql, new MemberRowMapper(), nickname);
+		}
+		catch(EmptyResultDataAccessException e) {
+			// throw new MemberNotFoundException();
+		}
+		
+		if(member != null) {
+			result = 1;
+		}
+		
+		return result;
+	}
 }

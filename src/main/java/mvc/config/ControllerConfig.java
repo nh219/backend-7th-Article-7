@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import mvc.controller.MemberController;
+import mvc.controller.PostController;
 import mvc.controller.RegisterController;
 import mvc.model.MemberRegisterService;
 
@@ -29,5 +30,10 @@ public class ControllerConfig {
 	@Bean
 	public MemberController memberController() {
 		return new MemberController();
+	}
+	
+	@Bean
+	public PostController postController() {
+		return new PostController();
 	}
 }

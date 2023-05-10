@@ -40,6 +40,7 @@
   		<param-value>
   			mvc.config.MvcConfig
   			mvc.config.MemberConfig
+  			mvc.config.PostConfig
   			mvc.config.ControllerConfig
   		</param-value>
   	</init-param>

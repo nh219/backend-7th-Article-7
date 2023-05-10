@@ -36,6 +36,12 @@ public class MemberUpdateService {
 		
 		member.changePassword(command.getPassword(), command.getNewPassword());
 		memberDao.update(member);
-		
 	}
+	
+	@Transactional
+	public void memberWithdrawal(Member member) {
+		
+		memberDao.delete(member);
+	}
+	
 }

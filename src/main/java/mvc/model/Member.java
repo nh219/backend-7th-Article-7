@@ -11,6 +11,7 @@ public class Member {
 	private String password;
 	private String nickname;
 	private LocalDateTime registerDateTime;
+	private boolean admin;
 	
 	public Member() {
 		
@@ -61,6 +62,14 @@ public class Member {
 
 	public LocalDateTime getRegisterDateTime() {
 		return registerDateTime;
+	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 	public void changePassword(String oldPassword, String newPassword) {

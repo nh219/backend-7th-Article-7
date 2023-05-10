@@ -21,6 +21,13 @@ public class MemberService {
 		return result;
 	}
 	
+	public int nameCheck(String nickname) throws Exception {
+		int result = 0;
+		result = memberDao.nameChk(nickname);
+		
+		return result;
+	}
+	
 	public Member findMember(String email) {
 		return memberDao.selectByEmail(email);
 	}
