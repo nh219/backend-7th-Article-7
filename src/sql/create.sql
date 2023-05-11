@@ -28,7 +28,7 @@ CREATE TABLE post (
     category        VARCHAR2(8)     CONSTRAINT post_catagory_nn NOT NULL 
                                     CONSTRAINT post_category_ck CHECK(category IN('free','party','feedback','scrim')),
     title           VARCHAR2(150)   CONSTRAINT post_title_nn NOT NULL,
-    nickname        VARCHAR2(30)    CONSTRAINT post_nicknamed_nn NOT NULL 
+    nickname        VARCHAR2(30)    CONSTRAINT post_nickname_nn NOT NULL 
                                     CONSTRAINT post_nickname_fk REFERENCES member(nickname),
     post_date       DATE            DEFAULT sysdate,
     post_content    VARCHAR2(4000)  CONSTRAINT post_post_content_nn NOT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE post (
 
 CREATE TABLE reply (
     reply_id        NUMBER(6)       CONSTRAINT reply_reply_it_pk PRIMARY KEY CONSTRAINT reply_reply_id_nn NOT NULL,
-    member_id       NUMBER(6)       CONSTRAINT reply_member_id_nn NOT NULL 
-                                    CONSTRAINT reply_member_id_fk REFERENCES member(member_id),
+    nickname        VARCHAR2(30)    CONSTRAINT reply_nickname_nn NOT NULL 
+                                    CONSTRAINT reply_nickname_fk REFERENCES member(nickname),
     reply_date      DATE            DEFAULT sysdate,
     reply_content   VARCHAR2(1000)  CONSTRAINT reply_reply_content_nn NOT NULL,
     parents_reply_id NUMBER(6)      CONSTRAINT reply_parents_reply_id_nn NOT NULL

@@ -23,6 +23,9 @@ public class PostController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private PostUpdateService postUpdateService;
 	  
 //    @Autowired
 //    private PostDao postDao;
@@ -132,11 +135,41 @@ public class PostController {
  	}
     
     @PostMapping("/post/postWriteProcess")	 
-	public String handleStep3(@ModelAttribute("formData") PostRegistCommand regReq, Model model) {
+	public String writeProcess(@ModelAttribute("formData") PostRegistCommand regReq, Model model) {
 		String view = "redirect:/post/postListTest";
 		
 		postService.regist(regReq);
 		
 		return view;
 	}
+    
+    @GetMapping("/post/postUpdateTest")
+	public String update(PostDO postDO, Model model) throws Exception{
+		String view = "";
+		view = "/post/postUpdateTest";
+		
+		model.addAttribute("update", postService.findPostById(postDO.getPostId()));
+		
+		return view;
+ 	}
+    
+    @PostMapping("/post/postUpdateProcess")
+   	public String updateProcess(PostDO postDO) throws Exception{
+   		String view = "";
+   		view = "redirect:/post/postListTest";
+   		
+   		postUpdateService.postUpdate(postDO);
+   		
+   		return view;
+    }
+    
+    @PostMapping("/post/postDeleteProcess")
+   	public String deleteProcess(PostDO postDO) throws Exception{
+   		String view = "";
+   		view = "redirect:/post/postListTest";
+   		
+   		postUpdateService.postDelete(postDO);
+   		
+   		return view;
+    }
 }

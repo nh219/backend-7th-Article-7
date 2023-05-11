@@ -23,7 +23,7 @@
 			<hr />
 			
 			<section id="container">
-				<form:form action="postWriteProcess" modelAttribute="formData" id="registerForm" method="POST">
+				<form:form action="postWriteProcess" modelAttribute="formData" id="registerForm">
 					<table>
 						<tbody>
 							<tr>

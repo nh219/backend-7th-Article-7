@@ -4,8 +4,36 @@
 
 <html>
 	<head>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	<title>게시판</title>
 	</head>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var formObj = $("form[name='readForm']");
+			
+			// 수정 
+			$(".update_btn").on("click", function(){
+				formObj.attr("action", "/backend-7th-Article-7/post/postUpdateTest");
+				formObj.attr("method", "get");
+				formObj.submit();				
+			})
+			
+			// 삭제
+			$(".delete_btn").on("click", function(){
+				formObj.attr("action", "/backend-7th-Article-7/post/postDeleteProcess");
+				formObj.attr("method", "post");
+				formObj.submit();
+			})
+			
+			// 취소
+			$(".list_btn").on("click", function(){
+				
+				location.href = "/backend-7th-Article-7/post/postListTest";
+			})
+		})
+	</script>
+	
 	<body>
 	
 		<div id="root">
@@ -16,33 +44,28 @@
 			 
 			<nav>
 				<a href="<c:url value='/main' />">홈</a></li>
-				-
-				<a href="<c:url value='/post/postUpdateTest' />">글 수정</a>
 			</nav>
 			<hr />
 			
 			<section id="container">
-				<form role="form" method="post">
+				<form name="readForm" role="form" method="post">
+					<input type="hidden" id="postId" name="postId" value="${read.postId}" />
+				</form>
 					<table>
-						<tbody>
+						<tbody>	
 							<tr>
 								<td>
-									<label for="postId">글 번호</label><input type="text" id="postId" name="postId" value="${read.postId}" disabled/>
+									<label for="title">제목</label><input type="text" id="title" name="title" value="${read.title}" readonly="readonly" />
 								</td>
 							</tr>	
 							<tr>
 								<td>
-									<label for="title">제목</label><input type="text" id="title" name="title" value="${read.title}" disabled />
-								</td>
-							</tr>	
-							<tr>
-								<td>
-									<label for="content">내용</label><textarea id="content" name="content" readonly><c:out value="${read.content}"/></textarea>
+									<label for="content">내용</label><textarea id="content" name="content" readonly="readonly"><c:out value="${read.content}"/></textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="nickname">작성자</label><input type="text" id="nickname" name="nickname" value="${read.nickname}" disabled/>
+									<label for="nickname">작성자</label><input type="text" id="nickname" name="nickname" value="${read.nickname}" readonly="readonly"/>
 								</td>
 							</tr>
 							<tr>
@@ -53,7 +76,11 @@
 							</tr>		
 						</tbody>			
 					</table>
-				</form>
+				<div>
+					<button type="submit" class="update_btn">수정</button>
+					<button type="submit" class="delete_btn">삭제</button>
+					<button type="submit" class="list_btn">목록</button>	
+				</div>
 			</section>
 			<hr />
 		</div>

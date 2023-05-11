@@ -15,17 +15,17 @@ public class PostUpdateService {
 	}
 	
 	@Transactional
-	public void memberUpdate(PostUpdateCommand command) {
-		PostDO postDO = postDao.searchById(command.getPostId());
+	public void postUpdate(PostDO postDO) {
+		PostDO updatedPostDO = postDao.searchById(postDO.getPostId());
 		
-		postDO.setTitle(command.getTitle());
-		postDO.setContent(command.getContent());
+		updatedPostDO.setTitle(postDO.getTitle());
+		updatedPostDO.setContent(postDO.getContent());
 		
-		postDao.update(postDO);
+		postDao.update(updatedPostDO);
 	}
 	
 	@Transactional
-	public void memberWithdrawal(PostDO postDO) {
+	public void postDelete(PostDO postDO) {
 		
 		postDao.delete(postDO);
 	}

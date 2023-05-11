@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import mvc.model.MemberDaoSpring;
 import mvc.model.MemberService;
+import mvc.model.MemberUpdateService;
 import mvc.modelpost.*;
 
 @Configuration
@@ -47,6 +48,14 @@ public class PostConfig {
     @Bean
    	public PostService postSvc() {
    		return new PostService(this.postDao());
+   	}
+    
+    @Bean
+   	public PostUpdateService postUpdateSvc() {
+    	PostUpdateService postUpdateSvc = new PostUpdateService();
+    	postUpdateSvc.setPostDao(this.postDao());
+    	
+   		return postUpdateSvc;
    	}
     
     @Bean

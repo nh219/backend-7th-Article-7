@@ -267,7 +267,7 @@ public class PostDaoSpring extends PostDao {
 	}
 	
 	@Override
-	public void insert(PostDO postDO) {		// 매개변수로 오는 멤버는 새로운 멤버.
+	public void insert(PostDO postDO) {	
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PostPreparedStatementCreator(postDO, new String[] {"POST_ID"}), keyHolder);
 		
@@ -276,7 +276,7 @@ public class PostDaoSpring extends PostDao {
 	}
 	
 	@Override
-	public void update(PostDO postDO) {		// 매개변수로 오는 멤버는 변경된 정볼르 담고 있는 멤버.
+	public void update(PostDO postDO) {	
 		sql = "UPDATE post SET title=?, post_content=? WHERE post_id=?";
 		jdbcTemplate.update(sql, postDO.getTitle(), postDO.getContent(), postDO.getPostId());
 		
@@ -284,7 +284,7 @@ public class PostDaoSpring extends PostDao {
 	
 	@Override
 	public void delete(PostDO postDO) {
-		sql = "delete from post WHERE post_id=?";
+		sql = "delete from post where post_id=?";
 		jdbcTemplate.update(sql, postDO.getPostId());
 		
 	}
