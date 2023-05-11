@@ -32,7 +32,6 @@ CREATE TABLE post (
                                     CONSTRAINT post_nickname_fk REFERENCES member(nickname),
     post_date       DATE            DEFAULT sysdate,
     post_content    VARCHAR2(4000)  CONSTRAINT post_post_content_nn NOT NULL,
-    views           NUMBER(6)       DEFAULT 0,
     report_num      NUMBER(3)       DEFAULT 0,
     like_num        NUMBER(5)       DEFAULT 0,
     dislike_num     NUMBER(5)       DEFAULT 0,
@@ -46,8 +45,7 @@ CREATE TABLE reply (
                                     CONSTRAINT reply_nickname_fk REFERENCES member(nickname),
     reply_date      DATE            DEFAULT sysdate,
     reply_content   VARCHAR2(1000)  CONSTRAINT reply_reply_content_nn NOT NULL,
-    parents_reply_id NUMBER(6)      CONSTRAINT reply_parents_reply_id_nn NOT NULL
-                                    CONSTRAINT reply_parents_reply_id_fk REFERENCES reply(reply_id),
+    parents_reply_id NUMBER(6)      CONSTRAINT reply_parents_reply_id_fk REFERENCES reply(reply_id),
     post_id         NUMBER(6)       CONSTRAINT reply_post_id_nn NOT NULL
                                     CONSTRAINT reply_post_id_fk REFERENCES post(post_id),
     report_num      NUMBER(3)       DEFAULT 0,
