@@ -14,7 +14,7 @@
 	<title>게시판</title>
 </head>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		$(document).ready(function(){
 			var formObj = $("form[name='readForm']");
 			
@@ -34,6 +34,7 @@
 			
 			// 취소
 			$(".list_btn").on("click", function(){
+				
 				location.href = "/backend-7th-Article-7/post/postListTest";
 			})
 		})
@@ -106,71 +107,74 @@
 						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="post-header">
-						<span class="category">[카테고리]
-						</span>
-							<label for="title">제목</label><input type="text" id="title" name="title" value="${read.title}" readonly="readonly" />
-						<div class="post-info">
-							<span clss="postid"> <label for="postId">글 번호</label><input
-								type="text" id="postId" name="postId" value="${read.postId}"
-								disabled />
-							</span> 
-							<span class="author">
-								<label for="nickname">작성자</label><input type="text" id="nickname" name="nickname" value="${read.nickname}" readonly="readonly"/>
-							</span> 
-							<span class="date"> 
-								<label for="postRegistTime">작성날짜</label>
-								<fmt:formatDate value="${read.postRegistTime}" type="both"/>
-							</span> 
-							<span class="views">조회수</span>
-						</div>
-					</div>
-					<div class="post-content">
-						<p>
-							<label for="content">내용</label>
-							<textarea id="content" name="content" readonly="readonly" required><c:out value="${read.content}"/></textarea>
-						</p>
-						<button class="report">신고</button>
-						<button class="edit"
-							onclick="location.href='./postUpdateTest.jsp'">수정</button>
-						<button type="submit" class="delete_btn">삭제</button>
-						<button class="like">추천</button>
-						<button class="dislike">비추천</button>
-						<button type="submit" class="list_btn">목록</button>
-					</div>
-					<div class="comment-section">
-						<form class="comment-form">
-							<input type="text" placeholder="댓글을 입력하세요">
-							<button type="submit">댓글 작성</button>
-						</form>
-						<div class="comment-list">
-							<div class="comment">
-								<div class="comment-header">
-									<span class="author">작성자 닉네임</span> <span class="date">작성일자</span>
-									<button class="report">신고</button>
-									<button class="like">추천</button>
-									<button class="dislike">비추천</button>
-								</div>
-								<div class="comment-content">
-									<p>댓글 내용</p>
-								</div>
-								<button class="reply">리댓글 쓰기</button>
-							</div>
-							<div class="reply">
-								<div class="comment-header">
-									<span class="author">작성자 닉네임</span> <span class="date">작성일자</span>
-									<button class="report">신고</button>
-									<button class="like">추천</button>
-									<button class="dislike">비추천</button>
-								</div>
-								<div class="comment-content">
-									<p>리댓글 내용</p>
-								</div>
+				<section id="container">
+					<form name="readForm" role="form" method="post">
+						<input type="hidden" id="postId" name="postId" value="${read.postId}" />
+					</form>
+						<div class="post-header">
+							<span class="category">[카테고리]
+							</span>
+								<label for="title">제목</label><input type="text" id="title" name="title" value="${read.title}" readonly="readonly" />
+							<div class="post-info">
+								<span clss="postid"> <label for="postId">글 번호</label><input
+									type="text" id="postId" name="postId" value="${read.postId}"
+									disabled />
+								</span> 
+								<span class="author">
+									<label for="nickname">작성자</label><input type="text" id="nickname" name="nickname" value="${read.nickname}" readonly="readonly"/>
+								</span> 
+								<span class="date"> 
+									<label for="postRegistTime">작성날짜</label>
+									<fmt:formatDate value="${read.postRegistTime}" type="both"/>
+								</span> 
+								<span class="views">조회수</span>
 							</div>
 						</div>
+						<div class="post-content">
+							<p>
+								<label for="content"></label>
+								<textarea id="content" name="content" readonly="readonly" style="resize: none;"><c:out value="${read.content}"/></textarea>
+							</p>
+							<button class="report">신고</button>
+							<button type="submit" class="update_btn">수정</button>
+							<button type="submit" class="delete_btn">삭제</button>
+							<button class="like">추천</button>
+							<button class="dislike">비추천</button>
+							<button type="submit" class="list_btn">목록</button>
+						</div>
+						<div class="comment-section">
+							<form class="comment-form">
+								<input type="text" placeholder="댓글을 입력하세요">
+								<button type="submit">댓글 작성</button>
+							</form>
+							<div class="comment-list">
+								<div class="comment">
+									<div class="comment-header">
+										<span class="author">작성자 닉네임</span> <span class="date">작성일자</span>
+										<button class="report">신고</button>
+										<button class="like">추천</button>
+										<button class="dislike">비추천</button>
+									</div>
+									<div class="comment-content">
+										<p>댓글 내용</p>
+									</div>
+									<button class="reply">리댓글 쓰기</button>
+								</div>
+								<div class="reply">
+									<div class="comment-header">
+										<span class="author">작성자 닉네임</span> <span class="date">작성일자</span>
+										<button class="report">신고</button>
+										<button class="like">추천</button>
+										<button class="dislike">비추천</button>
+									</div>
+									<div class="comment-content">
+										<p>리댓글 내용</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
+				</section>
 
 				<div class="ADbanner right">
 					<img src="banner_right.png" alt="Banner Right">

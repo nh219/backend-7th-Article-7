@@ -23,7 +23,7 @@
 			<nav>
 				<ul>
 					<li><a href="<c:url value='/main' />">홈</a></li>
-<%-- 				<li><a href="<c:url value='/" />전적검색</a></li> --%>
+				<%--<li><a href="<c:url value='/" />전적검색</a></li> --%>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
 					<li><a href="<c:url value='/post/crawlPost' />">통합 인기글</a></li>
 					<li><a href="<c:url value='/main' />">로그아웃</a></li>
