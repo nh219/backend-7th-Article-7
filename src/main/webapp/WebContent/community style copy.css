@@ -1,8 +1,12 @@
+
+
 /* 전체적인 스타일 */
 * {
-    margin: 0;
+	font-family: 'Roboto', sans-serif;    
+	margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -93,7 +97,7 @@ nav ul li a:hover {
     background-color: #fff;
     display: flex;
     height: 700px;
-    width: 100px
+    width: 100px;
     border: 1px solid white;
     float: right;
     border-radius: 5px;
@@ -118,7 +122,7 @@ nav ul li a:hover {
     margin-right: 2%;
     width:15%;
     height: 500px;
-    width: 100px
+    width: 100px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);

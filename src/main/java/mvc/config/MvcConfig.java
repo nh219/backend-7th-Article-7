@@ -40,13 +40,13 @@ public class MvcConfig implements WebMvcConfigurer{
 		registry.addViewController("/post/community").setViewName("/post/community");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postListTest
-		registry.addViewController("/post/postListTest").setViewName("/post/postListTest");
+		registry.addViewController("/post/community").setViewName("/post/community");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postReadTest
-		registry.addViewController("/post/postReadTest").setViewName("/post/postReadTest");
+		registry.addViewController("/post/postContent").setViewName("/post/postContent");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postWriteTest
-		registry.addViewController("/post/postWriteTest").setViewName("/post/postWriteTest");
+		registry.addViewController("/post/postRegist").setViewName("/post/postRegist");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postWriteProcess
 		registry.addViewController("/post/postWriteProcess").setViewName("/post/postWriteProcess");

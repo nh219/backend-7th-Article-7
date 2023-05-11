@@ -11,9 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판 홈</title>
 <link rel="stylesheet" href="../WebContent/community style copy.css">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-</style>
 </head>
 
 <body>

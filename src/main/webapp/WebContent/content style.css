@@ -129,20 +129,22 @@ nav ul li a:hover {
     
 }
 
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar {
     display: block;
     width: 300px;
     float: left;
     z-index: 1000;
     will-change: min-height;
+	}
 }
 
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar__inner {
     position: relative;
     transform: translate(0);
     transform: translateZ(0);
+	}
 }
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
@@ -159,14 +161,16 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     bottom: 0;
     background-color: rgba(0,0,0,.5);
 }
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar-content-wrap {
     position: static;
     padding-bottom: 0;
+	}
 }
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar-content-top, .sidebar__close {
     display: none;
+	}
 }
 
 .sidebar-menu {
@@ -264,10 +268,8 @@ textarea {
   }
 
 .post-content button {    
-    font-size: 12px;
-    padding: 5px 5px;
-    border-radius: 5px;
-    margin-left: 8%;
+    font-size: 15px;
+    padding: 5px 5px;    margin-left: 8%;
     border: none;
     background-color: #f7ca00;
     color: #fff;

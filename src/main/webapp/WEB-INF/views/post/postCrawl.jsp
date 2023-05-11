@@ -1,29 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <!DOCTYPE html>
 
 <html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="../WebContent/content style.css">
-	<title>게시글 수정</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시판 홈</title>
+<link rel="stylesheet" href="../WebContent/community style copy.css">
 </head>
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			
-			$(".cancel_btn").on("click", function(){
-				event.preventDefault();
-				location.href = "/backend-7th-Article-7/post/postListTest";
-			})
-		})
-	</script>
 
 <body>
 	<!-- 헤더 영역 -->
@@ -38,7 +26,7 @@
 				<ul>
 					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="<c:url value='/post/crawlPost' />">통합 인기글</a></li>
+					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
 					<li><a href="<c:url value='/main' />">로그아웃</a></li>
 				</ul>
 			</nav>
@@ -92,46 +80,65 @@
 						</div>
 					</div>
 				</div>
-				<section id="container">
-					<form:form action="postUpdateProcess" modelAttribute="formData" id="updateForm" method="POST">
-						<input type="hidden" name="postId" value="${update.postId}" readonly="readonly"/>
-						<div class="post-header">
-							<span class="category">[카테고리]
-							</span>
-								<label for="title">제목</label><input type="text" id="title" name="title" value="${update.title}"/>
-							<div class="post-info">
-								<span clss="postid"> <label for="postId">글 번호</label><input
-									type="text" id="postId" name="postId" value="${read.postId}"
-									disabled />
-								</span> 
-								<span class="author">
-									<label for="nickname">작성자</label><input type="text" id="nickname" name="nickname" value="${update.nickname}" readonly="readonly"/>
-								</span> 
-								<span class="date"> 
-									<label for="regdate">작성날짜</label>
-									<fmt:formatDate value="${update.postRegistTime}" pattern="yyyy-MM-dd"/>	
-								</span> 
-								<span class="views">조회수</span>
+				<div class="board-wrapper">
+					<div class="board-header">
+						<div class="sort-buttons">
+							<button class="btn-popular">인기순</button>
+							<button class="btn-latest">최신순</button>
+						</div>
+						<div class="board-search">
+							<form action="" method="GET">
+								<select name="search-option">
+									<option value="title">제목</option>
+									<option value="content">내용</option>
+								</select> <input type="text" name="search" placeholder="검색어를 입력하세요">
+								<button type="submit">검색</button>
+							</form>
+						</div>
+						<div class="board-write">
+							<a href="<c:url value='/post/postRegist' />">글 작성</a>
+						</div>
+					</div>
+
+					<div class="board-list">
+						<section id="container">
+							<form role="form" method="post" action="/post/write">
+								<table>
+									<tr>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>등록일</th>
+									</tr>
+
+									<c:forEach items="${list}" var="list">
+										<tr>
+											<td><a
+												href="<c:url value='/post/postContent?postId=${list.postId}'/>">${list.title}</a>
+											</td>
+											<td>${list.nickname}</td>
+											<td><fmt:formatDate value="${list.postRegistTime}"
+													type="both" /></td>
+										</tr>
+									</c:forEach>
+
+								</table>
+							</form>
+						</section>
+						<!-- 추가로 글 목록을 생성하면 됩니다. -->
+						<div class="board-footer">
+							<div class="board-paging">
+								<a href="#" class="prev">이전</a> <a href="#" class="next">다음</a>
 							</div>
 						</div>
-						<div class="post-content">
-							<p>
-								<label for="content"></label>
-								<textarea id="content" name="content"><c:out value="${update.content}" /></textarea>
-							</p>
-							<button type="submit" class="update_btn">저장</button>
-							<button type="submit" class="cancel_btn">취소</button>
-						</div>
-					</form:form>
 					</div>
-				</section>
+				</div>
 
 				<div class="ADbanner right">
 					<img src="banner_right.png" alt="Banner Right">
 				</div>
 			</div>
-		</div>
 	</main>
 </body>
 
 </html>
+

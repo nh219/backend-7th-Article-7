@@ -114,39 +114,39 @@ public class PostController {
 //        }
 //    }
     
-    @GetMapping("/post/postListTest")
+    @GetMapping("/post/community")
 	public String list(Model model, String category) throws Exception{
 		String view = "";
-		view = "/post/postListTest";
+		view = "/post/community";
 		category = "free";
 		model.addAttribute("list", postService.findPostByCategory(category));
 		
 		return view;
  	}
     
-    @GetMapping("/post/postReadTest")
+    @GetMapping("/post/postContent")
 	public String read(PostDO postDO, Model model) throws Exception{
 		String view = "";
-		view = "/post/postReadTest";
+		view = "/post/postContent";
 		
 		model.addAttribute("read", postService.findPostById(postDO.getPostId()));
 		
 		return view;
  	}
     
-    @PostMapping("/post/postWriteProcess")	 
+    @PostMapping("/post/postRegistProcess")	 
 	public String writeProcess(@ModelAttribute("formData") PostRegistCommand regReq, Model model) {
-		String view = "redirect:/post/postListTest";
+		String view = "redirect:/post/community";
 		
 		postService.regist(regReq);
 		
 		return view;
 	}
     
-    @GetMapping("/post/postUpdateTest")
+    @GetMapping("/post/postUpdate")
 	public String update(PostDO postDO, Model model) throws Exception{
 		String view = "";
-		view = "/post/postUpdateTest";
+		view = "/post/postUpdate";
 		
 		model.addAttribute("update", postService.findPostById(postDO.getPostId()));
 		
@@ -156,7 +156,7 @@ public class PostController {
     @PostMapping("/post/postUpdateProcess")
    	public String updateProcess(PostDO postDO) throws Exception{
    		String view = "";
-   		view = "redirect:/post/postListTest";
+   		view = "redirect:/post/community";
    		
    		postUpdateService.postUpdate(postDO);
    		
@@ -166,10 +166,12 @@ public class PostController {
     @PostMapping("/post/postDeleteProcess")
    	public String deleteProcess(PostDO postDO) throws Exception{
    		String view = "";
-   		view = "redirect:/post/postListTest";
+   		view = "redirect:/post/community";
    		
    		postUpdateService.postDelete(postDO);
    		
    		return view;
     }
+    
 }
+
