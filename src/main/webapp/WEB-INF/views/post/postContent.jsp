@@ -88,19 +88,17 @@
 										<div class="sidebar-menu__title">홈</div>
 										<ul class="sidebar-menu__list">
 											<li class="sidebar-menu__item sidebar-menu__item--active">
-												<a href=""> 전체 </a>
+												<a href="<c:url value='/post/community' />"> 전체 </a>
 											</li>
 										</ul>
 									</div>
 									<div class="sidebar-menu">
 										<div class="sidebar-menu__title">커뮤니티</div>
 										<ul class="sidebar-menu__list">
-											<li class="sidebar-menu__item "><a href=""> 자유 </a></li>
-											<li class="sidebar-menu__item "><a href=""> 투표 피드백 </a>
-											</li>
-											<li class="sidebar-menu__item "><a href=""> 파티 구함 </a></li>
-											<li class="sidebar-menu__item "><a href=""> 통합 인기글 </a>
-											</li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postFree' />"> 자유 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postVote' />"> 투표 피드백 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postParty' />"> 파티 구함 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postCrawl' />"> 통합 인기글 </a></li>
 										</ul>
 									</div>
 								</div>
