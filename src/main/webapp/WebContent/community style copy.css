@@ -121,16 +121,15 @@ nav ul li a:hover {
     margin: 0 auto;
     margin-left: 2%;
     margin-right: 2%;
-    width:15%;
-    height: 500px;
-    width: 100px;
-    padding: 20px;
+    width: 15%;
+    height: 200px;
+    width: 160px;
+    padding: 5px;
     background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     margin-bottom: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;  
-    
 }
 
 @media only screen and (min-width: 1024px) {
@@ -257,44 +256,68 @@ ol, ul {
     margin-right: 10px;
   }
   
-  .board-wrapper .board-list {
+/* 기본 테이블 스타일 */
+.board-list {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .board-wrapper .board-list .board-item {
+}
+
+.board-list table {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .board-wrapper .board-list .board-item .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .board-wrapper .board-list .board-item .content {
-    margin-bottom: 10px;
-  }
-  
-  .board-wrapper .board-footer {
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.board-list th {
+    background-color: #f7b500;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.board-list td {
+    background-color: #ffffff;
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.board-list a {
+    color: #333;
+    text-decoration: none;
+}
+
+.board-list a:hover,
+.board-list a:focus {
+    color: #f7b500;
+    text-decoration: underline;
+}
+
+/* 푸터 및 페이징 스타일 */
+.board-footer {
     width: 100%;
-    background-color: #fff;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+.board-paging {
+    display: flex;
     align-items: center;
-    padding: 10px;
-    border-top: 1px solid #ccc;
-  }
+}
+
+.board-paging a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.board-paging a:hover,
+.board-paging a:focus {
+    color: #f7b500;
+    border-color: #f7b500;
+}
 
 
 /*반응형 웹*/

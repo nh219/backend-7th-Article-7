@@ -30,7 +30,7 @@ public class PostPreparedStatementCreator implements PreparedStatementCreator {
 		}
 		
 		//pstmt.setString(1, postDO.getCategory());
-		pstmt.setString(1, "free");
+		pstmt.setString(1, postDO.getCategory());
 		pstmt.setString(2, postDO.getTitle());
 		pstmt.setString(3, postDO.getNickname());
 		pstmt.setString(4, postDO.getContent());

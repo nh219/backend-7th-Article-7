@@ -3,10 +3,19 @@ package mvc.modelpost;
 public class PostRegistCommand {
 
 	private long postId;
-//	private String category;
+	private String category;
 	private String title;
 	private String nickname;
 	private String content;
+	
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	
 	public String getTitle() {
 		return title;

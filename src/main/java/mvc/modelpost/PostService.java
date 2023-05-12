@@ -3,8 +3,7 @@ package mvc.modelpost;
 import java.util.Date;
 import java.util.List;
 
-import mvc.modelpost.PostDO;
-import mvc.modelpost.PostDao;
+import mvc.modelpost.*;
 
 public class PostService {
 	
@@ -29,7 +28,7 @@ public class PostService {
 	public long regist(PostRegistCommand req) {		// 실제 회원 등록을 수행하는 메서드
 		Date date = new Date();
 		
-		PostDO postDO = new PostDO(req.getPostId(), "free", req.getTitle(), req.getNickname(), req.getContent(),
+		PostDO postDO = new PostDO(req.getPostId(), req.getCategory(), req.getTitle(), req.getNickname(), req.getContent(),
 						0, 0, 0, 0, 0, date);
 		
 		postDao.insert(postDO);

@@ -81,10 +81,10 @@
                               <div>
                                 <label for="category">카테고리:</label>
                                 <select id="category" name="category">
-                                  <option value="free">자유</option>
-                                  <option value="vote">투표 피드백</option>
-                                  <option value="recruitment">파티 구함</option>
-                                  <option value="combine">통합 인기 게시판</option>
+                                  <option value="자유">자유</option>
+                                  <option value="투표 피드백">투표 피드백</option>
+                                  <option value="파티 구함">파티 구함</option>
+                                  <option value="통합 인기 게시판">통합 인기 게시판</option>
                                 </select>
                               </div>
                               <div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
 
 import mvc.exception.DuplicateMemberException;
 import mvc.model.MemberService;
@@ -115,14 +116,54 @@ public class PostController {
 //    }
     
     @GetMapping("/post/community")
-	public String list(Model model, String category) throws Exception{
+	public String listCommunity(Model model, String category) throws Exception{
 		String view = "";
 		view = "/post/community";
-		category = "free";
+		category = "자유";
 		model.addAttribute("list", postService.findPostByCategory(category));
 		
 		return view;
  	}
+    
+    @GetMapping("/post/postFree")
+    public String listFree(Model model, String category) throws Exception{
+    	String view = "";
+    	view = "/post/postFree";
+    	category = "자유";
+    	model.addAttribute("list", postService.findPostByCategory(category));
+    	
+    	return view;
+    }
+    
+    @GetMapping("/post/postVote")
+    public String listVote(Model model, String category) throws Exception{
+    	String view = "";
+    	view = "/post/postVote";
+    	category = "투표 피드백";
+    	model.addAttribute("list", postService.findPostByCategory(category));
+    	
+    	return view;
+    }
+    
+    @GetMapping("/post/postParty")
+    public String listParty(Model model, String category) throws Exception{
+    	String view = "";
+    	view = "/post/community";
+    	category = "파티 구함";
+    	model.addAttribute("list", postService.findPostByCategory(category));
+    	
+    	return view;
+    }
+    
+    @GetMapping("/post/postCrawl")
+    public String listCrawl(Model model, String category) throws Exception{
+    	String view = "";
+    	view = "/post/postCrawl";
+    	category = "통합 인기 게시판";
+    	model.addAttribute("list", postService.findPostByCategory(category));
+    	
+    	return view;
+    }
     
     @GetMapping("/post/postContent")
 	public String read(PostDO postDO, Model model) throws Exception{
