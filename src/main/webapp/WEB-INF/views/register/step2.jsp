@@ -10,6 +10,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>회원가입: Step2</title>
+	<link rel="stylesheet" href="join style.css">
 	<style>
 		label {
 			display: inline-block;
@@ -50,33 +51,93 @@
 </head>
 
 <body>
+	<!-- 헤더 영역 -->
+	<header>
+		<div class="logo">
+			<a href="main.jsp"><img src="lol-logo.png" alt="Teamluck.gg"></a>
+		</div>
 
-	<h1>회원가입</h1>
-	<hr/>
-	
-	<h3>회원 정보 입력</h3>
-	
-	<form:form action="step3" modelAttribute="formData" id="registerForm">
-	<fieldset>
-		<legend>회원 정보</legend>
-		
-		<label for="email">이메일:</label>
-		<form:input type="email" path="email" required="required" /><br/>
-		
-		<label for="nickname">닉네임:</label>
-		<form:input path="nickname" required="required" /><br/>
-		
-		<label for="password">비밀번호:</label>
-		<form:password path="password" required ="required"/><br/>
-		
-		<label for="confirmPassword">비밀번호 확인:</label>
-		<form:password path="confirmPassword" required ="required"/><br/>
-		
-		<input type="submit" value="회원가입" />	
-	</fieldset>	
-	</form:form>
-	
-	<p><font color="red">${msg}</font></p>
+		<div class="navi">
+			<nav>
+				<ul>
+					<li><a href="#">전적검색</a></li>
+					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
+					<li><a href="<c:url value='/post/crawlPost'/>">통합 인기글</a></li>
+					<li><a href="<c:url value='/member/login' />">로그인</a></li>
+					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
+	<!-- 메인 영역 -->
+	<main>
+		<div class="main section">
+			
+			<!-- 대문짝 -->
+			<div class="main banner">
+				<a href="main.jsp"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
+			</div>
+
+			<!-- 하단 영역 -->
+			<div class="ADbanner">
+
+				<!-- 좌측 배너 -->
+				<div class="ADbanner left">
+					<img src="banner_left.png" alt="Banner Left">
+				</div>
+
+				<!-- 콘텐츠 영역 -->
+				<div class="member-scroll-layout">
+                    <div class="member-scroll-layout__bg"></div>
+                    <div class="member-scroll-layout__inner">
+                        <div class="register-header">
+                            <h1 class="register-header__logo">
+                                <img class="register-header__logo-image" src="" alt="Teamluck.gg">
+                            </h1>
+                        </div>
+                        <div class="agree">
+	                    <form:form action="step2" modelAttribute="formData" id="registerForm" method="post">
+                                <div class="sign-up">
+                                    <h2 class="sign-up__title">기본정보입력</h2>
+                                    <div class="member-input">
+                                        <div class="member-input__state">
+                                            <input id="memberInput1001" class="member-input__box" type="text" autocomplete="off" name="email" value="" placeholder="이메일">
+                                            <span class="member-input__valid-wrapper"></span>
+                                        </div>
+                                    </div>
+                                    <div class="member-input">
+                                        <div class="member-input__state">
+                                            <input id="memberInput642" class="member-input__box" type="text" autocomplete="off" name="nickname" value="" placeholder="닉네임">
+                                            <span class="member-input__valid-wrapper"></span>
+                                        </div>
+                                    </div>
+                                    <div class="member-input">
+                                        <div class="member-input__state">
+                                            <input id="memberInput8894" class="member-input__box" type="password" autocomplete="off" name="password" value=""placeholder="비밀번호">
+                                            <span class="member-input__valid-wrapper"></span>
+                                        </div>
+                                    </div>
+                                    <div class="sign-up__l-btn">
+                                        <a href="step3.jsp"><button type="submit" class="member-button sign-up__btn" >가입하기</button></a>
+                                    </div>
+                                </div>
+                           </form:form>
+	                      </div>  
+                      </div>
+                	</div>
+                	
+					<div class="ADbanner right">
+						<img src="banner_right.png" alt="Banner Right">
+					</div>
+				</div>
+			</div>
+		</main>
+	<script>
+		let data = '${msg}';
+		if(data!=null && data !=""){
+			alert(data);
+		}
+	</script>
 </body>
 </html>

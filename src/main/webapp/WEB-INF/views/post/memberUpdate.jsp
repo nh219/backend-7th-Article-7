@@ -13,6 +13,7 @@
 			width: 150px;
 		}
 	</style>
+	<link rel="stylesheet" href="WebContent/user style.css">
 	<script src="/mySpringWeb/res/script/changePasswd.js" charset="UTF-8">
 	<!-- js를 비롯한 이미지, css 파일과 같은 정적인 처리는 res에 저장 및 configureDefaultServletHandling가 처리-->
 	<!--<script src="<c:url value='/res/script/changePasswd.js' />" charset="UTF-8">-->

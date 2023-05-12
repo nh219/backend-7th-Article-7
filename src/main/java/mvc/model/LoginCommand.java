@@ -29,5 +29,11 @@ public class LoginCommand {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "LoginCommand [nickname=" + nickname + ", email=" + email + ", password=" + password + "]";
+	}
+	
 	
 }

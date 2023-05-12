@@ -53,7 +53,7 @@
 						<h1 class="member-card-layout__logo">
 							<img class="member-card-layout__logo-image" src="" alt="Teamluck.gg"></h1>
 						<div class="login">
-							<form>
+							<form action="/member/loginProcess" method="post">
 								<h2 class="login__email-title">이메일 로그인</h2>
 								<div class="member-input">
 									<div class="member-input__state">
@@ -87,5 +87,11 @@
 			</div>
 		</div>
 	</main>
+		<script>
+		let data = '${loginFailMsg}';
+		if(data!=null && data !=""){
+			alert(data);
+		}
+	</script>
 </body>
 </html>

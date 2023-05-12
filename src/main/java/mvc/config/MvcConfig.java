@@ -30,6 +30,8 @@ public class MvcConfig implements WebMvcConfigurer{
 		//	http://localhost:8080/backend-7th-Article-7/register/step1
 		registry.addViewController("/register/step1").setViewName("register/step1");
 		
+		registry.addViewController("/register/step2").setViewName("register/step2");
+		
 		// http://localhost:8080/backend-7th-Article-7/member/login
 		registry.addViewController("/member/login").setViewName("member/login");
 

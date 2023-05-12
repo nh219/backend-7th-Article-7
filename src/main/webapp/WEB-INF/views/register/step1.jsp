@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -6,14 +7,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
-	<link rel="stylesheet" href="../WebContent/join style.css">
+	<link rel="stylesheet" href="/WebContent/join style.css">
 
 </head>
 <body>
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="main.jsp"><img src="/WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 	</header>
 
@@ -23,7 +24,7 @@
 				<ul>
 					<li><a href="#">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
+					<li><a href="<c:url value='/post/crawlPost'/>">통합 인기글</a></li>
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
 					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
 				</ul>
@@ -36,7 +37,7 @@
 			
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg">
+					<a href="main.jsp"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
 			</div>
 
 			<!-- 하단 영역 -->
@@ -127,37 +128,9 @@
                                         </p>    
                                     </div>
                                 </div>
-                            </div>
-                            <form>
-                                <div class="sign-up">
-                                    <h2 class="sign-up__title">기본정보입력</h2>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput1001" class="member-input__box" type="text" autocomplete="off" name="email" value="">
-                                            <label for="memberInput1001" class="member-input__label">이메일 주소</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput642" class="member-input__box" type="text" autocomplete="off" name="nickname" value="">
-                                            <label for="memberInput642" class="member-input__label">닉네임</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput8894" class="member-input__box" type="password" autocomplete="off" name="password" value="">
-                                            <label for="memberInput8894" class="member-input__label">비밀번호</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="sign-up__l-btn">
-                                        <button type="submit" class="member-button sign-up__btn" disabled="">가입하기</button>
-                                        <button type="button" class="member-button cancel-button sign-up__btn-cancel">돌아가기</button>
-                                    </div>
-                                </div>
-                            </form>
+                                <div class="sign-up__l-btn">
+                                	<a href="/register/step2"> <button type="button" class="member-button sign-up__btn" href= "step2.jsp" >가입하기</button></a>
+                            	</div>
                         </div>  
                     </div>
                 </div>
@@ -166,6 +139,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</main>
+
 </body>
 </html>
