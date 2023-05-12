@@ -38,5 +38,6 @@ public class MvcConfig implements WebMvcConfigurer{
 		
 		
 		registry.addViewController("/search").setViewName("summoner");
+		
 	}
 }

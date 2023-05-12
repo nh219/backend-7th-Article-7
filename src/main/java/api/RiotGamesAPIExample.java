@@ -1,16 +1,21 @@
 package api;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+@Component
 public class RiotGamesAPIExample {
 	// API KEY
 	static String apiKey = API_KEY.KEY;
@@ -39,65 +45,38 @@ public class RiotGamesAPIExample {
 			content.append(inputLine);
 		}
 		in.close();
-		con.disconnect();
 		return content.toString();
 	}
 
 	// 소환사 정보
-	public static String summonerInfo(String summonerName) throws IOException {
-		String urlString = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName
-				+ "?api_key=" + apiKey;
-		String content = getHttpContent(urlString);
+	public SummonerDO summonerInfo(String summonerName) throws IOException {
+	    String urlString = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName
+	            + "?api_key=" + apiKey;
+	    String content = getHttpContent(urlString);
 
-		Gson gson = new Gson();
-		SummonerDO summonerDO = gson.fromJson(content.toString(), SummonerDO.class);
-		SummonerDAO summonerDAO = new SummonerDAO();
-		summonerDAO.insertOrUpdateSummoner(summonerDO);
-		
-		System.out.println("\nName: " + summonerDO.getName());
-		System.out.println("Level: " + summonerDO.getSummonerLevel());
-		
-		try {
-		    return league(summonerDO);
-		} catch (Exception e) {
-		    System.out.println("예외 발생: " + e.getMessage());
-		    return "리그 정보를 가져오는 중 예외가 발생하였습니다.";
-		}
+	    Gson gson = new Gson();
+	    SummonerDO summonerDO = gson.fromJson(content.toString(), SummonerDO.class);
+
+	    SummonerDAO summonerDAO = new SummonerDAO();
+	    summonerDAO.insertOrUpdateSummoner(summonerDO);
+	    return summonerDO;
 	}
+
 	
 	// LEAUGE-V4
-	public static String league(SummonerDO summonerDO) throws IOException {
+	public List<LeagueDO> league(SummonerDO summonerDO) throws IOException {
 		String urlString = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerDO.getId() + "?api_key=" + apiKey;
 		String content = getHttpContent(urlString);
 
 		Gson gson = new Gson();
-		JsonArray league = gson.fromJson(content.toString(), JsonArray.class);
-
-		for (int i = 0; i < league.size(); i++) {
-			JsonObject leagueObj = league.get(i).getAsJsonObject();
-			String queueType = leagueObj.get("queueType").getAsString();
-			String tier = leagueObj.get("tier").getAsString();
-			String rank = leagueObj.get("rank").getAsString();
-			int leaguePoints = leagueObj.get("leaguePoints").getAsInt();
-			int wins = leagueObj.get("wins").getAsInt();
-			int losses = leagueObj.get("losses").getAsInt();
-
-			System.out.println("Queue Type: " + queueType);
-			System.out.println("Tier: " + tier);
-			System.out.println("Rank: " + rank);
-			System.out.println("League Points: " + leaguePoints + "\n");
-			System.out.println("wins: " + wins);
-			System.out.println("losses: " + losses + "\n");
-			System.out.printf("win rate: %.0f%%\n", (double) wins / (wins + losses) * 100);
-
+		JsonArray leagues = gson.fromJson(content.toString(), JsonArray.class);
+		
+		List<LeagueDO> leaguesinfo = new ArrayList<>();
+		for (JsonElement element : leagues) {
+		    LeagueDO league = gson.fromJson(element, LeagueDO.class);
+		    leaguesinfo.add(league);
 		}
-		try {
-			return CurrentlyInGame(summonerDO);
-
-		} catch (Exception e) {
-			System.out.println("현재 게임중이 아닙니다.");
-			return MatchInfo.matchIds(summonerDO);
-		}
+		return leaguesinfo;
 	}
 
 	// 현재 게임 중인지 확인하는 메서드
@@ -194,7 +173,7 @@ public class RiotGamesAPIExample {
 				System.out.println("Spell1 Id: " + spell1Id + " Spell2 Id: " + spell2Id);
 				System.out.println("Perk Ids: " + perkIds + " Perk Sub: " + perkSubStyle + "\n");
 			}
-			return "\n현재 게임중입니다.\n" + MatchInfo.matchIds(summonerDO);
+			return "\n현재 게임중입니다.\n" ;
 			
 		} catch (IOException e) {
 			if (e instanceof java.io.FileNotFoundException) {
@@ -205,15 +184,9 @@ public class RiotGamesAPIExample {
 		}
 	}
 
-
 	// 추출한 MatchId로 해당 게임 세부 내용 검색
 
 	public static void main(String[] args) throws IOException {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("소환사명을 입력하세요: ");
-		String summonerName = scanner.nextLine();
-
-		// 현재 게임 중인지 아닌지 확인
-		System.out.println(summonerInfo(summonerName));
 	}
+
 }

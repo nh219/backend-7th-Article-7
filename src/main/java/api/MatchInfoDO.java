@@ -1,5 +1,6 @@
 package api;
 
+
 import com.google.gson.JsonArray;
 
 public class MatchInfoDO {
@@ -12,7 +13,7 @@ public class MatchInfoDO {
 	private String gameMode;
 	private int queueId;
 	private int mapId;
-	private JsonArray redTeamWin;
+	
 	public String getMatchId() {
 		return matchId;
 	}
@@ -61,12 +62,4 @@ public class MatchInfoDO {
 	public void setMapId(int mapId) {
 		this.mapId = mapId;
 	}
-	public JsonArray isRedTeamWin() {
-		return redTeamWin;
-	}
-	public void setRedTeamWin(JsonArray jsonArray) {
-		this.redTeamWin = jsonArray;
-	}
-
-	
 }

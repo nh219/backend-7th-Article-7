@@ -1,7 +1,11 @@
 package api;
 
+
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ParticipantInfo {
 	private int participantId;
 	private int teamId;
@@ -23,6 +27,15 @@ public class ParticipantInfo {
 	private int item4;
 	private int item5;
 	private int item6;
+	private int win;
+
+    public boolean isWin() {
+        return win == 1;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win ? 1 : 0;
+    }
 
 	public int getParticipantId() {
 		return participantId;

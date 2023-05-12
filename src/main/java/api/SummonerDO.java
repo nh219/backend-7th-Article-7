@@ -8,12 +8,7 @@ public class SummonerDO {
 	private String id;
 	private String puuid;
 	private long summonerLevel;
-
-	public SummonerDO(int profileIconId2, String name2, String puuid2, long summonerLevel2, long revisionDate2,
-			String id2, String accountId2) {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	public String getPuuid() {
 		return puuid;
 	}

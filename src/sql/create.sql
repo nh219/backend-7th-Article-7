@@ -17,6 +17,10 @@ DROP TABLE summoner;
 DROP TABLE match_info;
 DROP TABLE participant_info;
 
+alter table match_info drop column is_red_team_win;
+alter table participant_info drop column is_team_win;
+ALTER TABLE participant_info ADD is_team_win NUMBER(1);
+
 CREATE TABLE participant_info (
 	match_id 						VARCHAR2(50) 			NOT NULL,
     participant_id 					NUMBER(11) 				NOT NULL,
@@ -39,6 +43,7 @@ CREATE TABLE participant_info (
     item4							NUMBER(11) 				NOT NULL,
     item5							NUMBER(11) 				NOT NULL,
     item6							NUMBER(11) 				NOT NULL,
+    is_team_win 					NUMBER(1) 				NOT NULL,
     PRIMARY KEY (match_id, participant_id),
     FOREIGN KEY (match_id) REFERENCES match_info(match_id)
 );
@@ -52,7 +57,6 @@ CREATE TABLE match_info (
   game_mode 				VARCHAR2(50) 			DEFAULT NULL,
   queue_id 					NUMBER(11) 				DEFAULT NULL,
   map_id 					NUMBER(11) 				DEFAULT NULL,
-  is_red_team_win 			NUMBER(1) 				DEFAULT NULL,
   PRIMARY KEY (match_id)
 );
 

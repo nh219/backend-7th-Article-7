@@ -63,4 +63,6 @@ public class MemberConfig {
 		return updateSvc;
 	}
 	
+	
+	
 }

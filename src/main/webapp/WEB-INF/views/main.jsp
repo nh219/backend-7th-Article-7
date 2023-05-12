@@ -13,15 +13,15 @@
 	<hr />
 
 	<form action="<c:url value='search' />" method="GET">
-		<label for="summonerName">소환사 이름:</label> <input type="text"
-			id="summonerName" name="summonerName" />
+		<label for="summonerName">소환사 이름:</label> 
+		<input type="text"	id="summonerName" name="summonerName" />
 		<button type="submit">검색</button>
 	</form>
-
-	<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
-	<li><a href="<c:url value='/member/login' />">로그인</a></li>
-	<li><a href="<c:url value='/member/memberUpdate' />">회원정보 변경</a></li>
-	<li><a href="<c:url value='/member/logout' />">로그아웃</a></li>
-
+	<ul>
+		<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+		<li><a href="<c:url value='/member/login' />">로그인</a></li>
+		<li><a href="<c:url value='/member/memberUpdate' />">회원정보 변경</a></li>
+		<li><a href="<c:url value='/member/logout' />">로그아웃</a></li>
+	</ul>
 </body>
 </html>
