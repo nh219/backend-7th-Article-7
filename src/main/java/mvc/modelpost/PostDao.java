@@ -74,11 +74,17 @@ public class PostDao {
     }
     */
     
-    public List<PostDO> listByCategory(String category) {
+    public List<PostDO> listByCategory(String category, Criteria cri) {
     	List<PostDO> list = null;
     	
 		return list;
     }
+    
+    public int getListCount() {
+    	int count = 0;
+    	
+		return count;
+	}
     
     public PostDO searchById(long postId) {
         return posts.get(postId);

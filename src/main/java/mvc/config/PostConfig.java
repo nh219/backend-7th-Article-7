@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import mvc.model.MemberDaoSpring;
 import mvc.model.MemberService;
 import mvc.model.MemberUpdateService;
+import mvc.modelReply.ReplyDaoSpring;
+import mvc.modelReply.ReplyService;
 import mvc.modelpost.*;
 
 @Configuration
@@ -46,8 +48,18 @@ public class PostConfig {
     }
     
     @Bean
+    public ReplyDaoSpring replyDao() {
+        return new ReplyDaoSpring(dataSource());
+    }
+    
+    @Bean
    	public PostService postSvc() {
    		return new PostService(this.postDao());
+   	}
+    
+    @Bean
+   	public ReplyService replySvc() {
+   		return new ReplyService(this.replyDao());
    	}
     
     @Bean
@@ -63,7 +75,6 @@ public class PostConfig {
         return new PostChangeSO(this.postDao());
     }
     
-
     @Bean
     public PostRecommendSO postRecSvc() {
         return new PostRecommendSO(this.postDao());

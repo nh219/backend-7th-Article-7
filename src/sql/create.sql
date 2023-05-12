@@ -133,4 +133,13 @@ values (post_post_id_seq.nextval, 'free', 'title1', '손흥민', 'content1');
 insert into post (post_id, category, title, nickname, post_content)
 values (post_post_id_seq.nextval, 'free', 'title2', '이성구', 'content2');
 
+insert into post (post_id, category, title, nickname, post_content)
+select post_post_id_seq.nextval, 'free', 'title', '손흥민', 'content' from post;
+
+insert into reply (reply_id, nickname, reply_content, post_id)
+values (reply_reply_id_seq.nextval, '손흥민', 'replyContent1', '1');
+
+insert into reply (reply_id, nickname, reply_content, post_id)
+values (reply_reply_id_seq.nextval, '이성구', 'replyContent2', '1');
+
 commit;

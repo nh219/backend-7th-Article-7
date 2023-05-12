@@ -1,5 +1,7 @@
 package mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mvc.exception.DuplicateMemberException;
 import mvc.model.MemberService;
 import mvc.model.RegistCommand;
+import mvc.modelReply.ReplyDO;
+import mvc.modelReply.ReplyService;
 import mvc.modelpost.*;;
 
 @Controller
@@ -26,6 +31,9 @@ public class PostController {
 	
 	@Autowired
 	private PostUpdateService postUpdateService;
+	
+	@Autowired
+	private ReplyService replyService;
 	  
 //    @Autowired
 //    private PostDao postDao;
@@ -115,11 +123,17 @@ public class PostController {
 //    }
     
     @GetMapping("/post/postListTest")
-	public String list(Model model, String category) throws Exception{
+	public String list(Model model, String category, Criteria cri) throws Exception{
 		String view = "";
 		view = "/post/postListTest";
 		category = "free";
-		model.addAttribute("list", postService.findPostByCategory(category));
+		model.addAttribute("list", postService.listByCategory(category, cri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(postService.listCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return view;
  	}
@@ -130,6 +144,9 @@ public class PostController {
 		view = "/post/postReadTest";
 		
 		model.addAttribute("read", postService.findPostById(postDO.getPostId()));
+		
+		List<ReplyDO> replyList = replyService.readReply(postDO.getPostId());
+		model.addAttribute("replyList", replyList);
 		
 		return view;
  	}
@@ -172,4 +189,19 @@ public class PostController {
    		
    		return view;
     }
+    
+//    @PostMapping("/post/replyWriteProcess")	 
+//	public String replyWriteProcess(ReplyDO replyDO, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+//		String view = "redirect:/post/postReadTest";
+//		
+//		replyService.regist(replyDO);
+//		
+//		rttr.addAttribute("postId", replyDO.getPostId());
+//		rttr.addAttribute("page", scri.getPage());
+//		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+//		rttr.addAttribute("searchType", scri.getSearchType());
+//		rttr.addAttribute("keyword", scri.getKeyword());
+//		
+//		return view;
+//	}
 }

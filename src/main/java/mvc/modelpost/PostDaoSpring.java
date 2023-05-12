@@ -237,19 +237,29 @@ public class PostDaoSpring extends PostDao {
 	}
 	*/
 	@Override
-	public List<PostDO> listByCategory(String category) {
+	public List<PostDO> listByCategory(String category, Criteria cri) {
     	List<PostDO> list = null;
     	
-    	this.sql = "select * from post where category = ?";
+    	this.sql = "select post_id, category, title, nickname, post_content, post_date\r\n"
+    			+ "from ( select post_id, category, title, nickname, post_content, post_date, row_number() over(order by post_id desc) as rNum from post) post\r\n"
+    			+ "where (rNum between ? and ?) and (category = ?)\r\n"
+    			+ "order by post_id desc";
 		
 		try {
-			list = jdbcTemplate.query(this.sql, new PostRowMapper(), category);
+			list = jdbcTemplate.query(this.sql, new PostRowMapper(), cri.getRowStart(), cri.getRowEnd(), category);
 		}
 		catch(EmptyResultDataAccessException e) {
 		}
     	
 		return list;
     }
+	
+	@Override
+	public int getListCount() {
+		int count = jdbcTemplate.queryForObject("select COUNT(post_id) from post where post_id > 0", Integer.class);
+		
+		return count;
+	}
 	
 	@Override
 	public PostDO searchById(long postId) {

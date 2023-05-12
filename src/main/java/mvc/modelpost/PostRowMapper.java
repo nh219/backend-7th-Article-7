@@ -13,9 +13,9 @@ public class PostRowMapper implements RowMapper<PostDO> {
 		post.setCategory(rs.getString("category"));
 		post.setTitle(rs.getString("title"));
 		post.setNickname(rs.getString("nickname"));
-		post.setPostRegistTime(rs.getTimestamp("post_date"));
 		post.setContent(rs.getString("post_content"));
-		post.setViews(rs.getInt("views"));
+		post.setPostRegistTime(rs.getTimestamp("post_date"));
+		//post.setViews(rs.getInt("views"));
 		
 		return post;
 	}

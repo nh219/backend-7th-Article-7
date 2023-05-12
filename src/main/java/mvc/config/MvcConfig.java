@@ -57,6 +57,8 @@ public class MvcConfig implements WebMvcConfigurer{
 		//	http://localhost:8080/backend-7th-Article-7/post/postUpdate
 		registry.addViewController("/post/postUpdate").setViewName("/post/postUpdate");
 		
+		//	http://localhost:8080/backend-7th-Article-7/post/replyWriteProcess
+		registry.addViewController("/post/replyWriteProcess").setViewName("/post/replyWriteProcess");
 		
 	}
 	
