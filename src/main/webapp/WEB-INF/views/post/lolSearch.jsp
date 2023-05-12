@@ -1,13 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 
+<html>
 <html lang="ko">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Teamluck.gg</title>
+	<title>전적 검색</title>
 	<link rel="stylesheet" href="../WebContent/search style.css">
 </head>
 <body>
@@ -20,10 +22,10 @@
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="#">전적검색</a></li>
-					<li><a href="#">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
-					<li><a href="#">로그아웃</a></li>
+					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
+					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
+					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
+					<li><a href="<c:url value='/main' />">로그아웃</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -93,5 +95,6 @@
 		</div>
 	</main>
 </body>
+
 </html>
 

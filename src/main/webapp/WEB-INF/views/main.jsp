@@ -24,7 +24,7 @@
 				<ul>
 					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
+					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
 					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
 				</ul>

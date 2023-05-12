@@ -39,13 +39,10 @@ public class MvcConfig implements WebMvcConfigurer{
 		//	http://localhost:8080/backend-7th-Article-7/post/community
 		registry.addViewController("/post/community").setViewName("/post/community");
 		
-		//	http://localhost:8080/backend-7th-Article-7/post/postListTest
-		registry.addViewController("/post/community").setViewName("/post/community");
-		
-		//	http://localhost:8080/backend-7th-Article-7/post/postReadTest
+		//	http://localhost:8080/backend-7th-Article-7/post/postContent
 		registry.addViewController("/post/postContent").setViewName("/post/postContent");
 		
-		//	http://localhost:8080/backend-7th-Article-7/post/postWriteTest
+		//	http://localhost:8080/backend-7th-Article-7/post/postRegist
 		registry.addViewController("/post/postRegist").setViewName("/post/postRegist");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postWriteProcess
@@ -56,6 +53,21 @@ public class MvcConfig implements WebMvcConfigurer{
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postUpdate
 		registry.addViewController("/post/postUpdate").setViewName("/post/postUpdate");
+
+		//	http://localhost:8080/backend-7th-Article-7/post/postFree
+		registry.addViewController("/post/postFree").setViewName("/post/postFree");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/postVote
+		registry.addViewController("/post/postVote").setViewName("/post/postVote");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/postCrawl
+		registry.addViewController("/post/postCrawl").setViewName("/post/postCrawl");
+
+		//	http://localhost:8080/backend-7th-Article-7/post/postParty
+		registry.addViewController("/post/postParty").setViewName("/post/postParty");
+		
+		//	http://localhost:8080/backend-7th-Article-7/post/lolSearch
+		registry.addViewController("/post/lolSearch").setViewName("/post/lolSearch");
 		
 		
 	}

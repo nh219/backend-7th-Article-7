@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시판 홈</title>
+<title>통합 인기 게시판</title>
 <link rel="stylesheet" href="../WebContent/community style copy.css">
 </head>
 
@@ -17,8 +17,8 @@
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img
-				src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="http://Teamluck.gg.com">
+			<img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 
 		<div class="navi">
@@ -36,8 +36,7 @@
 		<div class="main section">
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png"
-					alt="Teamluck.gg">
+				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg">
 			</div>
 
 			<!-- 하단 영역 -->
@@ -60,18 +59,17 @@
 										<div class="sidebar-menu__title">홈</div>
 										<ul class="sidebar-menu__list">
 											<li class="sidebar-menu__item sidebar-menu__item--active">
-												<a href=""> 전체 </a>
+												<a href="<c:url value='/post/community' />"> 전체 </a>
 											</li>
 										</ul>
 									</div>
 									<div class="sidebar-menu">
 										<div class="sidebar-menu__title">커뮤니티</div>
 										<ul class="sidebar-menu__list">
-											<li class="sidebar-menu__item "><a href=""> 자유 </a></li>
-											<li class="sidebar-menu__item "><a href=""> 투표 피드백 </a>
-											</li>
-											<li class="sidebar-menu__item "><a href=""> 파티 구함 </a></li>
-											<li class="sidebar-menu__item "><a href=""> 통합 인기글 </a>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postFree' />"> 자유 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postVote' />"> 투표 피드백 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postParty' />"> 파티 구함 </a></li>
+											<li class="sidebar-menu__item "><a href="<c:url value='/post/postCrawl' />"> 통합 인기글 </a>
 											</li>
 										</ul>
 									</div>
@@ -112,15 +110,11 @@
 
 									<c:forEach items="${list}" var="list">
 										<tr>
-											<td><a
-												href="<c:url value='/post/postContent?postId=${list.postId}'/>">${list.title}</a>
-											</td>
+											<td><a href="<c:url value='/post/postContent?postId=${list.postId}'/>">${list.title}</a></td>
 											<td>${list.nickname}</td>
-											<td><fmt:formatDate value="${list.postRegistTime}"
-													type="both" /></td>
+											<td><fmt:formatDate value="${list.postRegistTime}" type="both" /></td>
 										</tr>
 									</c:forEach>
-
 								</table>
 							</form>
 						</section>

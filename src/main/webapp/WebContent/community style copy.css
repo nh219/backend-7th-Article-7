@@ -1,12 +1,8 @@
-
-
 /* 전체적인 스타일 */
 * {
-	font-family: 'Roboto', sans-serif;    
-	margin: 0;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -46,6 +42,11 @@ nav ul li a {
     font-size: 16px;
     padding: 10px;
     transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0051c7;
+    border-radius: 5px;
 }
 
 nav ul li a:hover {
@@ -132,7 +133,7 @@ nav ul li a:hover {
     
 }
 
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar {
     display: block;
     width: 300px;
@@ -140,12 +141,14 @@ nav ul li a:hover {
     z-index: 1000;
     will-change: min-height;
 }
+}
 
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar__inner {
     position: relative;
     transform: translate(0);
     transform: translateZ(0);
+}
 }
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
@@ -162,14 +165,16 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     bottom: 0;
     background-color: rgba(0,0,0,.5);
 }
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar-content-wrap {
     position: static;
     padding-bottom: 0;
+ }
 }
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width: 1024px) {
 .sidebar-content-top, .sidebar__close {
     display: none;
+}
 }
 
 .sidebar-menu {
