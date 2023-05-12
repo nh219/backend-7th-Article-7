@@ -54,7 +54,7 @@ nav ul li a:hover {
 
 .main.section {
     display: block;
-    width: 1080px;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -265,15 +265,43 @@ textarea {
     border: none;
     resize: none;
   }
-
-.post-content button {    
-    font-size: 15px;
-    padding: 5px 5px;    margin-left: 8%;
+/* button 스타일 */
+.post-content button {
+    font-size: 16px;
+    padding: 5px 5px;
+    margin-left: 10px;
     border: none;
-    background-color: #f7ca00;
+    border-radius: 4px;
+    background-color: #f7b500;
     color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* 애니메이션 추가 */
+    position: relative;
+    overflow: hidden;
 }
+
+.post-content button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d99e00;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
+}
+
+.post-content button:hover {
+    transform: translateY(-3px); /* 살짝 위로 올라가게 함 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.post-content button:hover:before {
+    transform: translateY(0); /* 배경색 변경된 레이어 위치 변경 */
+}
+
 
 /* 댓글 섹션 스타일 */
 .comment-section {

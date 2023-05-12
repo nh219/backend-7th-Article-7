@@ -134,11 +134,11 @@
 								<label for="content"></label>
 								<textarea id="content" name="content" readonly="readonly" style="resize: none;"><c:out value="${read.content}"/></textarea>
 							</p>
-							<button class="report">신고</button>
+							<button class="report" class="report_btn">신고</button>
 							<button type="submit" class="update_btn">수정</button>
 							<button type="submit" class="delete_btn">삭제</button>
-							<button class="like">추천</button>
-							<button class="dislike">비추천</button>
+							<button class="like" class="rec_btn">추천</button>
+							<button class="dislike" class="unrec_btn">비추천</button>
 							<button type="submit" class="list_btn">목록</button>
 						</div>
 						<div class="comment-section">
