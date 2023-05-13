@@ -69,6 +69,17 @@ public class MemberController {
 		int result = memberService.nameCheck(member.getNickname());
 		
 		return result;
+	@PostMapping("/member/nicknameDoubleCheck")
+	public String nicknameDoubleCheck(HttpSession session, Model model) {
+		String view = "";
+		
+		Member member = (Member)session.getAttribute("auth");
+		memberUpdateService.memberWithdrawal(member);
+		
+		session.invalidate();
+		view = "redirect:/main";
+		
+		return view;
 	}
 	
 	@GetMapping("/member/memberWithdrawalProcess")
