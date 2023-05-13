@@ -286,6 +286,6 @@ public class PostDaoSpring extends PostDao {
 	public void delete(PostDO postDO) {
 		sql = "delete from post where post_id=?";
 		jdbcTemplate.update(sql, postDO.getPostId());
-		
 	}
+	
 }
