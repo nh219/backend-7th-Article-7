@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <!DOCTYPE html>
 
@@ -20,11 +23,11 @@
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="/post/lolSearch">전적검색</a></li>
-					<li><a href="/post/community">커뮤니티</a></li>
-					<li><a href="/post/crawlPost">통합 인기글</a></li>
-					<li><a href="/member/login">로그인</a></li>
-					<li><a href="/register/step1">회원가입</a></li>
+					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
+					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
+					<li><a href="<c:url value='/post/crawlPost'/>">통합 인기글</a></li>
+					<li><a href="<c:url value='/member/login' />">로그인</a></li>
+					<li><a href="<c:url value='step1' />">회원가입</a></li>
 				</ul>
 			</nav>
 		</div>
