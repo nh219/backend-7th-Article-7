@@ -15,7 +15,7 @@
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img src="WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="main"><img src="WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 <%-- 		<li><a href="<c:url value='/member/memberUpdate' />">회원정보 변경</a></li> --%>
 <%--		<li><a href="<c:url value='/member/logout' />">로그아웃</a></li> --%>
@@ -24,7 +24,7 @@
 				<ul>
 					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
+					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
 					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
 					<li><a href="<c:url value='/post/postListTest' />">게시판테스트</a></li>
@@ -39,7 +39,7 @@
 			
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg">
+				<a href="main"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
 			</div>
 
 			<!--검색창-->

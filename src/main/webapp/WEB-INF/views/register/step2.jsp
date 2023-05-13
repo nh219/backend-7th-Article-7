@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>회원가입: Step2</title>
-	<link rel="stylesheet" href="join style.css">
+	<link rel="stylesheet" href="/WebContent/join style.css">
 	<style>
 		label {
 			display: inline-block;
@@ -54,17 +54,17 @@
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="main.jsp"><img src="lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="/main"><img src="/WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="#">전적검색</a></li>
+					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
 					<li><a href="<c:url value='/post/crawlPost'/>">통합 인기글</a></li>
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
-					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+					<li><a href="<c:url value='step1' />">회원가입</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -76,7 +76,7 @@
 			
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<a href="main.jsp"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
+				<a href="/main"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
 			</div>
 
 			<!-- 하단 영역 -->
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                     <div class="sign-up__l-btn">
-                                        <a href="step3.jsp"><button type="submit" class="member-button sign-up__btn" >가입하기</button></a>
+                                        <a href="/main"><button type="submit" class="member-button sign-up__btn" >가입하기</button></a>
                                     </div>
                                 </div>
                            </form:form>

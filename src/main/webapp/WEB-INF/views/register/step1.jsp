@@ -8,13 +8,67 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
 	<link rel="stylesheet" href="/WebContent/join style.css">
+	<style>
+		/* 체크박스 스타일 */
+	.member-agree-checkbox__input[type="checkbox"] {
+	    /* 체크박스를 화면에서 숨김 */
+	    position: absolute;
+	    width: 1px;
+	    height: 1px;
+	    padding: 0;
+	    margin: -1px;
+	    margin-left: 500px
+	    overflow: hidden;
+	    clip: rect(0,0,0,0);
+	    border: 0;
+	}
+.member-agree-checkbox__state::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%; /* 원형으로 변경 */
+}
+
+/* 체크박스 스타일 */
+.member-agree-checkbox__input:checked + .member-agree-checkbox__state::before {
+    content: '\2713';
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 20px;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+	
+	</style>
+	
+	<script>
+	const agreeTerm = document.querySelector('#agree-term');
+	const agreeBtn = document.querySelector('.agree__btn .member-button');
+
+	agreeTerm.addEventListener('change', function() {
+	  if(this.checked) {
+	    agreeBtn.removeAttribute('disabled');
+	  } else {
+	    agreeBtn.setAttribute('disabled', '');
+	  }
+	});
+	</script>
+	
+	
+	
 
 </head>
 <body>
 	<!-- 헤더 영역 -->
 	<header>
 		<div class="logo">
-			<a href="main.jsp"><img src="/WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+			<a href="/main"><img src="/WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 	</header>
 
@@ -22,11 +76,11 @@
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="#">전적검색</a></li>
-					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="<c:url value='/post/crawlPost'/>">통합 인기글</a></li>
-					<li><a href="<c:url value='/member/login' />">로그인</a></li>
-					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+					<li><a href="/post/lolSearch">전적검색</a></li>
+					<li><a href="/post/community">커뮤니티</a></li>
+					<li><a href="/post/postCrawl">통합 인기글</a></li>
+					<li><a href="/member/login">로그인</a></li>
+					<li><a href="step1">회원가입</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -37,7 +91,7 @@
 			
 			<!-- 대문짝 -->
 			<div class="main banner">
-					<a href="main.jsp"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
+					<a href="/main"><img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg"></a>
 			</div>
 
 			<!-- 하단 영역 -->
@@ -61,13 +115,12 @@
                             <div>
                                 <h3 class="agree__l-check-term">
                                     <div class="member-agree-checkbox">
-                                        <span class="member-agree-checkbox__state">
-                                            <input id="memberAgreeCheckbox699" type="checkbox" class="member-agree-checkbox__input">
-                                        </span>
-                                        <label for="memberAgreeCheckbox699" class="member-agree-checkbox__label">
-                                            <div>Teamluck.gg 이용약관 동의</div>
-                                        </label>
-                                    </div>
+ 										 <label class="member-agree-checkbox__label">
+  											<input type="checkbox" class="member-agree-checkbox__input" name="agree-term" id="agree-term">
+  												 Teamluck.gg 이용약관 동의
+  												<span class="member-agree-checkbox__state"></span>
+														</label>
+														</div>
                                 </h3>
                                 <div class="agree__term-scroll">
                                     <div class="agree__term-content">
@@ -97,15 +150,14 @@
                                 </div>  
                             </div>
                             <div>
-                                <h3 class="agree__l-check-term">
+                               <h3 class="agree__l-check-term">
                                     <div class="member-agree-checkbox">
-                                        <span class="member-agree-checkbox__state">
-                                            <input id="memberAgreeCheckbox699" type="checkbox" class="member-agree-checkbox__input">
-                                        </span>
-                                        <label for="memberAgreeCheckbox699" class="member-agree-checkbox__label">
-                                            <div>개인정보 수집 및 이용에 관한 동의</div>
-                                        </label>
-                                    </div>
+ 										 <label class="member-agree-checkbox__label">
+  											<input type="checkbox" class="member-agree-checkbox__input" name="agree-term" id="agree-term">
+  												개인정보 수집 및 이용에 관한 동의
+  												<span class="member-agree-checkbox__state"></span>
+														</label>
+														</div>
                                 </h3>
                                 <div class="agree__term-scroll">
                                     <div class="agree__term-content">
@@ -129,17 +181,19 @@
                                     </div>
                                 </div>
                                 <div class="sign-up__l-btn">
-                                	<a href="/register/step2"> <button type="button" class="member-button sign-up__btn" href= "step2.jsp" >가입하기</button></a>
+                                	<a href="step2"><button type="button" class="member-button sign-up__btn">가입하기</button> </a>
                             	</div>
                         </div>  
                     </div>
                 </div>
-				<div class="ADbanner right">
+            </div>
+            
+			<div class="ADbanner right">
 					<img src="banner_right.png" alt="Banner Right">
-				</div>
 			</div>
 		</div>
 	</div>
+	
 	</main>
 
 </body>
