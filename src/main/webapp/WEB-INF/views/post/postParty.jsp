@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시판 홈</title>
+<title>파티구함 게시판</title>
 <link rel="stylesheet" href="../WebContent/community style copy.css">
 </head>
 
@@ -77,7 +77,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="board-wrapper">
 					<div class="board-header">
 						<div class="sort-buttons">
@@ -89,8 +88,6 @@
 								<select name="search-option">
 									<option value="title">제목</option>
 									<option value="content">내용</option>
-									<option value="titleContent">제목+내용</option>
-									<option value="nincname">작성자</option>
 								</select> <input type="text" name="search" placeholder="검색어를 입력하세요">
 								<button type="submit">검색</button>
 							</form>

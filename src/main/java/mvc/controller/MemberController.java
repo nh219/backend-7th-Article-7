@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mvc.model.LoginCommand;
@@ -62,6 +63,12 @@ public class MemberController {
 		return view;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/member/nicknameDoubleCheck", method = RequestMethod.POST)
+	public int nicknameDoubleCheck(Member member) throws Exception {
+		int result = memberService.nameCheck(member.getNickname());
+		
+		return result;
 	@PostMapping("/member/nicknameDoubleCheck")
 	public String nicknameDoubleCheck(HttpSession session, Model model) {
 		String view = "";

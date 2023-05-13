@@ -49,17 +49,12 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-nav ul li a:hover {
-    background-color: #0051c7;
-    border-radius: 5px;
-}
-
 
 /* 메인 영역*/
 
 .main.section {
     display: block;
-    width: 90%;
+    width: 1080px;
     margin: 0 auto;
 }
 
@@ -98,7 +93,7 @@ nav ul li a:hover {
     background-color: #fff;
     display: flex;
     height: 700px;
-    width: 100px;
+    width: 100px
     border: 1px solid white;
     float: right;
     border-radius: 5px;
@@ -110,7 +105,8 @@ nav ul li a:hover {
     max-width: 80%;
 }
 
-/*사이드바 영역*/
+/* 사이드바 영역*/
+
 .content1{
     margin-top: -40px;
     float: left;
@@ -121,18 +117,19 @@ nav ul li a:hover {
     margin: 0 auto;
     margin-left: 2%;
     margin-right: 2%;
-    width: 15%;
-    height: 200px;
-    width: 160px;
-    padding: 5px;
+    width:15%;
+    height: 500px;
+    width: 100px
+    padding: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     margin-bottom: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;  
+    
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px)
 .sidebar {
     display: block;
     width: 300px;
@@ -140,14 +137,12 @@ nav ul li a:hover {
     z-index: 1000;
     will-change: min-height;
 }
-}
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px)
 .sidebar__inner {
     position: relative;
     transform: translate(0);
     transform: translateZ(0);
-}
 }
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
@@ -164,16 +159,14 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     bottom: 0;
     background-color: rgba(0,0,0,.5);
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px)
 .sidebar-content-wrap {
     position: static;
     padding-bottom: 0;
- }
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px)
 .sidebar-content-top, .sidebar__close {
     display: none;
-}
 }
 
 .sidebar-menu {
@@ -203,124 +196,56 @@ ol, ul {
 .sidebar-menu__item a {
     padding: 8px 12px 7px;
 }
-
-
-/* board-wrapper 스타일 */
-.board-wrapper {
-    background-color: #f2f2f2;
-    color: #333;
-    display: flex;
-    width: 58%;
-    flex-direction: column;
-    align-items: center;
+/*작성폼 스타일*/
+.board-write {
+    margin: 0 auto;
+    width: 59%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+    margin-bottom: 40px;
     float: left;
   }
   
-  .board-wrapper .board-header {
-    width: 100%;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .board-wrapper .board-header .sort-buttons {
-    display: flex;
-    align-items: center;
-  }
-  
-  .board-wrapper .board-header .sort-buttons button {
-    background-color: transparent;
-    border: none;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .board-wrapper .board-header .sort-buttons button.active {
-    color: #f7b500;
+  .board-write label {
+    display: block;
     font-weight: bold;
+    margin-bottom: 5px;
   }
   
-  .board-wrapper .board-header .search-button,
-  .board-wrapper .board-header .write-button {
-    background-color: #f7b500;
-    color: #fff;
+  .board-write input[type="text"] {
+    width: 100%;
     padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .board-write textarea {
+    width: 100%;
+    height: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .board-write button[type="submit"] {
+    background-color: #F7B500;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    float: right;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
     cursor: pointer;
   }
-  
-  .board-wrapper .board-header .search-button {
-    margin-right: 10px;
-  }
-  
-/* 기본 테이블 스타일 */
-.board-list {
-    width: 100%;
-}
 
-.board-list table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    text-align: left;
-}
-
-.board-list th {
-    background-color: #f7b500;
-    color: #ffffff;
-    padding: 10px;
-}
-
-.board-list td {
-    background-color: #ffffff;
-    padding: 10px;
-    border-bottom: 1px solid #cccccc;
-}
-
-.board-list a {
-    color: #333;
-    text-decoration: none;
-}
-
-.board-list a:hover,
-.board-list a:focus {
-    color: #f7b500;
-    text-decoration: underline;
-}
-
-/* 푸터 및 페이징 스타일 */
-.board-footer {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.board-paging {
-    display: flex;
-    align-items: center;
-}
-
-.board-paging a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: 1px solid #333;
-    border-radius: 5px;
-}
-
-.board-paging a:hover,
-.board-paging a:focus {
-    color: #f7b500;
-    border-color: #f7b500;
-}
-
-
-/*반응형 웹*/
+/* 반응형 스타일 */
 @media screen and (max-width: 768px) {
     header {
         flex-direction: column;
@@ -360,5 +285,4 @@ ol, ul {
         width: 100%;
     }
 }
-
 

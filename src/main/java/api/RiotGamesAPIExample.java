@@ -94,6 +94,7 @@ public class RiotGamesAPIExample {
 			return CurrentlyInGame(summonerDO);
 
 		} catch (Exception e) {
+			return matches(summonerDO);
 			return matchIds(summonerDO);
 		}
 	}
@@ -192,6 +193,7 @@ public class RiotGamesAPIExample {
 				System.out.println("Spell1 Id: " + spell1Id + " Spell2 Id: " + spell2Id);
 				System.out.println("Perk Ids: " + perkIds + " Perk Sub: " + perkSubStyle + "\n");
 			}
+			return "\n현재 게임중입니다.\n" + matches(summonerDO);
 			return "\n현재 게임중입니다.\n" + matchIds(summonerDO);
 			
 		} catch (IOException e) {
@@ -206,6 +208,7 @@ public class RiotGamesAPIExample {
 
 
 	// MatchId 추출
+	public static String matches(SummonerDO summonerDO) throws IOException {
 	public static String matchIds(SummonerDO summonerDO) throws IOException {
 		String urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + summonerDO.getPuuid()
 				+ "/ids?start=0&count=20&api_key=" + API_KEY;
@@ -219,6 +222,11 @@ public class RiotGamesAPIExample {
 			System.out.println((i + 1) + ": Match ID: " + matchId.getAsString());
 		}
 
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("\n몇번째 게임의 정보를 불러올까요?: ");
+		int matchNum = scanner.nextInt();
+		scanner.nextLine();
+		return Integer.parseInt(matchIds.get(matchNum - 1).getAsString()) + matchInfo(matchNum);
 	    Scanner scanner = new Scanner(System.in);
 	    System.out.print("몇번째 매치정보를 가져올까요?: ");
 	    int selectedMatchIndex = scanner.nextInt();
@@ -230,6 +238,7 @@ public class RiotGamesAPIExample {
 
 	// 추출한 MatchId로 해당 게임 세부 내용 검색
 
+	public static String matchInfo(long matchId) throws IOException {
 	public static String matchInfo(String matchId) throws IOException {
 		String urlString = "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + API_KEY;
 		String content = getHttpContent(urlString);
