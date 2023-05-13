@@ -211,10 +211,12 @@ button[type="submit"] {
 	border-bottom-style: solid;
 	border-color: #1c1c1f;
 }
-.myinfo{
+
+.myinfo {
 	width: 200px;
 	display: inline-block;
 }
+
 .item {
 	width: 25px;
 	display: table;
@@ -350,5 +352,203 @@ button[type="submit"] {
 	}
 	.community {
 		width: 100%;
+	}
+	/* 전체적인 스타일 */
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	body {
+		background: #000000;
+		font-family: Arial, sans-serif;
+	}
+	a {
+		text-decoration: none;
+	}
+	ul {
+		list-style: none;
+	}
+
+	/* 헤더 스타일 */
+	header {
+		background-color: #000;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+	}
+	.logo img {
+		max-width: 100px;
+	}
+	nav ul li {
+		display: inline-block;
+		margin-right: 20px;
+	}
+	nav ul li a {
+		color: #fff;
+		font-weight: bold;
+		font-size: 16px;
+		padding: 10px;
+		transition: all 0.3s ease;
+	}
+	nav ul li a:hover {
+		background-color: #0051c7;
+		border-radius: 5px;
+	}
+
+	/* 메인 영역*/
+	.main.section {
+		display: block;
+		width: 1080px;
+		margin: 0 auto;
+	}
+	.main.banner {
+		margin: 10px 0 41px;
+	}
+	.main.banner img {
+		display: block;
+		max-height: 224px;
+		margin: 0 auto;
+	}
+
+	/* 광고 배너 */
+	.ADbanner {
+		width: 100%;
+		margin: 10px auto;
+	}
+	.ADbanner.left {
+		background-color: #fff;
+		display: flex;
+		height: 700px;
+		width: 100px;
+		border: 1px solid rgb(255, 255, 255);
+		border-radius: 5px;
+		float: left;
+		width: 10%;
+		box-sizing: border-box;
+	}
+	.ADbanner.right {
+		background-color: #fff;
+		display: flex;
+		height: 700px;
+		width: 100px;
+		border: 1px solid white;
+		float: right;
+		border-radius: 5px;
+		width: 10%;
+		box-sizing: border-box;
+	}
+	.ADbanner img {
+		max-width: 80%;
+	}
+
+	/* 전적 검색*/
+	.container {
+		float: left;
+		position: relative;
+		margin: 0 auto;
+		margin-left: 5%;
+		width: 70%;
+		min-height: 630px;
+		background-color: #fff;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+	h1 {
+		font-size: 32px;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	#search-form {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	label {
+		font-size: 18px;
+		margin-right: 10px;
+	}
+	input[type="text"] {
+		font-size: 16px;
+		padding: 5px;
+		border-radius: 5px;
+		margin-right: 10px;
+		outline: none;
+		border: 1px solid #ccc;
+	}
+	button[type="submit"] {
+		font-size: 16px;
+		padding: 5px 10px;
+		border-radius: 5px;
+		border: none;
+		background-color: #F7B500;
+		color: #fff;
+		cursor: pointer;
+	}
+	#summoner-info {
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	#stats-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.stat-card {
+		width: 48%;
+		margin-bottom: 20px;
+		padding: 20px;
+		background-color: #fff;
+		border-radius: 10px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+	.stat-card h2 {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+	.stat-name {
+		font-size: 16px;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	.stat-value {
+		font-size: 16px;
+	}
+
+	/*반응형 웹*/
+	@media screen and (max-width: 768px) {
+		header {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 20px 10px;
+		}
+		.logo img {
+			max-width: 100%;
+			margin-bottom: 20px;
+		}
+		.search {
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
+		.search input[type="text"] {
+			width: 100%;
+		}
+		.search button {
+			width: 100%;
+			border-radius: 5px;
+		}
+		nav ul li {
+			display: block;
+			margin-bottom: 10px;
+		}
+		.content {
+			margin: 0;
+		}
+		.community {
+			width: 100%;
+		}
 	}
 }
