@@ -2,6 +2,6 @@ package api;
 
 
 public class API_KEY {
-    public static String KEY = "RGAPI-733afdcb-88bc-48e6-94ee-09147e203203";
+    public static String KEY = "RGAPI-743de53d-2511-4033-890e-abb6d1d6756d";
 }
 

@@ -12,7 +12,9 @@ import org.springframework.web.client.RestTemplate;
 import api.MatchInfo;
 import api.MatchInfoDAO;
 import api.MostChampion;
-import api.ParticipantInfo;
+import api.MyInfoDO;
+import api.ParticipantInfoDO;
+import api.ParticipantInfoDAO;
 import api.RiotGamesAPIExample;
 import mvc.controller.MemberController;
 import mvc.controller.RegisterController;
@@ -59,8 +61,8 @@ public class ControllerConfig {
 	}
 	
 	@Bean
-	public ParticipantInfo participantInfo() {
-		return new ParticipantInfo();
+	public ParticipantInfoDO participantInfo() {
+		return new ParticipantInfoDO();
 	}
 	
 	@Bean
@@ -68,5 +70,13 @@ public class ControllerConfig {
 		return new MostChampion();
 	}
 	
+	@Bean
+	public ParticipantInfoDAO participantInfoDAO() {
+		return new ParticipantInfoDAO();
+	}
 	
+	@Bean
+	public MyInfoDO myInfoDO() {
+		return new MyInfoDO();
+	}
 }
