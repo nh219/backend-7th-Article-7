@@ -20,35 +20,35 @@ import oracle.jdbc.pool.OracleDataSource;
 @EnableTransactionManagement
 public class MemberConfig {
 	
-//	@Bean
-//	public OracleDataSource dataSource() {
-//		OracleDataSource ds=null;
-//		try {
-//			ds = new OracleDataSource();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//        ds.setURL("jdbc:oracle:thin:@localhost:1521:xe");
-//		ds.setUser("system");
-//		ds.setPassword("a1234");
-//		
-//		return ds;
-//	}
-//	
-//	@Bean
-//	public PlatformTransactionManager transactionManager() {
-//		DataSourceTransactionManager dstm = new DataSourceTransactionManager();
-//		dstm.setDataSource(dataSource());
-//		
-//		return dstm;
-//	}
+	@Bean
+	public OracleDataSource dataSource() {
+		OracleDataSource ds=null;
+		try {
+			ds = new OracleDataSource();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
-//	@Bean
-//	public MemberDaoSpring memberDao() {
-//		return new MemberDaoSpring(datasource());
-//	}
+        ds.setURL("jdbc:oracle:thin:@localhost:1521:xe");
+	ds.setUser("scott");
+		ds.setPassword("tiger");
+		
+		return ds;
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager dstm = new DataSourceTransactionManager();
+		dstm.setDataSource(dataSource());
+	
+		return dstm;
+	}
+	
+	@Bean
+	public MemberDaoSpring memberDao() {
+		return new MemberDaoSpring(dataSource());
+	}
 
 	@Bean
 	public MemberDao memberDao() {
