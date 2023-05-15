@@ -1,13 +1,17 @@
 package mvc.config;
 //Controller들을 등록하는 클래스
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import api.MatchInfo;
+import api.MatchInfoDAO;
+import api.MatchInfoDO;
+import api.MostChampion;
+import api.ParticipantInfoDAO;
+import api.ParticipantInfoDO;
+import api.RiotGamesAPIExample;
 import mvc.controller.MemberController;
 import mvc.controller.PostController;
 import mvc.controller.RegisterController;
@@ -36,4 +40,46 @@ public class ControllerConfig {
 	public PostController postController() {
 		return new PostController();
 	}
+	
+	@Bean
+	public RiotAPIController riotAPIController() {
+	    return new RiotAPIController();
+	}
+	
+	@Bean
+	public RiotGamesAPIExample riotGamesAPIExample() {
+		return new RiotGamesAPIExample();
+	}
+
+	@Bean
+	public MatchInfo matchInfo() {
+		return new MatchInfo();
+	}
+	
+	@Bean
+	public MatchInfoDAO matchInfoDAO() {
+		return new MatchInfoDAO();
+	}
+	
+	@Bean
+	public ParticipantInfoDO participantInfo() {
+		return new ParticipantInfoDO();
+	}
+	
+	@Bean
+	public MostChampion mostChampion() {
+		return new MostChampion();
+	}
+	
+	@Bean
+	public ParticipantInfoDAO participantInfoDAO() {
+		return new ParticipantInfoDAO();
+	}
+	
+	@Bean
+	public MatchInfoDO matchInfoDO() {
+		return new MatchInfoDO();
+	}
 }
+
+

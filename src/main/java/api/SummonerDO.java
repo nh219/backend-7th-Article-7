@@ -1,11 +1,12 @@
 package api;
 
 public class SummonerDO {
+	private String puuid;
 	private String accountId;
 	private String id;
+	private long revisionDate;
 	private String name;
-	private int summonerLevel;
-	private String puuid;
+	private long summonerLevel;
 	private int profileIconId;
 
 	public String getPuuid() {
@@ -32,6 +33,14 @@ public class SummonerDO {
 		this.id = id;
 	}
 
+	public long getRevisionDate() {
+		return revisionDate;
+	}
+
+	public void setRevisionDate(long revisionDate) {
+		this.revisionDate = revisionDate;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,11 +49,11 @@ public class SummonerDO {
 		this.name = name;
 	}
 
-	public int getSummonerLevel() {
+	public long getSummonerLevel() {
 		return summonerLevel;
 	}
 
-	public void setSummonerLevel(int summonerLevel) {
+	public void setSummonerLevel(long summonerLevel) {
 		this.summonerLevel = summonerLevel;
 	}
 

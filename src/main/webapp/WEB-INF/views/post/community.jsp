@@ -11,14 +11,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판 홈</title>
 <link rel="stylesheet" href="../WebContent/community style copy.css">
+<script>
+ 	function checkLogin() {
+ 		var member = '<%=session.getAttribute("auth")%>';
+
+ 		if(member=="") {
+ 		alert("로그인 후 이용할 수 있습니다.");
+ 		location.href="../member/login";
+ 		} else {
+ 		location.href="/post/postRegist";
+ 		}
+
+ 		}
+</script>
+
+ 	
 </head>
 
 <body>
 	<!-- 헤더 영역 -->
 	<header>
+		<c:url var="mainUrl" value="/main" />
 		<div class="logo">
-			<a href="http://Teamluck.gg.com">
-			<img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+		    <a href="${mainUrl}"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
 
 		<div class="navi">
@@ -27,7 +42,15 @@
 					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
 					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
-					<li><a href="<c:url value='/main' />">로그아웃</a></li>
+					
+					<c:if test="${auth == null }">
+					<li><a href="<c:url value='/member/login' />">로그인</a></li>
+					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+					</c:if>
+					
+					<c:if test="${auth != null }">
+					${auth.nickname}<li><a href="<c:url value='/member/logout' />">로그아웃</a></li>
+					</c:if>
 				</ul>
 			</nav>
 		</div>
@@ -36,7 +59,7 @@
 		<div class="main section">
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg">
+				<img src="../WebContent/teamluckgglogo2.png" alt="Teamluck.gg">
 			</div>
 
 			<!-- 하단 영역 -->
@@ -44,7 +67,9 @@
 
 				<!-- 좌측 배너 -->
 				<div class="ADbanner left">
-					<img src="banner_left.png" alt="Banner Left">
+				    <a href="https://lafudgestore.com/" target="_blank">
+				        <img src="../WebContent/banner1.PNG" alt="Banner Left">
+				    </a>
 				</div>
 
 				<!-- 콘텐츠 영역 -->
@@ -96,7 +121,7 @@
 							</form>
 						</div>
 						<div class="board-write">
-							<a href="<c:url value='/post/postRegist' />">글 작성</a>
+							<button type="button" onclick="checklogin()">글 작성</button>
 						</div>
 					</div>
 
@@ -105,21 +130,26 @@
 							<form role="form" method="post" action="/post/write">
 								<table>
 									<tr>
+										<th>글 번호</th>
 										<th>제목</th>
 										<th>작성자</th>
+										<th>조회수</th>
 										<th>등록일</th>
 									</tr>
 
 									<c:forEach items="${list}" var="list">
 										<tr>
+											<td>${list.postId}</td>
 											<td><a href="<c:url value='/post/postContent?postId=${list.postId}'/>">${list.title}</a></td>
 											<td>${list.nickname}</td>
+											<td>${list.views}</td>
 											<td><fmt:formatDate value="${list.postRegistTime}" type="both" /></td>
 										</tr>
 									</c:forEach>
 								</table>
 							</form>
 						</section>
+						
 						<!-- 추가로 글 목록을 생성하면 됩니다. -->
 						<div class="board-footer">
 							<div class="board-paging">
@@ -128,9 +158,13 @@
 						</div>
 					</div>
 				</div>
+				</div>
 
+				<!-- 우측 배너 -->
 				<div class="ADbanner right">
-					<img src="banner_right.png" alt="Banner Right">
+				    <a href="https://fifaonline4.nexon.com/main/index" target="_blank">
+				        <img src="../WebContent/banner2.PNG" alt="Banner Right">
+				    </a>
 				</div>
 			</div>
 	</main>

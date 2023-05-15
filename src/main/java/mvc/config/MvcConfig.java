@@ -24,11 +24,13 @@ public class MvcConfig implements WebMvcConfigurer{
 	}
 	
 	public void addViewControllers(ViewControllerRegistry registry) {
-		//	http://localhost:8080/backend-7th-Article-7/main
+		//	http://localhost:8080/backend-7-LOL/main
 		registry.addViewController("/main").setViewName("main");
 		
-		//	http://localhost:8080/backend-7th-Article-7/register/step1
+//		http://localhost:8080/backend-7th-Article-7/register/step1
 		registry.addViewController("/register/step1").setViewName("register/step1");
+			
+		registry.addViewController("/register/step2").setViewName("register/step2");
 		
 		// http://localhost:8080/backend-7th-Article-7/member/login
 		registry.addViewController("/member/login").setViewName("member/login");
@@ -50,6 +52,9 @@ public class MvcConfig implements WebMvcConfigurer{
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postUpdateTest
 		registry.addViewController("/post/postUpdateTest").setViewName("/post/postUpdateTest");
+
+		//	http://localhost:8080/backend-7th-Article-7/post/postUpdateTest
+		registry.addViewController("/member/loginProcess").setViewName("/member/loginProcess");
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/postUpdate
 		registry.addViewController("/post/postUpdate").setViewName("/post/postUpdate");
@@ -68,6 +73,8 @@ public class MvcConfig implements WebMvcConfigurer{
 		
 		//	http://localhost:8080/backend-7th-Article-7/post/lolSearch
 		registry.addViewController("/post/lolSearch").setViewName("/post/lolSearch");
+		
+		registry.addViewController("/search").setViewName("summoner");
 		
 		
 	}

@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #000000;
+    background: #fff;
     font-family: Arial, sans-serif;
 }
 
@@ -20,7 +20,7 @@ ul {
 
 /* 헤더 스타일 */
 header {
-    background-color: #000;
+    background-color: #f7b500;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,19 +45,17 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #0051c7;
+    background-color: #F5C96D;
     border-radius: 5px;
 }
-
 
 /* 메인 영역*/
 
 .main.section {
     display: block;
-    width: 1080px;
+    width: 1920px;
     margin: 0 auto;
 }
-
 
 .main.banner {
     margin: 10px 0 41px;
@@ -75,6 +73,7 @@ nav ul li a:hover {
     margin: 0 auto;
     text-align: center;
     margin-bottom: 50px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .search input[type=text] {
@@ -101,11 +100,6 @@ nav ul li a:hover {
     background-color: #F7B500;
   }
 
-
-
-
-
-
 /* 배너 스타일 */
 
 .ADbanner {
@@ -119,8 +113,8 @@ nav ul li a:hover {
     display: flex;
     height: 700px;
     width: 100px;
-   border: 1px solid rgb(255, 255, 255);
-   border-radius: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
     float: left;
     width:10%;
     box-sizing: border-box;
@@ -151,14 +145,18 @@ main {
     margin-top: 50px;
 }
 
-.content {
+.container {
     float: left;
-    width:75%;
-    margin-left: 3%;
-    box-sizing: border-box;
-    max-width: 1000px;
- 
-}
+    position: relative;
+    margin: 0 auto;
+    margin-left: 5%;
+    width:70%;
+    min-height: 630px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    border: 1px solid #ccc;
+    border-radius: 5px;  
+  }
 
 .layout {
     display: flex;

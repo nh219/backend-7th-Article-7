@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.util.StringUtils;
 
 import mvc.exception.DuplicateMemberException;
@@ -27,100 +28,14 @@ public class PostController {
 	
 	@Autowired
 	private PostUpdateService postUpdateService;
-	  
-//    @Autowired
-//    private PostDao postDao;
-//    private PostDaoSpring postDaoSpring;
-//
-//    @GetMapping("/post/{postId}")
-//    public String getPost(@PathVariable int postId, Model model) {
-//        try {
-//            PostDO postDO = postDao.search(postId);
-//            model.addAttribute("post", postDO);
-//            return "post";
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @PostMapping("/post")
-//    public String createPost(@ModelAttribute PostDO postDO) {
-//        try {
-//            postDao.insert(postDO);
-//            return "redirect:/Post/postRegist";
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @PutMapping("/post/{postId}")
-//    public String updatePost(@PathVariable int postId, @RequestParam String content) {
-//        try {
-//            PostDO postDO = postDao.search(postId);
-//            postDao.update(postDO, content);
-//            return "redirect:/post/postRegist" + postId;
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @DeleteMapping("/post/{postId}")
-//    public String deletePost(@PathVariable int postId) {
-//        try {
-//            PostDO postDO = postDao.search(postId);
-//            postDao.delete(postDO);
-//            return "redirect:/post/postRegist";
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @PostMapping("/post/{postId}/like")
-//    public String recommendPost(@PathVariable int postId) {
-//        try {
-//            postDao.recommend(postId);
-//            return "redirect:/post/postContent" + postId;
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @PostMapping("/post/{postId}/dislike")
-//    public String unrecommendPost(@PathVariable int postId) {
-//        try {
-//            postDao.unrecommend(postId);
-//            return "redirect:/post/postContent" + postId;
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//
-//    @PostMapping("/post/{postId}/report")
-//    public String reportPost(@PathVariable int postId) {
-//        try {
-//            postDao.report(postId);
-//            return "redirect:/post/postContent" + postId;
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
-//    
-//    @PostMapping("/post/{postId}/notice")
-//    public String noticePost(@PathVariable int postId) {
-//        try {
-//            postDao.notice(postId);
-//            return "redirect:/post/postContent" + postId;
-//        } catch (Exception e) {
-//            return "error";
-//        }
-//    }
+
+	private PostDO postDO;
     
     @GetMapping("/post/community")
-	public String listCommunity(Model model, String category) throws Exception{
+	public String listCommunity(Model model) throws Exception{
 		String view = "";
 		view = "/post/community";
-		category = "자유";
-		model.addAttribute("list", postService.findPostByCategory(category));
+		model.addAttribute("list", postService.listAll());
 		
 		return view;
  	}
@@ -214,4 +129,123 @@ public class PostController {
    		return view;
     }
     
+    /*
+    // 게시글 조회수 증가 처리
+    @PostMapping("/post/viewsUpdateProcess")
+    public String updateProcess(@RequestParam("postId") String postId) throws Exception {
+        postService.updatePostCount(postDO);
+        return "redirect:/post/community";
+    }
+    */
+
+    /*
+    @GetMapping("/post/{postId}")
+    public ModelAndView getPost(@PathVariable("postId") int postId) {
+        // 조회수 증가
+        postService.increaseViewCount(postId);
+        
+        // 게시물 조회
+        PostDO postDO = postService.findPostById(postId);
+
+        // 모델 생성
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("post", postDO);
+        modelAndView.setViewName("post/postContent");
+        
+        return modelAndView;
+    }
+*/
+
+    
 }
+
+
+
+
+
+//@Autowired
+//private PostDao postDao;
+//private PostDaoSpring postDaoSpring;
+//
+//@GetMapping("/post/{postId}")
+//public String getPost(@PathVariable int postId, Model model) {
+//  try {
+//      PostDO postDO = postDao.search(postId);
+//      model.addAttribute("post", postDO);
+//      return "post";
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PostMapping("/post")
+//public String createPost(@ModelAttribute PostDO postDO) {
+//  try {
+//      postDao.insert(postDO);
+//      return "redirect:/Post/postRegist";
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PutMapping("/post/{postId}")
+//public String updatePost(@PathVariable int postId, @RequestParam String content) {
+//  try {
+//      PostDO postDO = postDao.search(postId);
+//      postDao.update(postDO, content);
+//      return "redirect:/post/postRegist" + postId;
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@DeleteMapping("/post/{postId}")
+//public String deletePost(@PathVariable int postId) {
+//  try {
+//      PostDO postDO = postDao.search(postId);
+//      postDao.delete(postDO);
+//      return "redirect:/post/postRegist";
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PostMapping("/post/{postId}/like")
+//public String recommendPost(@PathVariable int postId) {
+//  try {
+//      postDao.recommend(postId);
+//      return "redirect:/post/postContent" + postId;
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PostMapping("/post/{postId}/dislike")
+//public String unrecommendPost(@PathVariable int postId) {
+//  try {
+//      postDao.unrecommend(postId);
+//      return "redirect:/post/postContent" + postId;
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PostMapping("/post/{postId}/report")
+//public String reportPost(@PathVariable int postId) {
+//  try {
+//      postDao.report(postId);
+//      return "redirect:/post/postContent" + postId;
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}
+//
+//@PostMapping("/post/{postId}/notice")
+//public String noticePost(@PathVariable int postId) {
+//  try {
+//      postDao.notice(postId);
+//      return "redirect:/post/postContent" + postId;
+//  } catch (Exception e) {
+//      return "error";
+//  }
+//}

@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #000000;
+    background: #fff;
     font-family: Arial, sans-serif;
 }
 
@@ -20,7 +20,7 @@ ul {
 
 /* 헤더 스타일 */
 header {
-    background-color: #000;
+    background-color: #f7b500;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +45,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #0051c7;
+    background-color: #F5C96D;
     border-radius: 5px;
 }
 
@@ -54,7 +54,7 @@ nav ul li a:hover {
 
 .main.section {
     display: block;
-    width: 1080px;
+    width: 1920px;
     margin: 0 auto;
 }
 
@@ -73,8 +73,7 @@ nav ul li a:hover {
 
 .ADbanner {
     width: 100%;
-    margin: 10px auto; 
-
+    margin: 10px auto;
 }
 
 .ADbanner.left {
@@ -82,8 +81,8 @@ nav ul li a:hover {
     display: flex;
     height: 700px;
     width: 100px;
-   border: 1px solid rgb(255, 255, 255);
-   border-radius: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
     float: left;
     width:10%;
     box-sizing: border-box;

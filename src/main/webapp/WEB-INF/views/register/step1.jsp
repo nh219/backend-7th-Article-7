@@ -1,34 +1,99 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Teamluck.gg</title>
 	<link rel="stylesheet" href="../WebContent/join style.css">
+	<style>
+		/* 체크박스 스타일 */
+	.member-agree-checkbox__input[type="checkbox"] {
+	    /* 체크박스를 화면에서 숨김 */
+	    position: absolute;
+	    width: 1px;
+	    height: 1px;
+	    padding: 0;
+	    margin: -1px;
+	    margin-left: 500px
+	    overflow: hidden;
+	    clip: rect(0,0,0,0);
+	    border: 0;
+	}
+.member-agree-checkbox__state::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%; /* 원형으로 변경 */
+}
+
+/* 체크박스 스타일 */
+.member-agree-checkbox__input:checked + .member-agree-checkbox__state::before {
+    content: '\2713';
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 20px;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+	
+	</style>
+	
+	<script>
+	const agreeTerm = document.querySelector('#agree-term');
+	const agreeBtn = document.querySelector('.agree__btn .member-button');
+
+	agreeTerm.addEventListener('change', function() {
+	  if(this.checked) {
+	    agreeBtn.removeAttribute('disabled');
+	  } else {
+	    agreeBtn.setAttribute('disabled', '');
+	  }
+	});
+	</script>
+	
+	
+	
 
 </head>
 <body>
 	<!-- 헤더 영역 -->
 	<header>
+		<c:url var="mainUrl" value="/main" />
 		<div class="logo">
-			<a href="http://Teamluck.gg.com"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
+		    <a href="${mainUrl}"><img src="../WebContent/lol-logo.png" alt="Teamluck.gg"></a>
 		</div>
-	</header>
-
-	</form>
+		
 		<div class="navi">
 			<nav>
 				<ul>
-					<li><a href="#">전적검색</a></li>
+					<li><a href="<c:url value='/post/lolSearch' />">전적검색</a></li>
 					<li><a href="<c:url value='/post/community' />">커뮤니티</a></li>
-					<li><a href="#">통합 인기글</a></li>
+					<li><a href="<c:url value='/post/postCrawl' />">통합 인기글</a></li>
+					
+					<c:if test="${auth == null }">
 					<li><a href="<c:url value='/member/login' />">로그인</a></li>
 					<li><a href="<c:url value='/register/step1' />">회원가입</a></li>
+					</c:if>
+					
+					<c:if test="${auth != null }">
+					${auth.nickname}<li><a href="<c:url value='/member/logout' />">로그아웃</a></li>
+					</c:if>
 				</ul>
 			</nav>
 		</div>
+	</header>
 
 	<!-- 메인 영역 -->
 	<main>
@@ -36,7 +101,7 @@
 			
 			<!-- 대문짝 -->
 			<div class="main banner">
-				<img src="https://i.ibb.co/fDR0YnX/teamluckgglogo2.png" alt="Teamluck.gg">
+				<img src="../WebContent/teamluckgglogo2.png" alt="Teamluck.gg">
 			</div>
 
 			<!-- 하단 영역 -->
@@ -44,7 +109,9 @@
 
 				<!-- 좌측 배너 -->
 				<div class="ADbanner left">
-					<img src="banner_left.png" alt="Banner Left">
+				    <a href="https://lafudgestore.com/" target="_blank">
+				        <img src="../WebContent/banner1.PNG" alt="Banner Left">
+				    </a>
 				</div>
 
 				<!-- 콘텐츠 영역 -->
@@ -60,13 +127,12 @@
                             <div>
                                 <h3 class="agree__l-check-term">
                                     <div class="member-agree-checkbox">
-                                        <span class="member-agree-checkbox__state">
-                                            <input id="memberAgreeCheckbox699" type="checkbox" class="member-agree-checkbox__input">
-                                        </span>
-                                        <label for="memberAgreeCheckbox699" class="member-agree-checkbox__label">
-                                            <div>Teamluck.gg 이용약관 동의</div>
-                                        </label>
-                                    </div>
+ 										 <label class="member-agree-checkbox__label">
+  											<input type="checkbox" class="member-agree-checkbox__input" name="agree-term" id="agree-term">
+  												 TeamLuck.GG 이용약관 동의
+  												<span class="member-agree-checkbox__state"></span>
+														</label>
+														</div>
                                 </h3>
                                 <div class="agree__term-scroll">
                                     <div class="agree__term-content">
@@ -96,22 +162,21 @@
                                 </div>  
                             </div>
                             <div>
-                                <h3 class="agree__l-check-term">
+                               <h3 class="agree__l-check-term">
                                     <div class="member-agree-checkbox">
-                                        <span class="member-agree-checkbox__state">
-                                            <input id="memberAgreeCheckbox699" type="checkbox" class="member-agree-checkbox__input">
-                                        </span>
-                                        <label for="memberAgreeCheckbox699" class="member-agree-checkbox__label">
-                                            <div>개인정보 수집 및 이용에 관한 동의</div>
-                                        </label>
-                                    </div>
+ 										 <label class="member-agree-checkbox__label">
+  											<input type="checkbox" class="member-agree-checkbox__input" name="agree-term" id="agree-term">
+  												개인정보 수집 및 이용에 관한 동의
+  												<span class="member-agree-checkbox__state"></span>
+														</label>
+														</div>
                                 </h3>
                                 <div class="agree__term-scroll">
                                     <div class="agree__term-content">
                                         <h2>개인정보 수집∙이용 동의서&nbsp;</h2>
-                                        <p>&nbsp;'Teamluck.gg'의 홈페이지 회원 가입을 신청하시는 분께 아래와 같이 개인정보의 수집·이용목적, 수집하는 개인정보의 항목, 개인정보의 보유 및 이용기간을 안내하여 드리오니 내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오.&nbsp;&nbsp;</p>
+                                        <p>&nbsp;'TeamLuck.GG'의 홈페이지 회원 가입을 신청하시는 분께 아래와 같이 개인정보의 수집·이용목적, 수집하는 개인정보의 항목, 개인정보의 보유 및 이용기간을 안내하여 드리오니 내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오.&nbsp;&nbsp;</p>
                                         <h4>1. 수집하는 개인정보의 항목&nbsp;</h4>
-                                        <p>'OP.GG'은(는) 다음의 개인정보 항목을 수집합니다.
+                                        <p>'TeamLuckGG'은(는) 다음의 개인정보 항목을 수집합니다.
                                             &nbsp;&nbsp;
                                             1. 홈페이지 회원가입 및 관리&nbsp;
                                             수집 정보: 이메일 주소, 닉네임, 비밀번호&nbsp;
@@ -127,45 +192,24 @@
                                         </p>    
                                     </div>
                                 </div>
-                            </div>
-                            <form>
-                                <div class="sign-up">
-                                    <h2 class="sign-up__title">기본정보입력</h2>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput1001" class="member-input__box" type="text" autocomplete="off" name="email" value="">
-                                            <label for="memberInput1001" class="member-input__label">이메일 주소</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput642" class="member-input__box" type="text" autocomplete="off" name="nickname" value="">
-                                            <label for="memberInput642" class="member-input__label">닉네임</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="member-input">
-                                        <div class="member-input__state">
-                                            <input id="memberInput8894" class="member-input__box" type="password" autocomplete="off" name="password" value="">
-                                            <label for="memberInput8894" class="member-input__label">비밀번호</label>
-                                            <span class="member-input__valid-wrapper"></span>
-                                        </div>
-                                    </div>
-                                    <div class="sign-up__l-btn">
-                                        <button type="submit" class="member-button sign-up__btn" disabled="">가입하기</button>
-                                        <button type="button" class="member-button cancel-button sign-up__btn-cancel">돌아가기</button>
-                                    </div>
-                                </div>
-                            </form>
+                                <div class="sign-up__l-btn">
+                                	<a href="step2"><button type="button" class="member-button sign-up__btn">가입하기</button> </a>
+                            	</div>
                         </div>  
                     </div>
                 </div>
+            </div>
+            
+			<!-- 우측 배너 -->
 				<div class="ADbanner right">
-					<img src="banner_right.png" alt="Banner Right">
+				    <a href="https://fifaonline4.nexon.com/main/index" target="_blank">
+				        <img src="../WebContent/banner2.PNG" alt="Banner Right">
+				    </a>
 				</div>
-			</div>
 		</div>
+	</div>
+	
 	</main>
+
 </body>
 </html>

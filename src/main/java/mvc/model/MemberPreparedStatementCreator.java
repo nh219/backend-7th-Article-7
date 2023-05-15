@@ -19,7 +19,7 @@ public class MemberPreparedStatementCreator implements PreparedStatementCreator 
 
 	@Override
 	public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-		String sql = "insert into member (member_id, email, nickname, password) values (member_id_seq.nextval, ?, ?, ?)";
+		String sql = "insert into member (member_id, email, nickname, password) values (member_member_id_seq.nextval, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		
 		if(keyColumns.length > 0) {

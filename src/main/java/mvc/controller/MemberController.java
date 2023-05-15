@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mvc.model.LoginCommand;
 import mvc.model.Member;
@@ -31,20 +32,35 @@ public class MemberController {
 	private MemberUpdateService memberUpdateService;
 	
 	@PostMapping("/member/loginProcess")
-	public String loginPost(LoginCommand command, HttpSession session) {
-		String view = "";
-		
-		if(memberService.checkLoginAuth(command)) {
-			Member member = memberService.findMember(command.getEmail());
-			session.setAttribute("auth", member);		// auth에 parameter로 넘어온 command의 이름과 이메일만 저장.
-			view = "redirect:/main";
-		}
-		else {
-			session.setAttribute("loginFailMsg", "로그인에 실패했습니다. 다시 시도해주세요.");
-			view = "redirect:/member/login";
-		}
-			
-		return view;
+	public String loginPost(LoginCommand command, HttpSession session, RedirectAttributes model) {
+
+	    System.out.println(command);
+
+	    // 로그인 인증 체크
+	    if (memberService.checkLoginAuth(command)) {
+	        // 이메일을 사용하여 회원 정보 가져오기
+	        Member member = memberService.findMember(command.getEmail());
+
+	        if (member != null) {
+	            // 로그인된 회원의 정보를 HttpSession에 저장
+	            session.setAttribute("auth", member);
+
+	            return "redirect:/main";
+	        } else {
+	            model.addFlashAttribute("loginFailMsg", "로그인에 실패했습니다. 다시 시도해주세요.");
+	            return "redirect:/member/login";
+	        }
+	    } else {
+	        model.addFlashAttribute("loginFailMsg", "로그인에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/login";
+	    }
+
+	}
+	
+	@GetMapping("/member/login")
+	public String login() {
+
+		return "/member/login";
 	}
 	
 	@PostMapping("/member/memberUpdateProcess")
@@ -89,9 +105,24 @@ public class MemberController {
 		String view = "";
 		
 		session.invalidate();
-		view = "redirect:/member/login";
+		view = "redirect:/main";
 		
 		
 		return view;
  	}
+	/*
+	@GetMapping("/post/postRegist")
+	public String showPage(Model model, HttpSession session) {
+	    Member member = (Member) session.getAttribute("member_id");
+
+	    if (member == null) {
+	        session.setAttribute("alert", "로그인 후 이용하실 수 있습니다.");
+	        return "redirect:/member/login"; // 로그인 페이지로 리디렉션
+	    }
+
+	    model.addAttribute("member_id", member.getId());
+	    return "/post/postRegist";
+	}
+*/
+
 }

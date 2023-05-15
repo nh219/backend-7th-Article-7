@@ -12,7 +12,7 @@ public class PostChangeSO {
     }
     
     public void update(PostUpdateCommand command) {
-        PostDO postDO = postDao.search(command.getPostId());
+        PostDO postDO = postDao.searchById(command.getPostId());
         if (postDO != null) {
             postDao.update(postDO, command.getContent());
             System.out.println("게시물이 수정되었습니다.");
@@ -22,7 +22,7 @@ public class PostChangeSO {
     }
     
     public void delete(int postId) {
-        PostDO postDO = postDao.search(postId);
+        PostDO postDO = postDao.searchById(postId);
         if (postDO != null) {
             postDao.delete(postDO);
         } else {

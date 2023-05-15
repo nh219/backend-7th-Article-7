@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #000000;
+    background: #fff;
     font-family: Arial, sans-serif;
 }
 
@@ -20,7 +20,7 @@ ul {
 
 /* 헤더 스타일 */
 header {
-    background-color: #000;
+    background-color: #f7b500;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,21 +45,15 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #0051c7;
+    background-color: #F5C96D;
     border-radius: 5px;
 }
-
-nav ul li a:hover {
-    background-color: #0051c7;
-    border-radius: 5px;
-}
-
 
 /* 메인 영역*/
 
 .main.section {
     display: block;
-    width: 90%;
+    width: 1920px;
     margin: 0 auto;
 }
 
@@ -78,8 +72,7 @@ nav ul li a:hover {
 
 .ADbanner {
     width: 100%;
-    margin: 10px auto; 
-
+    margin: 10px auto;
 }
 
 .ADbanner.left {
@@ -87,8 +80,8 @@ nav ul li a:hover {
     display: flex;
     height: 700px;
     width: 100px;
-   border: 1px solid rgb(255, 255, 255);
-   border-radius: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
     float: left;
     width:10%;
     box-sizing: border-box;
@@ -214,6 +207,7 @@ ol, ul {
     flex-direction: column;
     align-items: center;
     float: left;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   }
   
   .board-wrapper .board-header {
@@ -259,6 +253,7 @@ ol, ul {
 /* 기본 테이블 스타일 */
 .board-list {
     width: 100%;
+    height: 60%;
 }
 
 .board-list table {
@@ -291,6 +286,7 @@ ol, ul {
     text-decoration: underline;
 }
 
+
 /* 푸터 및 페이징 스타일 */
 .board-footer {
     width: 100%;
@@ -305,20 +301,77 @@ ol, ul {
 }
 
 .board-paging a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: 1px solid #333;
-    border-radius: 5px;
+    font-size: 16px;
+    padding: 5px 5px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f7b500;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* 애니메이션 추가 */
+    position: relative;
+    overflow: hidden;
 }
 
-.board-paging a:hover,
-.board-paging a:focus {
-    color: #f7b500;
-    border-color: #f7b500;
+.board-paging a:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d99e00;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
 }
 
+.board-paging a:hover {
+    transform: translateY(-3px); /* 살짝 위로 올라가게 함 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.board-paging a:hover:before {
+    transform: translateY(0); /* 배경색 변경된 레이어 위치 변경 */
+}
+
+/* button 스타일 */
+.board-write button {
+    font-size: 16px;
+    padding: 5px 5px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f7b500;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* 애니메이션 추가 */
+    position: relative;
+    overflow: hidden;
+}
+
+.board-write button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d99e00;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
+}
+
+.board-write button:hover {
+    transform: translateY(-3px); /* 살짝 위로 올라가게 함 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.board-write button:hover:before {
+    transform: translateY(0); /* 배경색 변경된 레이어 위치 변경 */
+}
 
 /*반응형 웹*/
 @media screen and (max-width: 768px) {

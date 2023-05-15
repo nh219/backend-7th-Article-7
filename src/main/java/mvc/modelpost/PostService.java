@@ -19,6 +19,12 @@ public class PostService {
 		return list;
 	}
 	
+	public List<PostDO> listAll(){
+		List<PostDO> list = postDao.listAll();
+		
+		return list;
+	}
+	
 	public PostDO findPostById(long postId) {
 		PostDO postDO = postDao.searchById(postId);
 		
@@ -35,4 +41,19 @@ public class PostService {
 		
 		return postDO.getPostId();			// 생성된 member의 nextId를 반환
 	}
+	
+	/*
+	 // 조회수 올리기
+    public int updatePostCount(PostDO postDO) {
+        return postDao.updatePostCount(postDO);
+    }
+	*/
+	/*
+	public void increaseViewCount(int postId) {
+        postDao.updateViewCount(postId);
+    }
+	*/
+	
 }
+
+
